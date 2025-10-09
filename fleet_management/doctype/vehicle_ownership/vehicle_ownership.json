@@ -1,0 +1,416 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2025-10-07 16:07:58.711421",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "vehicle",
+  "ownership_type",
+  "owner_name",
+  "column_break_5",
+  "start_date",
+  "end_date",
+  "status",
+  "ownership_details_section",
+  "registration_number",
+  "registration_date",
+  "registration_authority",
+  "column_break_11",
+  "chassis_number",
+  "engine_number",
+  "model_year",
+  "financial_section",
+  "purchase_price",
+  "current_value",
+  "depreciation_rate",
+  "column_break_17",
+  "insurance_value",
+  "loan_amount",
+  "monthly_payment",
+  "documents_section",
+  "ownership_certificate",
+  "registration_document",
+  "column_break_23",
+  "insurance_document",
+  "loan_document",
+  "lease_rental_section",
+  "supplier",
+  "lease_contract",
+  "monthly_lease_amount",
+  "column_break_29",
+  "lease_start_date",
+  "lease_end_date",
+  "renewal_terms",
+  "maintenance_section",
+  "maintenance_responsibility",
+  "insurance_responsibility",
+  "column_break_35",
+  "fuel_responsibility",
+  "driver_responsibility",
+  "notes_section",
+  "ownership_notes",
+  "column_break_39",
+  "special_conditions",
+  "audit_section",
+  "created_by",
+  "creation_date",
+  "column_break_43",
+  "last_updated_by",
+  "last_update_date"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "VO-.YYYY.-",
+   "reqd": 1
+  },
+  {
+   "fieldname": "vehicle",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Vehicle",
+   "options": "Fleet Vehicle",
+   "reqd": 1
+  },
+  {
+   "fieldname": "ownership_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Ownership Type",
+   "options": "Company Owned\nLeased\nRented\nContract\nEmployee Owned\nPartnership",
+   "reqd": 1
+  },
+  {
+   "fieldname": "owner_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Owner Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Ownership Start Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "Ownership End Date"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Active\nInactive\nTransferred\nSold\nTerminated",
+   "reqd": 1
+  },
+  {
+   "fieldname": "ownership_details_section",
+   "fieldtype": "Section Break",
+   "label": "Vehicle Registration Details"
+  },
+  {
+   "fieldname": "registration_number",
+   "fieldtype": "Data",
+   "label": "Registration Number"
+  },
+  {
+   "fieldname": "registration_date",
+   "fieldtype": "Date",
+   "label": "Registration Date"
+  },
+  {
+   "fieldname": "registration_authority",
+   "fieldtype": "Data",
+   "label": "Registration Authority"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "chassis_number",
+   "fieldtype": "Data",
+   "label": "Chassis Number"
+  },
+  {
+   "fieldname": "engine_number",
+   "fieldtype": "Data",
+   "label": "Engine Number"
+  },
+  {
+   "fieldname": "model_year",
+   "fieldtype": "Int",
+   "label": "Model Year"
+  },
+  {
+   "fieldname": "financial_section",
+   "fieldtype": "Section Break",
+   "label": "Financial Information"
+  },
+  {
+   "fieldname": "purchase_price",
+   "fieldtype": "Currency",
+   "label": "Purchase Price",
+   "precision": "2"
+  },
+  {
+   "fieldname": "current_value",
+   "fieldtype": "Currency",
+   "label": "Current Market Value",
+   "precision": "2"
+  },
+  {
+   "fieldname": "depreciation_rate",
+   "fieldtype": "Percent",
+   "label": "Annual Depreciation Rate"
+  },
+  {
+   "fieldname": "column_break_17",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "insurance_value",
+   "fieldtype": "Currency",
+   "label": "Insurance Value",
+   "precision": "2"
+  },
+  {
+   "fieldname": "loan_amount",
+   "fieldtype": "Currency",
+   "label": "Outstanding Loan Amount",
+   "precision": "2"
+  },
+  {
+   "fieldname": "monthly_payment",
+   "fieldtype": "Currency",
+   "label": "Monthly Payment",
+   "precision": "2"
+  },
+  {
+   "fieldname": "documents_section",
+   "fieldtype": "Section Break",
+   "label": "Ownership Documents"
+  },
+  {
+   "fieldname": "ownership_certificate",
+   "fieldtype": "Attach",
+   "label": "Ownership Certificate"
+  },
+  {
+   "fieldname": "registration_document",
+   "fieldtype": "Attach",
+   "label": "Registration Document"
+  },
+  {
+   "fieldname": "column_break_23",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "insurance_document",
+   "fieldtype": "Attach",
+   "label": "Insurance Document"
+  },
+  {
+   "fieldname": "loan_document",
+   "fieldtype": "Attach",
+   "label": "Loan Document"
+  },
+  {
+   "fieldname": "lease_rental_section",
+   "fieldtype": "Section Break",
+   "label": "Lease/Rental Information"
+  },
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Lease/Rental Supplier",
+   "options": "Supplier Master"
+  },
+  {
+   "fieldname": "lease_contract",
+   "fieldtype": "Link",
+   "label": "Lease Contract",
+   "options": "Supplier Contract"
+  },
+  {
+   "fieldname": "monthly_lease_amount",
+   "fieldtype": "Currency",
+   "label": "Monthly Lease Amount",
+   "precision": "2"
+  },
+  {
+   "fieldname": "column_break_29",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "lease_start_date",
+   "fieldtype": "Date",
+   "label": "Lease Start Date"
+  },
+  {
+   "fieldname": "lease_end_date",
+   "fieldtype": "Date",
+   "label": "Lease End Date"
+  },
+  {
+   "fieldname": "renewal_terms",
+   "fieldtype": "Text",
+   "label": "Renewal Terms"
+  },
+  {
+   "fieldname": "maintenance_section",
+   "fieldtype": "Section Break",
+   "label": "Responsibility Matrix"
+  },
+  {
+   "fieldname": "maintenance_responsibility",
+   "fieldtype": "Select",
+   "label": "Maintenance Responsibility",
+   "options": "Owner\nLessee\nSupplier\nShared"
+  },
+  {
+   "fieldname": "insurance_responsibility",
+   "fieldtype": "Select",
+   "label": "Insurance Responsibility",
+   "options": "Owner\nLessee\nSupplier\nShared"
+  },
+  {
+   "fieldname": "column_break_35",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fuel_responsibility",
+   "fieldtype": "Select",
+   "label": "Fuel Responsibility",
+   "options": "Owner\nLessee\nSupplier\nShared"
+  },
+  {
+   "fieldname": "driver_responsibility",
+   "fieldtype": "Select",
+   "label": "Driver Responsibility",
+   "options": "Owner\nLessee\nSupplier\nShared"
+  },
+  {
+   "fieldname": "notes_section",
+   "fieldtype": "Section Break",
+   "label": "Additional Information"
+  },
+  {
+   "fieldname": "ownership_notes",
+   "fieldtype": "Text Editor",
+   "label": "Ownership Notes"
+  },
+  {
+   "fieldname": "column_break_39",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "special_conditions",
+   "fieldtype": "Text Editor",
+   "label": "Special Conditions"
+  },
+  {
+   "fieldname": "audit_section",
+   "fieldtype": "Section Break",
+   "label": "Audit Trail"
+  },
+  {
+   "fieldname": "created_by",
+   "fieldtype": "Link",
+   "label": "Created By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "creation_date",
+   "fieldtype": "Date",
+   "label": "Creation Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_43",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "last_updated_by",
+   "fieldtype": "Link",
+   "label": "Last Updated By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_update_date",
+   "fieldtype": "Date",
+   "label": "Last Update Date",
+   "read_only": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-10-07 16:07:58.711421",
+ "modified_by": "Administrator",
+ "module": "Fleet Management",
+ "name": "Vehicle Ownership",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Fleet Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Fleet Supervisor",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "owner_name",
+ "track_changes": 1
+}

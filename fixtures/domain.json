@@ -1,0 +1,23 @@
+[
+    {
+        "doctype": "Domain",
+        "name": "Fleet Management",
+        "domain": "Fleet Management",
+        "description": "Fleet Management and Cost Tracking System for vehicle operations, driver management, and operational cost analysis",
+        "owner": "AFMCOltd",
+        "modified_by": "AFMCOltd",
+        "creation": "2025-01-01 00:00:00.000000",
+        "modified": "2025-01-01 00:00:00.000000",
+        "modules": [
+            "Fleet Management"
+        ],
+        "restricted_roles": [
+            "Fleet Manager",
+            "Fleet Driver", 
+            "Fleet Supervisor",
+            "Fleet Viewer",
+            "Project Manager"
+        ],
+        "custom": 1
+    }
+]

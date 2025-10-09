@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Dashboard - Fleet Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f8f9fa;
+        }
+        #driver-app {
+            min-height: 100vh;
+        }
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .loading i {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        .loading p {
+            color: #6c757d;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="driver-app">
+        <div class="loading">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Loading Driver Dashboard...</p>
+        </div>
+    </div>
+
+    <!-- Vue.js 3 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/vue-router@4/dist/vue-router.global.js"></script>
+    
+    <!-- Driver Application -->
+    <script type="module">
+        // Initialize context
+        window.__ = window.__ || function(text) { return text; };
+        
+        // Vue Components
+        const Dashboard = {
+            template: `
+                <div class="dashboard">
+                    <div class="page-header">
+                        <h2>Driver Dashboard</h2>
+                        <p class="text-muted">Welcome to Fleet Management System - Driver Application</p>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fa fa-road"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>{% raw %}{{ stats.totalTrips }}{% endraw %}</h3>
+                                <p>Total Trips</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fa fa-clock"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>{% raw %}{{ stats.activeTrips }}{% endraw %}</h3>
+                                <p>Active Trips</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fa fa-gas-pump"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>{% raw %}{{ stats.fuelEntries }}{% endraw %}</h3>
+                                <p>Fuel Entries</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>{% raw %}{{ stats.thisMonth }}{% endraw %}</h3>
+                                <p>This Month</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="recent-section">
+                        <h3>Recent Activities</h3>
+                        <div class="activity-list">
+                            <div v-for="activity in recentActivities" :key="activity.id" class="activity-item">
+                                <div class="activity-icon">
+                                    <i :class="activity.icon"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <h4>{% raw %}{{ activity.title }}{% endraw %}</h4>
+                                    <p>{% raw %}{{ activity.description }}{% endraw %}</p>
+                                    <small>{% raw %}{{ activity.time }}{% endraw %}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `,
+            data() {
+                return {
+                    stats: {
+                        totalTrips: 45,
+                        activeTrips: 2,
+                        fuelEntries: 12,
+                        thisMonth: 18
+                    },
+                    recentActivities: [
+                        {
+                            id: 1,
+                            icon: 'fa fa-road',
+                            title: 'Trip Completed',
+                            description: 'Riyadh to Dammam - 450 KM',
+                            time: '2 hours ago'
+                        },
+                        {
+                            id: 2,
+                            icon: 'fa fa-gas-pump',
+                            title: 'Fuel Entry Added',
+                            description: '45 Liters - SAR 135.00',
+                            time: '4 hours ago'
+                        },
+                        {
+                            id: 3,
+                            icon: 'fa fa-clock',
+                            title: 'Shift Started',
+                            description: 'Morning shift - Vehicle ABC-123',
+                            time: '6 hours ago'
+                        }
+                    ]
+                }
+            }
+        };
+
+        const Profile = {
+            template: `
+                <div class="profile">
+                    <div class="page-header">
+                        <h2>Driver Profile</h2>
+                    </div>
+                    
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <div class="profile-avatar">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <div class="profile-info">
+                                <h3>{% raw %}{{ driverInfo.name }}{% endraw %}</h3>
+                                <p>Driver ID: {% raw %}{{ driverInfo.id }}{% endraw %}</p>
+                                <span class="status-badge status-active">Active</span>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-details">
+                            <div class="detail-section">
+                                <h4>Personal Information</h4>
+                                <div class="detail-grid">
+                                    <div class="detail-item">
+                                        <label>Full Name</label>
+                                        <span>{% raw %}{{ driverInfo.name }}{% endraw %}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <label>Phone</label>
+                                        <span>{% raw %}{{ driverInfo.phone }}{% endraw %}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <label>Email</label>
+                                        <span>{% raw %}{{ driverInfo.email }}{% endraw %}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <label>License Number</label>
+                                        <span>{% raw %}{{ driverInfo.license }}{% endraw %}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `,
+            data() {
+                return {
+                    driverInfo: {
+                        name: 'Ahmed Mohammed Al-Saeed',
+                        id: 'DRV-001',
+                        phone: '+966501234567',
+                        email: 'ahmed.mohammed@company.com',
+                        license: 'LIC-123456789'
+                    }
+                }
+            }
+        };
+
+        const Support = {
+            template: `
+                <div class="support">
+                    <div class="page-header">
+                        <h2>Support & Help</h2>
+                    </div>
+                    
+                    <div class="support-options">
+                        <div class="support-card">
+                            <i class="fa fa-phone"></i>
+                            <h3>Emergency Hotline</h3>
+                            <p>24/7 Emergency Support</p>
+                            <a href="tel:+966800123456" class="btn btn-primary">Call Now</a>
+                        </div>
+                        
+                        <div class="support-card">
+                            <i class="fa fa-envelope"></i>
+                            <h3>Email Support</h3>
+                            <p>Send us your questions</p>
+                            <a href="mailto:support@company.com" class="btn btn-secondary">Send Email</a>
+                        </div>
+                        
+                        <div class="support-card">
+                            <i class="fa fa-question-circle"></i>
+                            <h3>FAQ</h3>
+                            <p>Find answers to common questions</p>
+                            <button class="btn btn-secondary">View FAQ</button>
+                        </div>
+                    </div>
+                </div>
+            `
+        };
+
+        // Router setup
+        const routes = [
+            { path: '/', redirect: '/dashboard' },
+            { path: '/dashboard', component: Dashboard },
+            { path: '/profile', component: Profile },
+            { path: '/support', component: Support }
+        ];
+
+        const router = VueRouter.createRouter({
+            history: VueRouter.createWebHistory('/driver/'),
+            routes
+        });
+
+        // Main App Component
+        const App = {
+            template: `
+                <div class="driver-app">
+                    <nav class="navbar">
+                        <div class="navbar-brand">
+                            <h1>Driver Dashboard</h1>
+                        </div>
+                        <div class="navbar-user">
+                            <span>Welcome, Driver</span>
+                        </div>
+                    </nav>
+                    
+                    <div class="app-container">
+                        <aside class="sidebar">
+                            <ul class="nav-menu">
+                                <li>
+                                    <router-link to="/dashboard" class="nav-link">
+                                        <i class="fa fa-dashboard"></i>
+                                        Dashboard
+                                    </router-link>
+                                </li>
+                                <li>
+                                    <router-link to="/profile" class="nav-link">
+                                        <i class="fa fa-user"></i>
+                                        Profile
+                                    </router-link>
+                                </li>
+                                <li>
+                                    <router-link to="/support" class="nav-link">
+                                        <i class="fa fa-support"></i>
+                                        Support
+                                    </router-link>
+                                </li>
+                            </ul>
+                        </aside>
+                        
+                        <main class="main-content">
+                            <router-view></router-view>
+                        </main>
+                    </div>
+                </div>
+            `
+        };
+
+        // Create and mount the app
+        const app = Vue.createApp(App);
+        app.use(router);
+        app.mount('#driver-app');
+    </script>
+
+    <style>
+        .driver-app {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .app-container {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: white;
+            box-shadow: 2px 0 4px rgba(0,0,0,0.1);
+            padding: 2rem 0;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 1rem 2rem;
+            color: #6c757d;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.router-link-active {
+            background: #f8f9fa;
+            color: #667eea;
+            border-right: 3px solid #667eea;
+        }
+
+        .nav-link i {
+            margin-right: 0.75rem;
+            width: 20px;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            background: #f8f9fa;
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-header h2 {
+            color: #2c3e50;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+
+        .stat-icon i {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .stat-content h3 {
+            margin: 0 0 0.25rem 0;
+            font-size: 2rem;
+            color: #2c3e50;
+        }
+
+        .stat-content p {
+            margin: 0;
+            color: #6c757d;
+        }
+
+        .recent-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .recent-section h3 {
+            margin: 0 0 1.5rem 0;
+            color: #2c3e50;
+        }
+
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #667eea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+
+        .activity-icon i {
+            color: white;
+            font-size: 1rem;
+        }
+
+        .activity-content h4 {
+            margin: 0 0 0.25rem 0;
+            color: #2c3e50;
+        }
+
+        .activity-content p {
+            margin: 0 0 0.25rem 0;
+            color: #6c757d;
+        }
+
+        .activity-content small {
+            color: #adb5bd;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.5rem;
+        }
+
+        .profile-avatar i {
+            font-size: 2rem;
+        }
+
+        .profile-info h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.5rem;
+        }
+
+        .profile-info p {
+            margin: 0 0 1rem 0;
+            opacity: 0.9;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+        }
+
+        .profile-details {
+            padding: 2rem;
+        }
+
+        .detail-section h4 {
+            margin: 0 0 1rem 0;
+            color: #2c3e50;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-item label {
+            font-weight: 600;
+            color: #6c757d;
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-item span {
+            color: #2c3e50;
+        }
+
+        .support-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .support-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .support-card i {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .support-card h3 {
+            margin: 0 0 1rem 0;
+            color: #2c3e50;
+        }
+
+        .support-card p {
+            margin: 0 0 1.5rem 0;
+            color: #6c757d;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a6fd8;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+    </style>
+</body>
+</html>
