@@ -1,0 +1,113 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:inspection_id",
+ "creation": "2024-12-04 10:00:00.000000",
+ "custom": 1,
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "inspection_id",
+  "accommodation",
+  "inspection_date",
+  "inspected_by",
+  "status",
+  "inspection_checklist"
+ ],
+ "fields": [
+  {
+   "fieldname": "inspection_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Inspection ID",
+   "reqd": 1
+  },
+  {
+   "fieldname": "accommodation",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Accommodation",
+   "options": "Accommodation",
+   "reqd": 1
+  },
+  {
+   "fieldname": "inspection_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Inspection Date"
+  },
+  {
+   "fieldname": "inspected_by",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Inspected By",
+   "options": "User"
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Draft\nSubmitted\nApproved"
+  },
+  {
+   "fieldname": "inspection_checklist",
+   "fieldtype": "Table",
+   "label": "Inspection Checklist",
+   "options": "Inspection Checklist Item"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-12-04 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Accommodation Management",
+ "name": "Accommodation Inspection",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 0,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accommodation Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 0,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accommodation Supervisor",
+   "share": 0,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "inspection_id",
+ "track_changes": 1
+}

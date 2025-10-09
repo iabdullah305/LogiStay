@@ -1,0 +1,107 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:room_number",
+ "creation": "2024-12-04 10:00:00.000000",
+ "custom": 1,
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "room_number",
+  "accommodation",
+  "room_capacity",
+  "status",
+  "assigned_employees"
+ ],
+ "fields": [
+  {
+   "fieldname": "room_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Room Number",
+   "reqd": 1
+  },
+  {
+   "fieldname": "accommodation",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Accommodation",
+   "options": "Accommodation",
+   "reqd": 1
+  },
+  {
+   "fieldname": "room_capacity",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Room Capacity"
+  },
+  {
+   "default": "Vacant",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Vacant\nPartially Occupied\nFull\nUnder Maintenance",
+   "read_only": 1
+  },
+  {
+   "fieldname": "assigned_employees",
+   "fieldtype": "Table",
+   "label": "Assigned Employees",
+   "options": "Employee Accommodation Assignment"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-12-04 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Accommodation Management",
+ "name": "Room",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 0,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accommodation Manager",
+   "share": 1,
+   "write": 1
+  },
+
+  {
+   "create": 0,
+   "delete": 0,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accommodation Supervisor",
+   "share": 0,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "room_number",
+ "track_changes": 1
+}

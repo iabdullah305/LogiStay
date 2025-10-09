@@ -1,0 +1,132 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:accommodation_name",
+ "creation": "2024-12-04 10:00:00.000000",
+ "custom": 1,
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "accommodation_name",
+  "location",
+  "status",
+  "accommodation_capacity",
+  "accommodation_occupancy",
+  "in_charge_employee",
+  "in_charge_contact",
+  "contract_start_date",
+  "contract_end_date",
+  "rooms"
+ ],
+ "fields": [
+  {
+   "fieldname": "accommodation_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Accommodation Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Data",
+   "label": "Location"
+  },
+  {
+   "default": "Active",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Active\nInactive\nUnder Maintenance"
+  },
+  {
+   "fieldname": "accommodation_capacity",
+   "fieldtype": "Int",
+   "label": "Accommodation Capacity"
+  },
+  {
+   "fieldname": "accommodation_occupancy",
+   "fieldtype": "Int",
+   "label": "Accommodation Occupancy",
+   "read_only": 1
+  },
+  {
+   "fieldname": "in_charge_employee",
+   "fieldtype": "Link",
+   "label": "In Charge Employee",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "in_charge_contact",
+   "fieldtype": "Data",
+   "label": "In Charge Contact"
+  },
+  {
+   "fieldname": "contract_start_date",
+   "fieldtype": "Date",
+   "label": "Contract Start Date"
+  },
+  {
+   "fieldname": "contract_end_date",
+   "fieldtype": "Date",
+   "label": "Contract End Date"
+  },
+  {
+   "fieldname": "rooms",
+   "fieldtype": "Table",
+   "label": "Rooms",
+   "options": "Room"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-12-04 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Accommodation Management",
+ "name": "Accommodation",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 0,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accommodation Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 0,
+   "delete": 0,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accommodation Supervisor",
+   "share": 0,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "accommodation_name",
+ "track_changes": 1
+}
