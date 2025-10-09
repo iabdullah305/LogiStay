@@ -195,7 +195,7 @@ export default {
 		async loadDriverProfile() {
 			try {
 				const response = await frappe.call({
-					method: 'fleet_management.api.driver.get_driver_profile'
+					method: 'logistay.api.driver.get_driver_profile'
 				})
 				if (response.message) {
 					this.driverInfo = response.message
@@ -227,7 +227,7 @@ export default {
 		async loadAssignedVehicles() {
 			try {
 				const response = await frappe.call({
-					method: 'fleet_management.api.driver.get_assigned_vehicles'
+					method: 'logistay.api.driver.get_assigned_vehicles'
 				})
 				if (response.message) {
 					this.assignedVehicles = response.message
@@ -251,7 +251,7 @@ export default {
 		async loadPerformanceStats() {
 			try {
 				const response = await frappe.call({
-					method: 'fleet_management.api.driver.get_performance_stats'
+					method: 'logistay.api.driver.get_performance_stats'
 				})
 				if (response.message) {
 					this.performanceStats = response.message
@@ -297,7 +297,7 @@ export default {
 		async downloadReport() {
 			try {
 				const response = await frappe.call({
-					method: 'fleet_management.api.driver.generate_driver_report',
+					method: 'logistay.api.driver.generate_driver_report',
 					args: { driver: this.driverInfo.name }
 				})
 				if (response.message && response.message.file_url) {

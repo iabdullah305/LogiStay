@@ -186,7 +186,7 @@ export default {
 			this.loading = true
 			try {
 				const response = await frappe.call({
-					method: 'fleet_management.api.driver.get_trips',
+					method: 'logistay.api.driver.get_trips',
 					args: this.filters
 				})
 				if (response.message) {
@@ -225,7 +225,7 @@ export default {
 		async loadVehicles() {
 			try {
 				const response = await frappe.call({
-					method: 'fleet_management.api.driver.get_assigned_vehicles'
+					method: 'logistay.api.driver.get_assigned_vehicles'
 				})
 				if (response.message) {
 					this.vehicles = response.message
@@ -247,7 +247,7 @@ export default {
 			this.creating = true
 			try {
 				const response = await frappe.call({
-					method: 'fleet_management.api.driver.create_trip',
+					method: 'logistay.api.driver.create_trip',
 					args: this.newTrip
 				})
 				if (response.message) {
@@ -272,7 +272,7 @@ export default {
 		async startTrip(trip) {
 			try {
 				await frappe.call({
-					method: 'fleet_management.api.driver.start_trip',
+					method: 'logistay.api.driver.start_trip',
 					args: { trip_name: trip.name }
 				})
 				trip.status = 'in_progress'
@@ -292,7 +292,7 @@ export default {
 		async completeTrip(trip) {
 			try {
 				await frappe.call({
-					method: 'fleet_management.api.driver.complete_trip',
+					method: 'logistay.api.driver.complete_trip',
 					args: { trip_name: trip.name }
 				})
 				trip.status = 'completed'

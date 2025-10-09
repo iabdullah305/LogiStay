@@ -6,14 +6,14 @@ export default defineConfig({
 	plugins: [vue()],
 	resolve: {
 		alias: {
-			'@': path.resolve(__dirname, './fleet_management/public/js'),
+			'@': path.resolve(__dirname, './logistay/public/js'),
 		},
 	},
 	build: {
-		outDir: 'fleet_management/public/dist',
+		outDir: 'logistay/public/dist',
 		rollupOptions: {
 			input: {
-				driver: 'fleet_management/public/js/driver/main.js',
+				driver: 'logistay/public/js/driver/main.js',
 			},
 			output: {
 				entryFileNames: '[name].js',

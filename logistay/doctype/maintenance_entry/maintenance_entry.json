@@ -1,0 +1,54 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-12-04 10:00:00.000000",
+ "custom": 1,
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "maintenance_date",
+  "description",
+  "cost",
+  "performed_by"
+ ],
+ "fields": [
+  {
+   "fieldname": "maintenance_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Maintenance Date"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text",
+   "in_list_view": 1,
+   "label": "Description"
+  },
+  {
+   "fieldname": "cost",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Cost"
+  },
+  {
+   "fieldname": "performed_by",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Performed By"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-12-04 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Accommodation Management",
+ "name": "Maintenance Entry",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

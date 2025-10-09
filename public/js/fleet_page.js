@@ -32,8 +32,8 @@ async function mountFleetPage() {
   if (!root) return;
   root.innerHTML = '<div class="text-gray-700">Loading...</div>';
   try {
-    const counts = await fetchJSON('/api/method/fleet_management.api.get_counts');
-    const fuelToday = await fetchJSON('/api/method/fleet_management.api.fuel_entries_today');
+    const counts = await fetchJSON('/api/method/logistay.api.get_counts');
+    const fuelToday = await fetchJSON('/api/method/logistay.api.fuel_entries_today');
 
     const opsStats = [
       stat('Fleet Vehicle', counts.counts['Fleet Vehicle'] || 0),

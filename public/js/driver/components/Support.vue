@@ -332,7 +332,7 @@ export default {
 		async loadTickets() {
 			try {
 				const response = await frappe.call({
-					method: 'fleet_management.api.support.get_driver_tickets',
+					method: 'logistay.api.support.get_driver_tickets',
 					args: { status: this.ticketFilter === 'all' ? null : this.ticketFilter }
 				})
 				if (response.message) {
@@ -378,7 +378,7 @@ export default {
 			this.isSubmitting = true
 			try {
 				const response = await frappe.call({
-					method: 'fleet_management.api.support.create_ticket',
+					method: 'logistay.api.support.create_ticket',
 					args: {
 						subject: this.newTicket.subject,
 						category: this.newTicket.category,
@@ -431,7 +431,7 @@ export default {
 		async loadTicketComments(ticketName) {
 			try {
 				const response = await frappe.call({
-					method: 'fleet_management.api.support.get_ticket_comments',
+					method: 'logistay.api.support.get_ticket_comments',
 					args: { ticket: ticketName }
 				})
 				if (response.message) {
@@ -453,7 +453,7 @@ export default {
 
 			try {
 				const response = await frappe.call({
-					method: 'fleet_management.api.support.add_ticket_comment',
+					method: 'logistay.api.support.add_ticket_comment',
 					args: {
 						ticket: this.selectedTicket.name,
 						comment: this.newComment

@@ -5,7 +5,7 @@ from datetime import datetime
 
 def get_doctypes(app_path):
     doctypes = []
-    doctype_path = os.path.join(app_path, 'fleet_management', 'doctype')
+    doctype_path = os.path.join(app_path, 'logistay', 'doctype')
     for doctype in os.listdir(doctype_path):
         if os.path.isdir(os.path.join(doctype_path, doctype)):
             doctypes.append(doctype.replace('_', ' ').title())
@@ -13,7 +13,7 @@ def get_doctypes(app_path):
 
 def get_reports(app_path):
     reports = []
-    report_path = os.path.join(app_path, 'fleet_management', 'report')
+    report_path = os.path.join(app_path, 'logistay', 'report')
     for report in os.listdir(report_path):
         if os.path.isdir(os.path.join(report_path, report)):
             reports.append(report.replace('_', ' ').title())

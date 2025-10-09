@@ -158,7 +158,7 @@ class RolePermissionManager:
         
         for role in user_roles:
             if role in self.role_hierarchy:
-                role_file = f"shift_scheduling/fleet_management/roles/{role.lower().replace(' ', '_')}.json"
+                role_file = f"shift_scheduling/logistay/roles/{role.lower().replace(' ', '_')}.json"
                 try:
                     with open(frappe.get_app_path("shift_scheduling", role_file)) as f:
                         role_data = json.load(f)

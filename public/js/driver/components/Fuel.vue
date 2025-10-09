@@ -247,7 +247,7 @@ export default {
 			this.loading = true
 			try {
 				const response = await frappe.call({
-					method: 'fleet_management.api.driver.get_fuel_entries',
+					method: 'logistay.api.driver.get_fuel_entries',
 					args: this.filters
 				})
 				if (response.message) {
@@ -286,7 +286,7 @@ export default {
 		async loadVehicles() {
 			try {
 				const response = await frappe.call({
-					method: 'fleet_management.api.driver.get_assigned_vehicles'
+					method: 'logistay.api.driver.get_assigned_vehicles'
 				})
 				if (response.message) {
 					this.vehicles = response.message
@@ -307,7 +307,7 @@ export default {
 		async loadFuelStats() {
 			try {
 				const response = await frappe.call({
-					method: 'fleet_management.api.driver.get_fuel_stats'
+					method: 'logistay.api.driver.get_fuel_stats'
 				})
 				if (response.message) {
 					this.fuelStats = response.message
@@ -328,8 +328,8 @@ export default {
 			this.saving = true
 			try {
 				const method = this.editingEntry 
-					? 'fleet_management.api.driver.update_fuel_entry'
-					: 'fleet_management.api.driver.create_fuel_entry'
+					? 'logistay.api.driver.update_fuel_entry'
+					: 'logistay.api.driver.create_fuel_entry'
 				
 				const args = this.editingEntry 
 					? { ...this.fuelEntry, name: this.editingEntry.name }

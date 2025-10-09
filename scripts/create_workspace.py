@@ -14,7 +14,7 @@ def create_fleet_workspace():
     """Create Fleet Management workspace"""
     try:
         import frappe
-        from fleet_management.utils.workspace_template import upsert_workspace, get_fleet_management_blocks
+        from logistay.utils.workspace_template import upsert_workspace, get_logistay_blocks
         
         print("Creating Fleet Management workspace...")
         
@@ -22,7 +22,7 @@ def create_fleet_workspace():
             title="Fleet Management",
             module="Fleet Management",
             route="fleet-management", 
-            blocks=get_fleet_management_blocks(),
+            blocks=get_logistay_blocks(),
             force_replace=True,
             dry_run=False
         )
@@ -46,7 +46,7 @@ def preview_workspace():
     """Preview workspace creation (dry run)"""
     try:
         import frappe
-        from fleet_management.utils.workspace_template import upsert_workspace, get_fleet_management_blocks
+        from logistay.utils.workspace_template import upsert_workspace, get_logistay_blocks
         
         print("Previewing Fleet Management workspace creation...")
         
@@ -54,7 +54,7 @@ def preview_workspace():
             title="Fleet Management",
             module="Fleet Management",
             route="fleet-management",
-            blocks=get_fleet_management_blocks(),
+            blocks=get_logistay_blocks(),
             force_replace=True,
             dry_run=True
         )

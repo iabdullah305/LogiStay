@@ -1,0 +1,89 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:asset_name",
+ "creation": "2024-12-04 10:00:00.000000",
+ "custom": 1,
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "asset_name",
+  "asset_code",
+  "accommodation",
+  "room",
+  "status",
+  "maintenance_log"
+ ],
+ "fields": [
+  {
+   "fieldname": "asset_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Asset Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "asset_code",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Asset Code",
+   "unique": 1
+  },
+  {
+   "fieldname": "accommodation",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Accommodation",
+   "options": "Accommodation"
+  },
+  {
+   "fieldname": "room",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Room",
+   "options": "Room"
+  },
+  {
+   "default": "Working",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Working\nDamaged\nUnder Repair"
+  },
+  {
+   "fieldname": "maintenance_log",
+   "fieldtype": "Table",
+   "label": "Maintenance Log",
+   "options": "Maintenance Entry"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-12-04 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Accommodation Management",
+ "name": "Asset Log",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "asset_name",
+ "track_changes": 1
+}

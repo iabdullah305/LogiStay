@@ -1,5 +1,5 @@
 {
-	"name": "fleet_management",
+	"name": "logistay",
 	"version": "1.0.0",
 	"description": "Fleet Management System with Frappe UI",
 	"main": "index.js",

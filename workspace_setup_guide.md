@@ -23,12 +23,12 @@ apps/[app_name]/[app_name]/[app_name]/workspace/[workspace_name].json
 
 ### Practical Example
 ```
-apps/fleet_management/fleet_management/fleet_management/workspace/fleet_management.json
+apps/logistay/logistay/logistay/workspace/logistay.json
 ```
 
 ### Incorrect Path (avoid this)
 ```
-apps/fleet_management/fleet_management/workspace/fleet_management.json
+apps/logistay/logistay/workspace/logistay.json
 ```
 
 ## Required JSON File Structure
@@ -85,7 +85,7 @@ apps/fleet_management/fleet_management/workspace/fleet_management.json
 ### 1. Create Structure
 ```bash
 # Create folder with correct structure
-mkdir -p apps/fleet_management/fleet_management/fleet_management/workspace
+mkdir -p apps/logistay/logistay/logistay/workspace
 
 # Example
 mkdir -p apps/[app_name]/[app_name]/[app_name]/workspace
@@ -94,7 +94,7 @@ mkdir -p apps/[app_name]/[app_name]/[app_name]/workspace
 ### 2. Create JSON File
 ```bash
 # Create file
-touch apps/fleet_management/fleet_management/fleet_management/workspace/fleet_management.json
+touch apps/logistay/logistay/logistay/workspace/logistay.json
 ```
 
 ### 3. Synchronization
@@ -147,10 +147,10 @@ frappe.get_doc("Workspace", "Fleet Management")
 ### Problem: workspace doesn't appear
 ```bash
 # Check path
-ls apps/fleet_management/fleet_management/fleet_management/workspace/
+ls apps/logistay/logistay/logistay/workspace/
 
 # Check JSON validity
-cat apps/fleet_management/fleet_management/fleet_management/workspace/fleet_management.json | python -m json.tool
+cat apps/logistay/logistay/logistay/workspace/logistay.json | python -m json.tool
 
 # Re-synchronize
 bench migrate
@@ -165,7 +165,7 @@ bench migrate
 
 ### Final Structure
 ```
-apps/fleet_management/fleet_management/fleet_management/workspace/fleet_management.json
+apps/logistay/logistay/logistay/workspace/logistay.json
 ```
 
 ### Verification Command

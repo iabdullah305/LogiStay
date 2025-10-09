@@ -4,7 +4,7 @@ from frappe.model.meta import get_meta
 from frappe import utils
 
 
-def get_app_doctypes(app_name="fleet_management"):
+def get_app_doctypes(app_name="logistay"):
     """
     Auto-discover all DocTypes in the Fleet Management app
     Returns a JSON inventory with doctype names, key fields, and primary actions
@@ -148,7 +148,7 @@ def generate_inventory_json():
     inventory = get_driver_relevant_doctypes()
     
     # Save to public folder for easy access
-    file_path = frappe.get_app_path("fleet_management", "public", "driver_ss", "doctype_inventory.json")
+    file_path = frappe.get_app_path("logistay", "public", "driver_ss", "doctype_inventory.json")
     
     try:
         import os

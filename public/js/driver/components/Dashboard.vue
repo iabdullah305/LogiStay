@@ -113,7 +113,7 @@ export default {
 			try {
 				// Load statistics
 				const statsResponse = await frappe.call({
-					method: 'fleet_management.api.driver.get_dashboard_stats'
+					method: 'logistay.api.driver.get_dashboard_stats'
 				})
 				if (statsResponse.message) {
 					this.stats = statsResponse.message
@@ -121,7 +121,7 @@ export default {
 
 				// Load recent trips
 				const tripsResponse = await frappe.call({
-					method: 'fleet_management.api.driver.get_recent_trips'
+					method: 'logistay.api.driver.get_recent_trips'
 				})
 				if (tripsResponse.message) {
 					this.recentTrips = tripsResponse.message

@@ -1,6 +1,6 @@
 # Template: safe create/replace Workspace (Frappe v16)
 # Usage (bench console):
-#   from fleet_management.utils.workspace_template import upsert_workspace
+#   from logistay.utils.workspace_template import upsert_workspace
 #   upsert_workspace(
 #       title="Fleet Management",
 #       module="Fleet Management",
@@ -88,7 +88,7 @@ def upsert_workspace(
         return result
 
 
-def get_fleet_management_blocks():
+def get_logistay_blocks():
     """
     Returns comprehensive blocks for Fleet Management workspace
     """

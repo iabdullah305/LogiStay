@@ -1,0 +1,127 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "autoname": "field:supplier_code",
+    "creation": "2025-10-07 15:38:03",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "supplier_code",
+        "supplier_name_ar",
+        "supplier_name_en",
+        "contact_person",
+        "phone",
+        "email",
+        "address",
+        "tax_id",
+        "bank_details",
+        "status"
+    ],
+    "fields": [
+        {
+            "fieldname": "supplier_code",
+            "fieldtype": "Data",
+            "label": "Supplier Code",
+            "reqd": 1,
+            "unique": 1,
+            "description": "Unique identifier for the supplier"
+        },
+        {
+            "fieldname": "supplier_name_ar",
+            "fieldtype": "Data",
+            "label": "Supplier Name (Arabic)",
+            "reqd": 1,
+            "description": "Supplier name in Arabic"
+        },
+        {
+            "fieldname": "supplier_name_en",
+            "fieldtype": "Data",
+            "label": "Supplier Name (English)",
+            "reqd": 1,
+            "description": "Supplier name in English"
+        },
+        {
+            "fieldname": "contact_person",
+            "fieldtype": "Data",
+            "label": "Contact Person",
+            "reqd": 1,
+            "description": "Primary contact person name"
+        },
+        {
+            "fieldname": "phone",
+            "fieldtype": "Data",
+            "label": "Phone Number",
+            "reqd": 1,
+            "description": "Primary contact phone number"
+        },
+        {
+            "fieldname": "email",
+            "fieldtype": "Data",
+            "label": "Email Address",
+            "options": "Email",
+            "description": "Primary contact email address"
+        },
+        {
+            "fieldname": "address",
+            "fieldtype": "Small Text",
+            "label": "Address",
+            "description": "Supplier business address"
+        },
+        {
+            "fieldname": "tax_id",
+            "fieldtype": "Data",
+            "label": "Tax ID",
+            "description": "Tax identification number"
+        },
+        {
+            "fieldname": "bank_details",
+            "fieldtype": "Small Text",
+            "label": "Bank Details",
+            "description": "Banking information for payments"
+        },
+        {
+            "fieldname": "status",
+            "fieldtype": "Select",
+            "label": "Status",
+            "options": "Active\nInactive",
+            "default": "Active",
+            "reqd": 1,
+            "description": "Supplier status"
+        }
+    ],
+    "modified": "2025-10-07 15:38:03",
+    "modified_by": "Administrator",
+    "module": "Fleet Management",
+    "name": "Supplier Master",
+    "naming_rule": "By fieldname",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 0,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 1,
+            "delete": 0,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "role": "Fleet Manager",
+            "share": 1,
+            "write": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "title_field": "supplier_name_en",
+    "track_changes": 1
+}
