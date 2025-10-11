@@ -59,3 +59,13 @@ reports/js_calls.txt
 
 # Documentation files
 docs/*.md
+
+# Build artifacts and cache files
+__pycache__/
+*.pyc
+public/dist/
+public/node_modules/
+*.log
+audit_report_*.json
+cleanup_report.json
+node_modules/
