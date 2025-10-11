@@ -1,0 +1,134 @@
+/* Fleet Management Theme - Enhanced Corporate Identity */
+
+/* Color Palette */
+:root {
+  --primary-color: #00844E; /* Main green for primary actions and highlights */
+  --primary-dark: #072B1A;  /* Dark green for text and deep backgrounds */
+  --primary-light: #4CAF50; /* Lighter green for secondary elements */
+  --primary-lighter: #E8F5E8; /* Very light green for backgrounds and hover effects */
+  --secondary-color: #F5F5DC; /* Beige for page backgrounds */
+  --neutral-gray: #F8F9FA;  /* Light gray for general backgrounds */
+  --text-color: #333333;    /* Standard text color */
+  --border-color: #DEE2E6;  /* Default border color */
+}
+
+/* General Body and Typography */
+body {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+}
+
+h1, h2, h3, h4, h5, h6, .page-title {
+  color: var(--primary-dark);
+}
+
+a {
+  color: var(--primary-color);
+}
+
+a:hover {
+  color: var(--primary-light);
+}
+
+/* Navbar */
+.navbar {
+  background: linear-gradient(to right, var(--primary-dark), var(--primary-color));
+  border-bottom: 2px solid var(--primary-light);
+}
+
+.navbar-brand, .navbar .nav-link {
+  color: white !important;
+}
+
+/* Sidebar */
+.sidebar {
+  background-color: #FFFFFF;
+  border-right: 1px solid var(--border-color);
+}
+
+.sidebar-item.selected, .sidebar-item:hover {
+  background-color: var(--primary-lighter);
+  border-left: 3px solid var(--primary-color);
+}
+
+.sidebar-item a {
+  color: var(--primary-dark);
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-light);
+  border-color: var(--primary-light);
+}
+
+/* Cards and Dashboard */
+.card, .widget {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: box-shadow 0.3s ease;
+  background-color: #FFFFFF;
+}
+
+.card:hover, .widget:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.card-header {
+  background-color: var(--primary-lighter);
+  color: var(--primary-dark);
+  font-weight: 600;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Workspace and Dashboard Enhancements */
+.workspace-sidebar {
+  background-color: var(--primary-lighter);
+}
+
+.workspace-sidebar .list-group-item.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.dashboard-card {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.dashboard-card .card-title {
+  color: var(--primary-dark);
+}
+
+/* Tables */
+.table thead th {
+  background-color: var(--primary-lighter);
+  color: var(--primary-dark);
+  font-weight: 600;
+}
+
+.table tbody tr:hover {
+  background-color: var(--primary-lighter);
+}
+
+/* Forms */
+.form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(0, 132, 78, 0.25);
+}
+
+/* Indicators */
+.indicator {
+  border-radius: 50%;
+}
+
+.indicator.green {
+  background-color: var(--primary-light);
+}

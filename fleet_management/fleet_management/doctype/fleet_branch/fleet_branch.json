@@ -1,0 +1,110 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:branch_name",
+ "creation": "2025-10-07 16:01:27.853515",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "branch_information_tab",
+  "branch_name",
+  "fleet_project",
+  "location_section",
+  "location_link",
+  "column_break_1",
+  "lat",
+  "lng"
+ ],
+ "fields": [
+  {
+   "fieldname": "branch_information_tab",
+   "fieldtype": "Tab Break",
+   "label": "Branch Information"
+  },
+  {
+   "description": "Unique name for the branch",
+   "fieldname": "branch_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Branch Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "description": "Project this branch belongs to",
+   "fieldname": "fleet_project",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Project",
+   "options": "Fleet Project",
+   "reqd": 1
+  },
+  {
+   "fieldname": "location_section",
+   "fieldtype": "Section Break",
+   "label": "Location Details"
+  },
+  {
+   "description": "Google Maps or other location link",
+   "fieldname": "location_link",
+   "fieldtype": "Data",
+   "label": "Location Link"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "GPS latitude coordinate",
+   "fieldname": "lat",
+   "fieldtype": "Float",
+   "label": "Latitude"
+  },
+  {
+   "description": "GPS longitude coordinate",
+   "fieldname": "lng",
+   "fieldtype": "Float",
+   "label": "Longitude"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-10-07 16:01:27.853515",
+ "modified_by": "Administrator",
+ "module": "Fleet Management",
+ "name": "Fleet Branch",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Fleet Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

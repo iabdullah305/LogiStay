@@ -1,0 +1,216 @@
+{
+ "creation": "2025-01-01 00:00:00.000000",
+ "desk_access": 1,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Role",
+ "home_page": "project-dashboard",
+ "idx": 0,
+ "is_custom": 1,
+ "modified": "2025-01-01 00:00:00.000000",
+ "modified_by": "AFMCOltd",
+ "name": "Project Manager",
+ "owner": "AFMCOltd",
+ "role_name": "Project Manager",
+ "two_factor_auth": 0,
+ "description": "Project Manager role with access to project-specific fleet operations, cost tracking, and resource management. Limited to assigned projects only.",
+ "permissions": [
+  {
+   "doctype": "Fleet Vehicle",
+   "create": 0,
+   "read": 1,
+   "write": 0,
+   "delete": 0,
+   "submit": 0,
+   "cancel": 0,
+   "amend": 0,
+   "report": 1,
+   "export": 1,
+   "import": 0,
+   "print": 1,
+   "email": 1,
+   "share": 0,
+   "if_owner": 0
+  },
+  {
+   "doctype": "Fleet Driver",
+   "create": 0,
+   "read": 1,
+   "write": 0,
+   "delete": 0,
+   "submit": 0,
+   "cancel": 0,
+   "amend": 0,
+   "report": 1,
+   "export": 1,
+   "import": 0,
+   "print": 1,
+   "email": 1,
+   "share": 0,
+   "if_owner": 0
+  },
+  {
+   "doctype": "Fleet Shift",
+   "create": 1,
+   "read": 1,
+   "write": 1,
+   "delete": 0,
+   "submit": 0,
+   "cancel": 0,
+   "amend": 0,
+   "report": 1,
+   "export": 1,
+   "import": 0,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "if_owner": 0
+  },
+  {
+   "doctype": "Fuel Entry",
+   "create": 0,
+   "read": 1,
+   "write": 0,
+   "delete": 0,
+   "submit": 0,
+   "cancel": 0,
+   "amend": 0,
+   "report": 1,
+   "export": 1,
+   "import": 0,
+   "print": 1,
+   "email": 0,
+   "share": 0,
+   "if_owner": 0
+  },
+  {
+   "doctype": "Cost Calculation Engine",
+   "create": 0,
+   "read": 1,
+   "write": 0,
+   "delete": 0,
+   "submit": 0,
+   "cancel": 0,
+   "amend": 0,
+   "report": 1,
+   "export": 1,
+   "import": 0,
+   "print": 1,
+   "email": 1,
+   "share": 0,
+   "if_owner": 0
+  },
+  {
+   "doctype": "Fleet Project",
+   "create": 0,
+   "read": 1,
+   "write": 1,
+   "delete": 0,
+   "submit": 0,
+   "cancel": 0,
+   "amend": 0,
+   "report": 1,
+   "export": 1,
+   "import": 0,
+   "print": 1,
+   "email": 1,
+   "share": 1,
+   "if_owner": 1
+  },
+  {
+   "doctype": "Fleet Branch",
+   "create": 0,
+   "read": 1,
+   "write": 0,
+   "delete": 0,
+   "submit": 0,
+   "cancel": 0,
+   "amend": 0,
+   "report": 1,
+   "export": 1,
+   "import": 0,
+   "print": 1,
+   "email": 0,
+   "share": 0,
+   "if_owner": 0
+  },
+  {
+   "doctype": "Fleet City",
+   "create": 0,
+   "read": 1,
+   "write": 0,
+   "delete": 0,
+   "submit": 0,
+   "cancel": 0,
+   "amend": 0,
+   "report": 1,
+   "export": 1,
+   "import": 0,
+   "print": 1,
+   "email": 0,
+   "share": 0,
+   "if_owner": 0
+  }
+ ],
+ "dashboard_access": [
+  "Project Dashboard",
+  "Cost Analysis Dashboard"
+ ],
+ "report_access": [
+  "Project Cost Report",
+  "Project Vehicle Utilization Report",
+  "Project Shift Summary Report"
+ ],
+ "module_access": [
+  "Fleet Management",
+  "Projects"
+ ],
+ "restrictions": {
+  "data_access": {
+   "filter_by_branch": 0,
+   "filter_by_project": 1,
+   "filter_by_city": 0,
+   "can_access_all_branches": 0,
+   "can_access_all_projects": 0,
+   "can_access_all_cities": 0,
+   "project_filter": "assigned_projects_only"
+  },
+  "field_restrictions": {
+   "Fleet Vehicle": {
+    "restricted_fields": ["purchase_cost", "insurance_cost", "maintenance_cost"],
+    "read_only_fields": ["creation", "modified", "owner", "vehicle_id", "license_plate"]
+   },
+   "Fleet Driver": {
+    "restricted_fields": ["salary", "employment_date", "termination_date"],
+    "read_only_fields": ["creation", "modified", "owner", "driver_id", "license_number"]
+   },
+   "Cost Calculation Engine": {
+    "restricted_fields": ["base_cost_per_km", "fuel_cost_multiplier"],
+    "read_only_fields": ["creation", "modified", "owner", "calculation_id", "total_cost"]
+   },
+   "Fleet Project": {
+    "restricted_fields": [],
+    "read_only_fields": ["creation", "modified", "project_id"]
+   }
+  },
+  "workflow_restrictions": {
+   "can_approve_shifts": 1,
+   "can_approve_fuel_entries": 0,
+   "can_approve_cost_calculations": 0,
+   "approval_limit": 5000,
+   "requires_approval_above": 1000
+  }
+ },
+ "security_settings": {
+  "session_timeout": 360,
+  "require_password_change": 0,
+  "password_expiry_days": 90,
+  "max_login_attempts": 5,
+  "two_factor_required": 0,
+  "ip_restrictions": [],
+  "time_restrictions": {
+   "allowed_hours": "07:00-19:00",
+   "allowed_days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  }
+ }
+}

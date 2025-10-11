@@ -1,0 +1,72 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "autoname": "field:name_ar",
+    "creation": "2025-10-07 15:38:03",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "city_information_tab",
+        "name_ar",
+        "column_break_1",
+        "name_en"
+    ],
+    "fields": [
+        {
+            "fieldname": "city_information_tab",
+            "fieldtype": "Tab Break",
+            "label": "City Information"
+        },
+        {
+            "fieldname": "name_ar",
+            "fieldtype": "Data",
+            "label": "City Name (Arabic)",
+            "description": "City name in Arabic language",
+            "reqd": 1,
+            "unique": 1
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "name_en",
+            "fieldtype": "Data",
+            "label": "City Name (English)",
+            "description": "City name in English language"
+        }
+    ],
+    "modified": "2025-10-07 15:38:03",
+    "modified_by": "Administrator",
+    "module": "Fleet Management",
+    "name": "Fleet City",
+    "naming_rule": "By fieldname",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 1,
+            "delete": 0,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "role": "Fleet Manager",
+            "share": 1,
+            "write": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": []
+}

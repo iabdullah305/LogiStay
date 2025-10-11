@@ -1,0 +1,89 @@
+{
+    "actions": [],
+    "allow_rename": 1,
+    "autoname": "field:name_ar",
+    "creation": "2025-10-07 15:38:03",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "project_information_tab",
+        "name_ar",
+        "name_en",
+        "column_break_1",
+        "fleet_city",
+        "active"
+    ],
+    "fields": [
+        {
+            "fieldname": "project_information_tab",
+            "fieldtype": "Tab Break",
+            "label": "Project Information"
+        },
+        {
+            "fieldname": "name_ar",
+            "fieldtype": "Data",
+            "label": "Project Name (Arabic)",
+            "description": "Project name in Arabic language",
+            "reqd": 1,
+            "unique": 1
+        },
+        {
+            "fieldname": "name_en",
+            "fieldtype": "Data",
+            "label": "Project Name (English)",
+            "description": "Project name in English language"
+        },
+        {
+            "fieldname": "column_break_1",
+            "fieldtype": "Column Break"
+        },
+        {
+            "fieldname": "fleet_city",
+            "fieldtype": "Link",
+            "label": "City",
+            "options": "Fleet City",
+            "description": "City where the project is located",
+            "reqd": 1
+        },
+        {
+            "default": "1",
+            "fieldname": "active",
+            "fieldtype": "Check",
+            "label": "Active",
+            "description": "Check to mark project as active"
+        }
+    ],
+    "modified": "2025-10-07 15:38:03",
+    "modified_by": "Administrator",
+    "module": "Fleet Management",
+    "name": "Fleet Project",
+    "naming_rule": "By fieldname",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        },
+        {
+            "create": 1,
+            "delete": 0,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "role": "Fleet Manager",
+            "share": 1,
+            "write": 1
+        }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": []
+}
