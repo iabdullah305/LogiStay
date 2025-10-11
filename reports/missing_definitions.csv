@@ -1,0 +1,295 @@
+function_name,file_path,line_number,context,type
+_,./config/desktop.py,10,"			""label"": _(""Fleet Management"")",missing
+_,./config/desktop.py,17,"			""label"": _(""Accommodation Management"")",missing
+_,./permissions/role_permissions.py,316,"            frappe.throw(_(f""You don't have permission to modify field: {field}""))",missing
+_,./permissions/role_permissions.py,326,"            frappe.throw(_(""You don't have permission to approve this document""))",missing
+_,./permissions/role_permissions.py,329,"            frappe.throw(_(f""Amount exceeds your approval limit of {approval_info['approval_limit']}""))",missing
+_,./permissions/role_permissions.py,342,            frappe.throw(_(message)),missing
+_,./report/vehicle_utilization_report/vehicle_utilization_report.py,25,"        frappe.throw(_(""From Date and To Date are required""))",missing
+_,./report/vehicle_utilization_report/vehicle_utilization_report.py,28,"        frappe.throw(_(""From Date cannot be greater than To Date""))",missing
+_,./report/vehicle_utilization_report/vehicle_utilization_report.py,34,"            ""label"": _(""Vehicle""),",missing
+_,./report/vehicle_utilization_report/vehicle_utilization_report.py,41,"            ""label"": _(""Model""),",missing
+_,./report/vehicle_utilization_report/vehicle_utilization_report.py,47,"            ""label"": _(""Current Driver""),",missing
+_,./report/vehicle_utilization_report/vehicle_utilization_report.py,54,"            ""label"": _(""Total Shifts""),",missing
+_,./report/vehicle_utilization_report/vehicle_utilization_report.py,60,"            ""label"": _(""Active Days""),",missing
+_,./report/vehicle_utilization_report/vehicle_utilization_report.py,66,"            ""label"": _(""Idle Days""),",missing
+_,./report/vehicle_utilization_report/vehicle_utilization_report.py,72,"            ""label"": _(""Distance (KM)""),",missing
+_,./report/vehicle_utilization_report/vehicle_utilization_report.py,79,"            ""label"": _(""Total Hours""),",missing
+_,./report/vehicle_utilization_report/vehicle_utilization_report.py,86,"            ""label"": _(""Utilization %""),",missing
+_,./report/vehicle_utilization_report/vehicle_utilization_report.py,92,"            ""label"": _(""Avg KM/Day""),",missing
+_,./report/vehicle_utilization_report/vehicle_utilization_report.py,99,"            ""label"": _(""KM/Liter""),",missing
+_,./report/vehicle_utilization_report/vehicle_utilization_report.py,106,"            ""label"": _(""Status""),",missing
+_,./report/vehicle_utilization_report/vehicle_utilization_report.py,316,"                    ""name"": _(""Utilization Rate %""),",missing
+_,./report/vehicle_utilization_report/vehicle_utilization_report.py,353,"            ""label"": _(""Total Vehicles""),",missing
+_,./report/vehicle_utilization_report/vehicle_utilization_report.py,358,"            ""label"": _(""Total Shifts""),",missing
+_,./report/vehicle_utilization_report/vehicle_utilization_report.py,363,"            ""label"": _(""Total Distance (KM)""),",missing
+_,./report/vehicle_utilization_report/vehicle_utilization_report.py,368,"            ""label"": _(""Average Utilization""),",missing
+_,./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py,25,"            ""label"": _(""Vehicle""),",missing
+_,./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py,32,"            ""label"": _(""Model""),",missing
+_,./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py,38,"            ""label"": _(""Driver""),",missing
+_,./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py,45,"            ""label"": _(""Fuel Cost""),",missing
+_,./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py,51,"            ""label"": _(""Maintenance Cost""),",missing
+_,./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py,57,"            ""label"": _(""Insurance Cost""),",missing
+_,./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py,63,"            ""label"": _(""Driver Salary""),",missing
+_,./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py,69,"            ""label"": _(""Depreciation""),",missing
+_,./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py,75,"            ""label"": _(""Other Costs""),",missing
+_,./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py,81,"            ""label"": _(""Total Cost""),",missing
+_,./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py,87,"            ""label"": _(""Distance (KM)""),",missing
+_,./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py,94,"            ""label"": _(""Cost per KM""),",missing
+_,./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py,327,"                    ""name"": _(""Fuel Cost""),",missing
+_,./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py,331,"                    ""name"": _(""Maintenance Cost""),",missing
+_,./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py,335,"                    ""name"": _(""Insurance Cost""),",missing
+_,./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py,339,"                    ""name"": _(""Driver Salary""),",missing
+_,./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py,21,"                frappe.throw(_(""End Date must be after Start Date""))",missing
+_,./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py,26,"                frappe.throw(_(""Lease End Date must be after Lease Start Date""))",missing
+_,./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py,30,"                frappe.throw(_(""Lease Start Date cannot be before Ownership Start Date""))",missing
+_,./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py,33,"                frappe.throw(_(""Lease End Date cannot be after Ownership End Date""))",missing
+_,./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py,54,"                frappe.throw(_(""Another active ownership record exists for this vehicle during the specified period""))",missing
+_,./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py,60,"                frappe.throw(_(""Supplier is required for leased/rented vehicles""))",missing
+_,./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py,63,"                frappe.throw(_(""Monthly lease amount is required for leased/rented vehicles""))",missing
+_,./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py,66,"                frappe.throw(_(""Lease start date is required for leased/rented vehicles""))",missing
+_,./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py,71,"                frappe.throw(_(""Purchase price is required for company owned vehicles""))",missing
+_,./logistay/fleet_management/doctype/fleet_shift/fleet_shift.py,27,"            frappe.throw(_(""Vehicle {0} is already scheduled for {1} shift on {2}"").format(",missing
+_,./logistay/fleet_management/doctype/fleet_shift/fleet_shift.py,45,"            frappe.throw(_(""Driver {0} is already scheduled for {1} shift on {2}"").format(",missing
+_,./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py,22,"                frappe.throw(_(""Start Date cannot be after End Date""))",missing
+_,./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py,26,"                frappe.throw(_(""Start Date cannot be in the past""))",missing
+_,./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py,64,"                frappe.throw(_(""Driver {0} is already assigned to Vehicle {1} as {2} from {3} to {4}"").format(",missing
+_,./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py,91,"                frappe.throw(_(""Vehicle {0} already has a Primary driver ({1}) assigned from {2} to {3}"").format(",missing
+_,./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py,107,"            frappe.throw(_(""Driver {0} does not have a valid license on file"").format(self.driver))",missing
+_,./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py,112,"                frappe.throw(_(""Driver {0}'s license has expired on {1}"").format(",missing
+_,./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py,129,"                    frappe.throw(_(""Driver {0} with {1} license cannot be assigned to {2} vehicle"").format(",missing
+_,./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py,148,"            ""subject"": _(""Driver Vehicle Assignment Updated""),",missing
+_,./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py,149,"            ""content"": _(""Driver {0} assignment to Vehicle {1} updated as {2}"").format(",missing
+_,./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py,167,"                    ""label"": _(""Fleet Operations""),",missing
+_,./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py,35,"                    frappe.throw(_(""Odometer reading cannot be less than the previous reading of {0} KM"").format(latest_reading))",missing
+_,./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py,47,"            frappe.throw(_(""Fuel quantity must be greater than 0""))",missing
+_,./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py,50,"            frappe.throw(_(""Price per liter must be greater than 0""))",missing
+_,./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py,54,"            frappe.throw(_(""Fuel quantity seems unusually high. Please verify.""))",missing
+_,./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py,172,"                frappe.throw(_(""Receipt number {0} already exists for this fuel station"").format(self.receipt_number))",missing
+_,./logistay/fleet_management/doctype/supplier_master/supplier_master.py,28,"                frappe.throw(_(""Supplier Code {0} already exists"").format(self.supplier_code))",missing
+_,./logistay/fleet_management/doctype/supplier_master/supplier_master.py,33,"            frappe.throw(_(""Contact Person is required""))",missing
+_,./logistay/fleet_management/doctype/supplier_master/supplier_master.py,36,"            frappe.throw(_(""Phone Number is required""))",missing
+_,./logistay/fleet_management/doctype/supplier_master/supplier_master.py,43,"                frappe.throw(_(""Please enter a valid email address""))",missing
+_,./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py,22,"                frappe.throw(_(""End Date must be after Start Date""))",missing
+_,./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py,42,"                frappe.throw(_(""Overlapping contract exists for this supplier and contract type""))",missing
+_,./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py,47,"            frappe.throw(_(""Base Rate must be greater than 0""))",missing
+_,./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py,51,"            frappe.throw(_(""Overtime Rate should not be less than Base Rate""))",missing
+_,./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py,54,"            frappe.throw(_(""Holiday Rate should not be less than Base Rate""))",missing
+_,./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py,57,"            frappe.throw(_(""Night Shift Rate should not be less than Base Rate""))",missing
+_,./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py,65,"                frappe.throw(_(""Please enter a valid contact email address""))",missing
+_,./logistay/api/driver.py,24,"            frappe.throw(_(""No employee record found for current user""))",missing
+_,./logistay/api/driver.py,29,"            frappe.throw(_(""No driver record found for current employee""))",missing
+_,./logistay/api/driver.py,99,"        frappe.throw(_(""Failed to load dashboard data""))",missing
+_,./logistay/api/driver.py,115,"            frappe.throw(_(""No employee record found""))",missing
+_,./logistay/api/driver.py,119,"            frappe.throw(_(""No driver record found""))",missing
+_,./logistay/api/driver.py,155,"        frappe.throw(_(""Failed to load trips""))",missing
+_,./logistay/api/driver.py,171,"            frappe.throw(_(""No employee record found""))",missing
+_,./logistay/api/driver.py,175,"            frappe.throw(_(""No driver record found""))",missing
+_,./logistay/api/driver.py,182,"            frappe.throw(_(""You are not authorized to modify this trip""))",missing
+_,./logistay/api/driver.py,193,"            frappe.throw(_(""Invalid action for current trip status""))",missing
+_,./logistay/api/driver.py,227,"        frappe.throw(_(""Failed to update trip status""))",missing
+_,./logistay/api/driver.py,247,"            frappe.throw(_(""No employee record found""))",missing
+_,./logistay/api/driver.py,251,"            frappe.throw(_(""No driver record found""))",missing
+_,./logistay/api/driver.py,262,"            frappe.throw(_(""You are not assigned to this vehicle""))",missing
+_,./logistay/api/driver.py,266,"            frappe.throw(_(""Fuel date, quantity, and amount are required""))",missing
+_,./logistay/api/driver.py,269,"            frappe.throw(_(""Quantity must be greater than zero""))",missing
+_,./logistay/api/driver.py,272,"            frappe.throw(_(""Amount must be greater than zero""))",missing
+_,./logistay/api/driver.py,275,"            frappe.throw(_(""Fuel date cannot be in the future""))",missing
+_,./logistay/api/driver.py,300,"        frappe.throw(_(""Failed to create fuel entry""))",missing
+_,./logistay/api/driver.py,315,"            frappe.throw(_(""No employee record found""))",missing
+_,./logistay/api/driver.py,319,"            frappe.throw(_(""No driver record found""))",missing
+_,./logistay/api/driver.py,345,"        frappe.throw(_(""Failed to load fuel entries""))",missing
+_,./logistay/api/driver.py,357,"            frappe.throw(_(""No employee record found""))",missing
+_,./logistay/api/driver.py,361,"            frappe.throw(_(""No driver record found""))",missing
+_,./logistay/api/driver.py,385,"        frappe.throw(_(""Failed to load assigned vehicles""))",missing
+_,./logistay/api/driver.py,397,"            frappe.throw(_(""No employee record found""))",missing
+_,./logistay/api/driver.py,430,"        frappe.throw(_(""Failed to load profile""))",missing
+_,./logistay/api/driver.py,448,"            return {""success"": False, ""error"": _(""Current password is incorrect"")}",missing
+_,./logistay/api/driver.py,452,"            return {""success"": False, ""error"": _(""New password must be at least 8 characters long"")}",missing
+_,./logistay/api/driver.py,458,"        return {""success"": True, ""message"": _(""Password updated successfully"")}",missing
+_,./logistay/api/driver.py,462,"        return {""success"": False, ""error"": _(""Failed to change password"")}",missing
+_,./logistay/api/driver.py,480,"            return {""success"": False, ""error"": _(""No employee record found"")}",missing
+_,./logistay/api/driver.py,484,"            return {""success"": False, ""error"": _(""Category, priority, subject, and description are required"")}",missing
+_,./logistay/api/driver.py,517,"        return {""success"": False, ""error"": _(""Failed to create support ticket"")}",missing
+_,./logistay/api/driver.py,558,"            frappe.throw(_(""No employee record found""))",missing
+_,./logistay/api/driver.py,568,"        frappe.throw(_(""Failed to load driver information""))",missing
+_,./logistay/api/driver.py,580,"            frappe.throw(_(""No employee record found""))",missing
+_,./logistay/api/driver.py,584,"            frappe.throw(_(""No driver record found""))",missing
+_,./logistay/api/driver.py,607,"        frappe.throw(_(""Failed to load current assignment""))",missing
+info,./patches/v1_0/create_fleet_workspace.py,20,"            frappe.logger().info(f""Fleet Management workspace created successfully: {result.get('messages')}"")",missing
+error,./patches/v1_0/create_fleet_workspace.py,22,"            frappe.logger().error(f""Failed to create Fleet Management workspace: {result.get('messages')}"")",missing
+error,./patches/v1_0/create_fleet_workspace.py,25,"        frappe.logger().error(f""Error creating Fleet Management workspace: {str(e)}"")",missing
+get_app_path,./utils/doctype_discovery.py,151,"    file_path = frappe.get_app_path(""logistay"", ""public"", ""driver_ss"", ""doctype_inventory.json"")",missing
+get_app_path,./permissions/role_permissions.py,163,"                    with open(frappe.get_app_path(""shift_scheduling"", role_file)) as f:",missing
+dump,./utils/doctype_discovery.py,158,"            json.dump(inventory, f, indent=2, default=str)",missing
+dump,./scripts/gen_workspace.py,56,"        json.dump(workspace, f, indent=2)",missing
+Workspace,./utils/workspace_template.py,1,# Template: safe create/replace Workspace (Frappe v16),missing
+Usage,./utils/workspace_template.py,2,# Usage (bench console):,missing
+savepoint,./utils/workspace_template.py,51,"        frappe.db.savepoint(""ws_upsert_sp"")",missing
+existing,./utils/workspace_template.py,53,        # Delete existing (if any),missing
+commit,./utils/workspace_template.py,78,        frappe.db.commit(),missing
+commit,./update_workspace.py,27,        frappe.db.commit(),missing
+commit,./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py,71,                frappe.db.commit(),missing
+commit,./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py,94,            frappe.db.commit(),missing
+clear_cache,./utils/workspace_template.py,79,        frappe.clear_cache(),missing
+rollback,./utils/workspace_template.py,86,"        frappe.db.rollback(save_point=""ws_upsert_sp"")",missing
+load,./permissions/role_permissions.py,164,                        role_data = json.load(f),missing
+total_seconds,./permissions/role_permissions.py,245,            if (now_datetime() - last_activity).total_seconds() > (session_timeout * 60):,missing
+not,./permissions/role_permissions.py,261,            if not (start_time <= current_hour_min <= end_time):,missing
+RolePermissionManager,./permissions/role_permissions.py,276,    permission_manager = RolePermissionManager(),missing
+RolePermissionManager,./permissions/role_permissions.py,286,    permission_manager = RolePermissionManager(),missing
+RolePermissionManager,./permissions/role_permissions.py,301,    permission_manager = RolePermissionManager(),missing
+RolePermissionManager,./permissions/role_permissions.py,337,    permission_manager = RolePermissionManager(),missing
+Copyright,./dashboard/__init__.py,1,"# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)",missing
+Copyright,./dashboard/fleet_management_dashboard.py,1,"# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)",missing
+Copyright,./report/vehicle_utilization_report/__init__.py,1,"# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)",missing
+Copyright,./report/vehicle_utilization_report/vehicle_utilization_report.py,1,"# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)",missing
+Copyright,./report/monthly_fleet_cost_report/__init__.py,1,"# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)",missing
+Copyright,./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py,1,"# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)",missing
+Copyright,./logistay/accommodation_management/doctype/room/room.py,1,"# Copyright (c) 2024, Fleet Management and contributors",missing
+Copyright,./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py,1,"# Copyright (c) 2024, Fleet Management and contributors",missing
+Copyright,./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py,1,"# Copyright (c) 2024, Fleet Management and contributors",missing
+Copyright,./logistay/accommodation_management/doctype/asset_log/asset_log.py,1,"# Copyright (c) 2024, Fleet Management and contributors",missing
+Copyright,./logistay/accommodation_management/doctype/accommodation_inspection/accommodation_inspection.py,1,"# Copyright (c) 2024, Fleet Management and contributors",missing
+Copyright,./logistay/accommodation_management/doctype/accommodation/accommodation.py,1,"# Copyright (c) 2024, Fleet Management and contributors",missing
+Copyright,./logistay/fleet_management/doctype/inspection_checklist_item/inspection_checklist_item.py,1,"# Copyright (c) 2024, Fleet Management and contributors",missing
+Copyright,./logistay/fleet_management/doctype/fleet_access_log/__init__.py,1,"# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)",missing
+Copyright,./logistay/fleet_management/doctype/fleet_city/fleet_city.py,1,"# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)",missing
+Copyright,./logistay/fleet_management/doctype/fleet_branch/fleet_branch.py,1,"# Copyright (c) 2025, Fleet Management and contributors",missing
+Copyright,./logistay/fleet_management/doctype/maintenance_entry/maintenance_entry.py,1,"# Copyright (c) 2024, Fleet Management and contributors",missing
+Copyright,./logistay/fleet_management/doctype/fleet_project/fleet_project.py,1,"# Copyright (c) 2025, Fleet Management and contributors",missing
+Copyright,./logistay/fleet_management/doctype/vehicle_ownership/__init__.py,1,"# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)",missing
+Copyright,./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py,1,"# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)",missing
+Copyright,./logistay/fleet_management/doctype/fleet_shift/fleet_shift.py,1,"# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)",missing
+Copyright,./logistay/fleet_management/doctype/driver_vehicle_assignment/__init__.py,1,"# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)",missing
+Copyright,./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py,1,"# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)",missing
+Copyright,./logistay/fleet_management/doctype/fuel_entry/__init__.py,1,"# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)",missing
+Copyright,./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py,1,"# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)",missing
+Copyright,./logistay/fleet_management/doctype/cost_calculation_engine/__init__.py,1,"# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)",missing
+Copyright,./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py,1,"# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)",missing
+Copyright,./logistay/fleet_management/doctype/supplier_master/__init__.py,1,"# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)",missing
+Copyright,./logistay/fleet_management/doctype/supplier_master/supplier_master.py,1,"# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)",missing
+Copyright,./logistay/fleet_management/doctype/supplier_contract/__init__.py,1,"# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)",missing
+Copyright,./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py,1,"# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)",missing
+return,./dashboard/fleet_management_dashboard.py,268,    return (active_count / total_drivers) * 100,missing
+return,./dashboard/fleet_management_dashboard.py,369,    return (on_time_shifts / total_shifts) * 100,missing
+return,./dashboard/fleet_management_dashboard.py,507,        return (completed / total) * 100,missing
+return,./dashboard/fleet_management_dashboard.py,519,        return (part / total) * 100,missing
+DATE_FORMAT,./dashboard/fleet_management_dashboard.py,386,"            DATE_FORMAT(creation_date, '%Y-%m') as month,",missing
+DATE_FORMAT,./dashboard/fleet_management_dashboard.py,391,"        GROUP BY DATE_FORMAT(creation_date, '%Y-%m')",missing
+DATE_FORMAT,./dashboard/fleet_management_dashboard.py,413,"            DATE_FORMAT(fuel_date, '%Y-%m') as month,",missing
+DATE_FORMAT,./dashboard/fleet_management_dashboard.py,417,"        GROUP BY DATE_FORMAT(fuel_date, '%Y-%m')",missing
+DATE_FORMAT,./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py,143,"                DATE_FORMAT(fuel_date, '%%Y-%%m') as period,",missing
+DATE_FORMAT,./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py,151,"            GROUP BY DATE_FORMAT(fuel_date, '%%Y-%%m')",missing
+efficiency,./dashboard/fleet_management_dashboard.py,511,"    """"""Calculate fuel efficiency (km per liter)""""""",missing
+YEAR,./dashboard/fleet_management_dashboard.py,525,        SELECT AVG(YEAR(CURDATE()) - model_year) as avg_age,missing
+CURDATE,./dashboard/fleet_management_dashboard.py,525,        SELECT AVG(YEAR(CURDATE()) - model_year) as avg_age,missing
+read,./setup.py,4,"	install_requires = f.read().strip().split(""\n"")",missing
+setup,./setup.py,9,setup(,missing
+find_packages,./setup.py,15,"	packages=find_packages(),",missing
+creation,./scripts/create_workspace.py,46,"    """"""Preview workspace creation (dry run)""""""",missing
+creation,./scripts/create_workspace.py,76,"    parser.add_argument(""--preview"", action=""store_true"", help=""Preview workspace creation (dry run)"")",missing
+ArgumentParser,./scripts/create_workspace.py,75,"    parser = argparse.ArgumentParser(description=""Fleet Management Workspace Creator"")",missing
+ArgumentParser,./scripts/gen_workspace.py,61,"    parser = argparse.ArgumentParser(description=""Generate a complete, rich workspace for Frappe v16."")",missing
+add_argument,./scripts/create_workspace.py,76,"    parser.add_argument(""--preview"", action=""store_true"", help=""Preview workspace creation (dry run)"")",missing
+add_argument,./scripts/create_workspace.py,77,"    parser.add_argument(""--site"", type=str, help=""Frappe site name"", default=""afmco.sa"")",missing
+add_argument,./scripts/gen_workspace.py,62,"    parser.add_argument(""--app"", required=True, help=""The name of the app."")",missing
+add_argument,./scripts/gen_workspace.py,63,"    parser.add_argument(""--module"", required=True, help=""The name of the module."")",missing
+add_argument,./scripts/gen_workspace.py,64,"    parser.add_argument(""--workspace"", required=True, help=""The name of the workspace."")",missing
+add_argument,./scripts/gen_workspace.py,65,"    parser.add_argument(""--out"", required=True, help=""The output path for the workspace JSON file."")",missing
+parse_args,./scripts/create_workspace.py,79,    args = parser.parse_args(),missing
+parse_args,./scripts/gen_workspace.py,66,    args = parser.parse_args(),missing
+init,./scripts/create_workspace.py,84,        frappe.init(site=args.site),missing
+connect,./scripts/create_workspace.py,85,        frappe.connect(),missing
+destroy,./scripts/create_workspace.py,92,        frappe.destroy(),missing
+exit,./scripts/create_workspace.py,98,            sys.exit(1),missing
+exit,./scripts/create_workspace.py,102,        sys.exit(1),missing
+exit,./scripts/create_workspace.py,105,        sys.exit(1),missing
+utcnow,./scripts/gen_workspace.py,37,"        ""creation"": datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f'),",missing
+utcnow,./scripts/gen_workspace.py,38,"        ""modified"": datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f'),",missing
+utcnow,./scripts/gen_workspace.py,39,"        ""generated_at"": datetime.utcnow().isoformat(),",missing
+isoformat,./scripts/gen_workspace.py,39,"        ""generated_at"": datetime.utcnow().isoformat(),",missing
+Quantity,./report/fuel_expense_report/fuel_expense_report.py,8,"        {""label"": ""Fuel Quantity (Liters)"", ""fieldname"": ""quantity_liters"", ""fieldtype"": ""Float"", ""width"": 150},",missing
+Distance,./report/vehicle_utilization_report/vehicle_utilization_report.py,72,"            ""label"": _(""Distance (KM)""),",missing
+Distance,./report/vehicle_utilization_report/vehicle_utilization_report.py,363,"            ""label"": _(""Total Distance (KM)""),",missing
+Distance,./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py,87,"            ""label"": _(""Distance (KM)""),",missing
+rate,./report/vehicle_utilization_report/vehicle_utilization_report.py,180,    # Calculate utilization rate (active days / total days),missing
+DATE,./report/vehicle_utilization_report/vehicle_utilization_report.py,225,"            COUNT(DISTINCT DATE(shift_date)) as active_days,",missing
+DATE,./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py,141,"            SELECT DATE(timestamp) as date, COUNT(*) as count",missing
+DATE,./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py,144,            GROUP BY DATE(timestamp),missing
+DATE,./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py,207,"            SELECT user, COUNT(*) as count, DATE(timestamp) as date",missing
+DATE,./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py,210,"            GROUP BY user, DATE(timestamp)",missing
+DATE,./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py,406,            SELECT COUNT(DISTINCT DATE(shift_date)) as active_days,missing
+TIMESTAMPDIFF,./report/vehicle_utilization_report/vehicle_utilization_report.py,226,"            SUM(TIMESTAMPDIFF(HOUR, shift_start_time, shift_end_time)) as total_hours",missing
+TIMESTAMPDIFF,./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py,418,"            SELECT SUM(TIMESTAMPDIFF(HOUR, shift_start_time, shift_end_time)) as hours_worked",missing
+entries,./report/vehicle_utilization_report/vehicle_utilization_report.py,237,    # Get distance from fuel entries (odometer readings),missing
+entries,./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py,271,    # Get distance from fuel entries (odometer readings),missing
+get_first_day,./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py,158,"    start_date = get_first_day(f""{year}-{month_num:02d}-01"")",missing
+get_first_day,./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py,105,            month_start = get_first_day(fuel_date),missing
+get_last_day,./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py,159,"    end_date = get_last_day(f""{year}-{month_num:02d}-01"")",missing
+get_last_day,./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py,106,            month_end = get_last_day(fuel_date),missing
+as_json,./update_workspace.py,23,        workspace.content = frappe.as_json(new_content),missing
+save,./update_workspace.py,26,        workspace.save(ignore_permissions=True),missing
+save,./logistay/accommodation_management/doctype/room/room.py,37,			accommodation_doc.save(ignore_permissions=True),missing
+save,./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py,31,			self.save(),missing
+save,./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py,40,		self.save(),missing
+save,./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py,55,			room_doc.save(ignore_permissions=True),missing
+save,./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py,61,				accommodation_doc.save(ignore_permissions=True),missing
+save,./logistay/accommodation_management/doctype/asset_log/asset_log.py,35,		self.save(),missing
+save,./logistay/accommodation_management/doctype/accommodation_inspection/accommodation_inspection.py,35,		self.save(),missing
+save,./logistay/fleet_management/doctype/fleet_project/fleet_project.py,61,					branch_doc.save(),missing
+save,./logistay/api/driver.py,213,        trip.save(ignore_permissions=False),missing
+save,./logistay/api/driver.py,509,            file_doc.save(),missing
+Room,./logistay/accommodation_management/doctype/room/room.py,8,class Room(Document):,missing
+SupervisorDailyTask,./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py,9,class SupervisorDailyTask(Document):,missing
+EmployeeAccommodationAssignment,./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py,8,class EmployeeAccommodationAssignment(Document):,missing
+room,./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py,32,		# Count existing active assignments for this room (excluding current if updating),missing
+capacity,./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py,47,"			frappe.throw(f""Room {self.room} is at full capacity ({room_capacity} employees)"")",missing
+AssetLog,./logistay/accommodation_management/doctype/asset_log/asset_log.py,8,class AssetLog(Document):,missing
+AccommodationInspection,./logistay/accommodation_management/doctype/accommodation_inspection/accommodation_inspection.py,9,class AccommodationInspection(Document):,missing
+Accommodation,./logistay/accommodation_management/doctype/accommodation/accommodation.py,8,class Accommodation(Document):,missing
+InspectionChecklistItem,./logistay/fleet_management/doctype/inspection_checklist_item/inspection_checklist_item.py,8,class InspectionChecklistItem(Document):,missing
+FleetAccessLog,./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py,12,class FleetAccessLog(Document):,missing
+get_single_value,./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py,56,"            retention_days = frappe.db.get_single_value(""Fleet Settings"", ""access_log_retention_days"") or 90",missing
+patterns,./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py,185,        # Check for unusual access patterns (access outside normal hours),missing
+HOUR,./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py,190,            AND (HOUR(timestamp) < 6 OR HOUR(timestamp) > 22),missing
+HOUR,./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py,190,            AND (HOUR(timestamp) < 6 OR HOUR(timestamp) > 22),missing
+FleetCity,./logistay/fleet_management/doctype/fleet_city/fleet_city.py,7,class FleetCity(Document):,missing
+FleetBranch,./logistay/fleet_management/doctype/fleet_branch/fleet_branch.py,8,class FleetBranch(Document):,missing
+and,./logistay/fleet_management/doctype/fleet_branch/fleet_branch.py,16,		if self.lat and (self.lat < -90 or self.lat > 90):,missing
+and,./logistay/fleet_management/doctype/fleet_branch/fleet_branch.py,19,		if self.lng and (self.lng < -180 or self.lng > 180):,missing
+MaintenanceEntry,./logistay/fleet_management/doctype/maintenance_entry/maintenance_entry.py,8,class MaintenanceEntry(Document):,missing
+FleetProject,./logistay/fleet_management/doctype/fleet_project/fleet_project.py,8,class FleetProject(Document):,missing
+FleetDriver,./logistay/fleet_management/doctype/fleet_driver/fleet_driver.py,4,class FleetDriver(Document):,missing
+is_new,./logistay/fleet_management/doctype/fleet_driver/fleet_driver.py,6,        if self.is_new():,missing
+is_new,./logistay/fleet_management/doctype/fleet_vehicle/fleet_vehicle.py,6,        if self.is_new():,missing
+VehicleOwnership,./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py,9,class VehicleOwnership(Document):,missing
+FleetShift,./logistay/fleet_management/doctype/fleet_shift/fleet_shift.py,8,class FleetShift(Document):,missing
+DriverVehicleAssignment,./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py,10,class DriverVehicleAssignment(Document):,missing
+conflicts,./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py,69,        # Check for primary role conflicts (only one primary driver per vehicle at a time),missing
+driver,./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py,91,"                frappe.throw(_(""Vehicle {0} already has a Primary driver ({1}) assigned from {2} to {3}"").format(",missing
+compatibility,./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py,116,        # Check license category compatibility (if available),missing
+FuelEntry,./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py,9,class FuelEntry(Document):,missing
+quantity,./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py,52,        # Validate reasonable fuel quantity (not more than tank capacity),missing
+get_cached_value,./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py,86,"            self.currency = frappe.get_cached_value(""Company"", frappe.defaults.get_user_default(""Company""), ""default_currency"")",missing
+get_cached_value,./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py,76,"            self.currency = frappe.get_cached_value(""Company"", frappe.defaults.get_user_default(""Company""), ""default_currency"")",missing
+get_user_default,./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py,86,"            self.currency = frappe.get_cached_value(""Company"", frappe.defaults.get_user_default(""Company""), ""default_currency"")",missing
+get_user_default,./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py,76,"            self.currency = frappe.get_cached_value(""Company"", frappe.defaults.get_user_default(""Company""), ""default_currency"")",missing
+CostCalculationEngine,./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py,10,class CostCalculationEngine(Document):,missing
+SupplierMaster,./logistay/fleet_management/doctype/supplier_master/supplier_master.py,9,class SupplierMaster(Document):,missing
+has_value_changed,./logistay/fleet_management/doctype/supplier_master/supplier_master.py,67,        if self.has_value_changed('status'):,missing
+has_value_changed,./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py,101,        if self.has_value_changed('status'):,missing
+SupplierContract,./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py,10,class SupplierContract(Document):,missing
+FleetVehicle,./logistay/fleet_management/doctype/fleet_vehicle/fleet_vehicle.py,4,class FleetVehicle(Document):,missing
+tasks,./logistay/api/driver.py,45,        # Get pending tasks (trips with status 'Assigned' or 'In Progress'),missing
+get_first_day_of_month,./logistay/api/driver.py,56,"            ""fuel_date"": ["">="", get_first_day_of_month(getdate())],",missing
+activity,./logistay/api/driver.py,60,        # Get recent activity (last 5 trips),missing
+perform,./logistay/api/driver.py,164,"        action: Action to perform (accept, start, pause, complete)",missing
+submit,./logistay/api/driver.py,217,            trip.submit(),missing
+submit,./logistay/api/driver.py,294,        fuel_entry.submit(),missing
+name,./logistay/api/driver.py,239,        vendor: Vendor/station name (optional),missing
+URL,./logistay/api/driver.py,240,        receipt_attachment: Receipt file URL (optional),missing
+URL,./logistay/api/driver.py,474,        attachment: File attachment URL (optional),missing
+check_password,./logistay/api/driver.py,447,"        if not check_password(user, current_password):",missing
+update_password,./logistay/api/driver.py,456,"        update_password(user, new_password)",missing
+document,./logistay/api/driver.py,486,        # Create Issue document (standard Frappe DocType for support tickets),missing

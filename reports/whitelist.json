@@ -1,0 +1,78 @@
+{
+  "frappe_framework_functions": [
+    "get_all", "get_doc", "new_doc", "get_list", "get_value", "set_value",
+    "db", "sql", "logger", "whitelist", "throw", "msgprint", "log_error",
+    "flt", "cint", "cstr", "getdate", "get_datetime", "nowdate", "now", "now_datetime",
+    "add_days", "add_months", "add_years", "date_diff", "time_diff", "today",
+    "get_roles", "has_permission", "get_user", "get_system_settings",
+    "enqueue", "publish_progress", "get_hooks", "get_site_config",
+    "reload_doc", "delete_doc", "rename_doc", "copy_doc", "get_meta",
+    "render_template", "sendmail", "get_url", "local", "session", "form_dict"
+  ],
+  "frappe_decorators": [
+    "whitelist", "validate_and_sanitize_search_inputs", "rate_limit"
+  ],
+  "frappe_lifecycle_methods": [
+    "validate", "before_save", "after_insert", "on_update", "on_submit",
+    "on_cancel", "before_insert", "before_update", "after_save", "on_trash",
+    "after_delete", "get_context", "get_data", "execute"
+  ],
+  "python_builtins": [
+    "len", "str", "int", "float", "list", "dict", "set", "tuple", "bool",
+    "min", "max", "sum", "abs", "round", "sorted", "reversed", "enumerate",
+    "zip", "map", "filter", "any", "all", "isinstance", "hasattr", "getattr",
+    "setattr", "delattr", "type", "super", "property", "staticmethod",
+    "classmethod", "range", "open", "print", "input", "format"
+  ],
+  "string_methods": [
+    "join", "split", "strip", "replace", "find", "index", "count",
+    "startswith", "endswith", "lower", "upper", "title", "capitalize",
+    "isdigit", "isalpha", "isalnum", "format", "strftime"
+  ],
+  "collection_methods": [
+    "append", "extend", "insert", "remove", "pop", "clear", "copy",
+    "update", "get", "keys", "values", "items", "sort", "reverse"
+  ],
+  "sql_keywords": [
+    "SELECT", "INSERT", "UPDATE", "DELETE", "FROM", "WHERE", "ORDER",
+    "GROUP", "HAVING", "JOIN", "LEFT", "RIGHT", "INNER", "OUTER",
+    "UNION", "DISTINCT", "COUNT", "SUM", "AVG", "MIN", "MAX", "COALESCE",
+    "CASE", "WHEN", "THEN", "ELSE", "END", "AS", "AND", "OR", "NOT",
+    "IN", "LIKE", "BETWEEN", "IS", "NULL", "EXISTS", "LIMIT", "OFFSET"
+  ],
+  "third_party_common": [
+    "json", "loads", "dumps", "datetime", "date", "time", "timedelta",
+    "os", "sys", "path", "exists", "isfile", "isdir", "makedirs",
+    "listdir", "walk", "basename", "dirname", "splitext", "abspath",
+    "re", "match", "search", "findall", "sub", "compile", "escape",
+    "requests", "get", "post", "put", "delete", "patch", "uuid", "uuid4"
+  ],
+  "custom_app_whitelist": [
+    "AFMCOltd"
+  ],
+  "entry_points": {
+    "cli_commands": [],
+    "hooks": [
+      "app_name", "app_title", "app_publisher", "app_description", "app_icon",
+      "app_color", "app_email", "app_license", "app_version", "required_apps",
+      "fixtures", "boot_session", "website_route_rules", "standard_portal_menu_items"
+    ],
+    "rpc_endpoints": [
+      "get_vehicle_status", "get_driver_assignments", "create_fleet_shift",
+      "get_accommodation_status", "get_supervisor_tasks"
+    ]
+  },
+  "ignore_patterns": [
+    "^test_",
+    "^_test",
+    "^setup_",
+    "^teardown_",
+    "^mock_",
+    "Copyright",
+    "License",
+    "GPL",
+    "MIT",
+    "BSD",
+    "Apache"
+  ]
+}

@@ -17,11 +17,11 @@ def execute():
         )
         
         if result.get("ok"):
-            frappe.logger().info(f"Fleet Management workspace created successfully: {result.get('messages')}")
+            frappe.log_error(f"Fleet Management workspace created successfully: {result.get('messages')}")
         else:
-            frappe.logger().error(f"Failed to create Fleet Management workspace: {result.get('messages')}")
+            frappe.log_error(f"Failed to create Fleet Management workspace: {result.get('messages')}")
             
     except Exception as e:
-        frappe.logger().error(f"Error creating Fleet Management workspace: {str(e)}")
+        frappe.log_error(f"Error creating Fleet Management workspace: {str(e)}")
         # Don't raise exception to prevent patch failure
         pass

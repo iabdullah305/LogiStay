@@ -5,6 +5,9 @@ app_description = "LogiStay: Fleet and Accommodation Management"
 app_email = "afm@afmcoltd.com"
 app_license = "MIT"
 
+# Installation hooks
+after_install = "logistay.install.after_install"
+
 # Fixtures
 fixtures = [
     {

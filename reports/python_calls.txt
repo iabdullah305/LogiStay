@@ -1,0 +1,1393 @@
+./config/docs.py:10:def get_context(context):
+./config/desktop.py:3:def get_data():
+./config/desktop.py:10:			"label": _("Fleet Management")
+./config/desktop.py:17:			"label": _("Accommodation Management")
+./patches/v1_0/create_fleet_workspace.py:4:def execute():
+./patches/v1_0/create_fleet_workspace.py:10:        result = upsert_workspace(
+./patches/v1_0/create_fleet_workspace.py:14:            blocks=get_logistay_blocks(),
+./patches/v1_0/create_fleet_workspace.py:19:        if result.get("ok"):
+./patches/v1_0/create_fleet_workspace.py:20:            frappe.logger().info(f"Fleet Management workspace created successfully: {result.get('messages')}")
+./patches/v1_0/create_fleet_workspace.py:22:            frappe.logger().error(f"Failed to create Fleet Management workspace: {result.get('messages')}")
+./patches/v1_0/create_fleet_workspace.py:25:        frappe.logger().error(f"Error creating Fleet Management workspace: {str(e)}")
+./utils/doctype_discovery.py:7:def get_app_doctypes(app_name="logistay"):
+./utils/doctype_discovery.py:14:        doctypes = frappe.get_all(
+./utils/doctype_discovery.py:27:                meta = get_meta(doctype_name)
+./utils/doctype_discovery.py:34:                            key_fields.append({
+./utils/doctype_discovery.py:49:                                primary_actions.append("create")
+./utils/doctype_discovery.py:51:                                primary_actions.append("edit")
+./utils/doctype_discovery.py:53:                                primary_actions.append("delete")
+./utils/doctype_discovery.py:55:                                primary_actions.append("submit")
+./utils/doctype_discovery.py:59:                if "driver" in doctype_name.lower():
+./utils/doctype_discovery.py:61:                elif "vehicle" in doctype_name.lower():
+./utils/doctype_discovery.py:63:                elif "fuel" in doctype_name.lower():
+./utils/doctype_discovery.py:65:                elif "shift" in doctype_name.lower():
+./utils/doctype_discovery.py:67:                elif "assignment" in doctype_name.lower():
+./utils/doctype_discovery.py:76:                    "primary_actions": list(set(primary_actions)),
+./utils/doctype_discovery.py:78:                    "driver_relevance": calculate_driver_relevance(doctype_name, key_fields)
+./utils/doctype_discovery.py:82:                frappe.log_error(f"Error processing DocType {doctype_name}: {str(e)}")
+./utils/doctype_discovery.py:88:        frappe.log_error(f"Error in doctype discovery: {str(e)}")
+./utils/doctype_discovery.py:92:def calculate_driver_relevance(doctype_name, key_fields):
+./utils/doctype_discovery.py:102:        if keyword in doctype_name.lower():
+./utils/doctype_discovery.py:109:            if keyword in field.get("fieldname", "").lower() or keyword in field.get("label", "").lower():
+./utils/doctype_discovery.py:112:    return min(score, 10)  # Cap at 10
+./utils/doctype_discovery.py:115:@frappe.whitelist()
+./utils/doctype_discovery.py:116:def get_driver_relevant_doctypes():
+./utils/doctype_discovery.py:121:    inventory = get_app_doctypes()
+./utils/doctype_discovery.py:125:    for doctype_name, info in inventory.items():
+./utils/doctype_discovery.py:130:    sorted_doctypes = dict(sorted(
+./utils/doctype_discovery.py:131:        relevant_doctypes.items(), 
+./utils/doctype_discovery.py:137:        "total_doctypes": len(inventory),
+./utils/doctype_discovery.py:138:        "driver_relevant_count": len(sorted_doctypes),
+./utils/doctype_discovery.py:140:        "generated_at": utils.now()
+./utils/doctype_discovery.py:144:def generate_inventory_json():
+./utils/doctype_discovery.py:148:    inventory = get_driver_relevant_doctypes()
+./utils/doctype_discovery.py:151:    file_path = frappe.get_app_path("logistay", "public", "driver_ss", "doctype_inventory.json")
+./utils/doctype_discovery.py:155:        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+./utils/doctype_discovery.py:157:        with open(file_path, 'w') as f:
+./utils/doctype_discovery.py:158:            json.dump(inventory, f, indent=2, default=str)
+./utils/doctype_discovery.py:162:        frappe.log_error(f"Error saving inventory JSON: {str(e)}")
+./utils/doctype_discovery.py:168:    inventory = get_driver_relevant_doctypes()
+./utils/doctype_discovery.py:169:    print(json.dumps(inventory, indent=2, default=str))
+./utils/workspace_template.py:1:# Template: safe create/replace Workspace (Frappe v16)
+./utils/workspace_template.py:2:# Usage (bench console):
+./utils/workspace_template.py:4:#   upsert_workspace(
+./utils/workspace_template.py:16:def upsert_workspace(
+./utils/workspace_template.py:33:        frappe.db.exists("Workspace", {"name": title})
+./utils/workspace_template.py:34:        or frappe.db.exists("Workspace", {"title": title})
+./utils/workspace_template.py:35:        or frappe.db.exists("Workspace", {"route": route})
+./utils/workspace_template.py:39:        result["messages"].append(f"Workspace exists: {existing}. Set force_replace=True to replace.")
+./utils/workspace_template.py:44:            result["messages"].append(f"[DRY-RUN] Would delete: {existing}")
+./utils/workspace_template.py:45:        result["messages"].append(f"[DRY-RUN] Would create Workspace: title='{title}', route='{route}'")
+./utils/workspace_template.py:51:        frappe.db.savepoint("ws_upsert_sp")
+./utils/workspace_template.py:53:        # Delete existing (if any)
+./utils/workspace_template.py:55:            frappe.delete_doc("Workspace", existing, force=True, ignore_permissions=True)
+./utils/workspace_template.py:57:            result["messages"].append(f"Deleted existing Workspace: {existing}")
+./utils/workspace_template.py:60:        ws = frappe.new_doc("Workspace")
+./utils/workspace_template.py:72:        ws.content = json.dumps(blocks or [])  # must be a JSON-encoded list
+./utils/workspace_template.py:74:        ws.insert(ignore_permissions=True)
+./utils/workspace_template.py:76:        result["messages"].append(f"Created Workspace: {ws.name}")
+./utils/workspace_template.py:78:        frappe.db.commit()
+./utils/workspace_template.py:79:        frappe.clear_cache()
+./utils/workspace_template.py:86:        frappe.db.rollback(save_point="ws_upsert_sp")
+./utils/workspace_template.py:87:        result["messages"].append(f"Error: {e}")
+./utils/workspace_template.py:91:def get_logistay_blocks():
+./permissions/role_permissions.py:17:    def __init__(self):
+./permissions/role_permissions.py:27:    def get_user_role_level(self, user: Optional[str] = None) -> int:
+./permissions/role_permissions.py:32:        user_roles = frappe.get_roles(user)
+./permissions/role_permissions.py:37:                max_level = max(max_level, self.role_hierarchy[role])
+./permissions/role_permissions.py:41:    def can_access_document(self, doctype: str, doc_name: str, user: Optional[str] = None) -> bool:
+./permissions/role_permissions.py:47:        if "System Manager" in frappe.get_roles(user):
+./permissions/role_permissions.py:50:        doc = frappe.get_doc(doctype, doc_name)
+./permissions/role_permissions.py:51:        user_roles = frappe.get_roles(user)
+./permissions/role_permissions.py:55:            return self._check_driver_access(doc, user)
+./permissions/role_permissions.py:57:            return self._check_project_manager_access(doc, user)
+./permissions/role_permissions.py:59:            return self._check_supervisor_access(doc, user)
+./permissions/role_permissions.py:61:        return has_permission(doctype, "read", doc_name, user=user)
+./permissions/role_permissions.py:63:    def _check_driver_access(self, doc, user: str) -> bool:
+./permissions/role_permissions.py:65:        driver_doc = frappe.get_value("Fleet Driver", {"user": user}, "name")
+./permissions/role_permissions.py:76:    def _check_project_manager_access(self, doc, user: str) -> bool:
+./permissions/role_permissions.py:78:        user_projects = frappe.get_all("Fleet Project", 
+./permissions/role_permissions.py:82:        if hasattr(doc, "project") and doc.project:
+./permissions/role_permissions.py:87:    def _check_supervisor_access(self, doc, user: str) -> bool:
+./permissions/role_permissions.py:89:        supervisor_branches = frappe.get_all("Fleet Branch", 
+./permissions/role_permissions.py:93:        if hasattr(doc, "branch") and doc.branch:
+./permissions/role_permissions.py:98:    def get_filtered_query(self, doctype: str, user: str = None) -> Dict[str, Any]:
+./permissions/role_permissions.py:103:        user_roles = frappe.get_roles(user)
+./permissions/role_permissions.py:107:        if any(role in ["System Manager", "Fleet Manager"] for role in user_roles):
+./permissions/role_permissions.py:112:            driver_doc = frappe.get_value("Fleet Driver", {"user": user}, "name")
+./permissions/role_permissions.py:122:            user_projects = frappe.get_all("Fleet Project", 
+./permissions/role_permissions.py:125:            if hasattr(frappe.get_meta(doctype), "project"):
+./permissions/role_permissions.py:130:            supervisor_branches = frappe.get_all("Fleet Branch", 
+./permissions/role_permissions.py:133:            if hasattr(frappe.get_meta(doctype), "branch"):
+./permissions/role_permissions.py:138:    def validate_field_permissions(self, doc, user: str = None) -> List[str]:
+./permissions/role_permissions.py:143:        user_roles = frappe.get_roles(user)
+./permissions/role_permissions.py:147:        role_config = self._get_role_config(user_roles)
+./permissions/role_permissions.py:149:        if doc.doctype in role_config.get("field_restrictions", {}):
+./permissions/role_permissions.py:151:            restricted_fields = field_restrictions.get("restricted_fields", [])
+./permissions/role_permissions.py:155:    def _get_role_config(self, user_roles: List[str]) -> Dict[str, Any]:
+./permissions/role_permissions.py:161:                role_file = f"shift_scheduling/logistay/roles/{role.lower().replace(' ', '_')}.json"
+./permissions/role_permissions.py:163:                    with open(frappe.get_app_path("shift_scheduling", role_file)) as f:
+./permissions/role_permissions.py:164:                        role_data = json.load(f)
+./permissions/role_permissions.py:166:                            config.update(role_data["restrictions"])
+./permissions/role_permissions.py:172:    def check_approval_permissions(self, doctype: str, amount: float = 0, user: str = None) -> Dict[str, Any]:
+./permissions/role_permissions.py:177:        user_roles = frappe.get_roles(user)
+./permissions/role_permissions.py:184:        role_config = self._get_role_config(user_roles)
+./permissions/role_permissions.py:185:        workflow_restrictions = role_config.get("workflow_restrictions", {})
+./permissions/role_permissions.py:189:            approval_info["can_approve"] = workflow_restrictions.get("can_approve_shifts", False)
+./permissions/role_permissions.py:191:            approval_info["can_approve"] = workflow_restrictions.get("can_approve_fuel_entries", False)
+./permissions/role_permissions.py:193:            approval_info["can_approve"] = workflow_restrictions.get("can_approve_cost_calculations", False)
+./permissions/role_permissions.py:196:        approval_limit = workflow_restrictions.get("approval_limit", 0)
+./permissions/role_permissions.py:197:        requires_approval_above = workflow_restrictions.get("requires_approval_above", 0)
+./permissions/role_permissions.py:204:    def log_access_attempt(self, doctype: str, doc_name: str, action: str, success: bool, user: str = None):
+./permissions/role_permissions.py:209:        audit_log = frappe.get_doc({
+./permissions/role_permissions.py:216:            "timestamp": now_datetime(),
+./permissions/role_permissions.py:218:            "user_agent": frappe.local.request.headers.get("User-Agent", "Unknown") if frappe.local.request else "Unknown"
+./permissions/role_permissions.py:222:            audit_log.insert(ignore_permissions=True)
+./permissions/role_permissions.py:224:            frappe.log_error(f"Failed to log access attempt: {str(e)}", "Access Log Error")
+./permissions/role_permissions.py:226:    def validate_session_security(self, user: str = None) -> Dict[str, Any]:
+./permissions/role_permissions.py:231:        user_roles = frappe.get_roles(user)
+./permissions/role_permissions.py:232:        role_config = self._get_role_config(user_roles)
+./permissions/role_permissions.py:233:        security_settings = role_config.get("security_settings", {})
+./permissions/role_permissions.py:242:        session_timeout = security_settings.get("session_timeout", 480)  # Default 8 hours
+./permissions/role_permissions.py:243:        if frappe.session.data.get("last_activity"):
+./permissions/role_permissions.py:244:            last_activity = get_datetime(frappe.session.data["last_activity"])
+./permissions/role_permissions.py:245:            if (now_datetime() - last_activity).total_seconds() > (session_timeout * 60):
+./permissions/role_permissions.py:247:                validation_result["messages"].append("Session expired due to inactivity")
+./permissions/role_permissions.py:248:                validation_result["actions_required"].append("re_login")
+./permissions/role_permissions.py:251:        time_restrictions = security_settings.get("time_restrictions", {})
+./permissions/role_permissions.py:253:            current_time = now_datetime()
+./permissions/role_permissions.py:254:            allowed_hours = time_restrictions.get("allowed_hours", "00:00-23:59")
+./permissions/role_permissions.py:255:            allowed_days = time_restrictions.get("allowed_days", [])
+./permissions/role_permissions.py:258:            start_time, end_time = allowed_hours.split("-")
+./permissions/role_permissions.py:259:            current_hour_min = current_time.strftime("%H:%M")
+./permissions/role_permissions.py:261:            if not (start_time <= current_hour_min <= end_time):
+./permissions/role_permissions.py:263:                validation_result["messages"].append(f"Access not allowed at this time. Allowed hours: {allowed_hours}")
+./permissions/role_permissions.py:266:            if allowed_days and current_time.strftime("%A") not in allowed_days:
+./permissions/role_permissions.py:268:                validation_result["messages"].append(f"Access not allowed on {current_time.strftime('%A')}")
+./permissions/role_permissions.py:274:def has_fleet_permission(doctype: str, ptype: str, doc_name: str = None, user: str = None) -> bool:
+./permissions/role_permissions.py:276:    permission_manager = RolePermissionManager()
+./permissions/role_permissions.py:279:        return permission_manager.can_access_document(doctype, doc_name, user)
+./permissions/role_permissions.py:281:    return has_permission(doctype, ptype, user=user)
+./permissions/role_permissions.py:284:def get_fleet_query_conditions(doctype: str, user: str = None) -> str:
+./permissions/role_permissions.py:286:    permission_manager = RolePermissionManager()
+./permissions/role_permissions.py:287:    filters = permission_manager.get_filtered_query(doctype, user)
+./permissions/role_permissions.py:290:    for field, value in filters.items():
+./permissions/role_permissions.py:291:        if isinstance(value, list) and value[0] == "in":
+./permissions/role_permissions.py:292:            conditions.append(f"`tab{doctype}`.`{field}` IN ({','.join(['%s'] * len(value[1]))})")
+./permissions/role_permissions.py:294:            conditions.append(f"`tab{doctype}`.`{field}` = %s")
+./permissions/role_permissions.py:296:    return " AND ".join(conditions) if conditions else ""
+./permissions/role_permissions.py:299:def validate_fleet_document_access(doc, method):
+./permissions/role_permissions.py:301:    permission_manager = RolePermissionManager()
+./permissions/role_permissions.py:304:    permission_manager.log_access_attempt(
+./permissions/role_permissions.py:312:    restricted_fields = permission_manager.validate_field_permissions(doc)
+./permissions/role_permissions.py:315:        if hasattr(doc, field) and doc.get(field):
+./permissions/role_permissions.py:316:            frappe.throw(_(f"You don't have permission to modify field: {field}"))
+./permissions/role_permissions.py:319:    if method in ["submit", "cancel"] and hasattr(doc, "total_cost"):
+./permissions/role_permissions.py:320:        approval_info = permission_manager.check_approval_permissions(
+./permissions/role_permissions.py:322:            float(doc.total_cost or 0)
+./permissions/role_permissions.py:326:            frappe.throw(_("You don't have permission to approve this document"))
+./permissions/role_permissions.py:329:            frappe.throw(_(f"Amount exceeds your approval limit of {approval_info['approval_limit']}"))
+./permissions/role_permissions.py:332:def validate_session_security():
+./permissions/role_permissions.py:337:    permission_manager = RolePermissionManager()
+./permissions/role_permissions.py:338:    validation_result = permission_manager.validate_session_security()
+./permissions/role_permissions.py:342:            frappe.throw(_(message))
+./dashboard/__init__.py:1:# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)
+./dashboard/fleet_management_dashboard.py:1:# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)
+./dashboard/fleet_management_dashboard.py:9:def get_dashboard_data(filters=None):
+./dashboard/fleet_management_dashboard.py:15:        "kpis": get_fleet_kpis(filters),
+./dashboard/fleet_management_dashboard.py:16:        "charts": get_chart_data(filters),
+./dashboard/fleet_management_dashboard.py:17:        "summary": get_fleet_summary(filters),
+./dashboard/fleet_management_dashboard.py:18:        "alerts": get_fleet_alerts(filters),
+./dashboard/fleet_management_dashboard.py:19:        "recent_activities": get_recent_activities(filters)
+./dashboard/fleet_management_dashboard.py:24:def get_fleet_kpis(filters=None):
+./dashboard/fleet_management_dashboard.py:30:    from_date = filters.get('from_date', add_days(getdate(), -30))
+./dashboard/fleet_management_dashboard.py:31:    to_date = filters.get('to_date', getdate())
+./dashboard/fleet_management_dashboard.py:36:    kpis['total_vehicles'] = get_total_vehicles()
+./dashboard/fleet_management_dashboard.py:37:    kpis['active_vehicles'] = get_active_vehicles()
+./dashboard/fleet_management_dashboard.py:38:    kpis['vehicle_utilization'] = get_vehicle_utilization_rate(from_date, to_date)
+./dashboard/fleet_management_dashboard.py:39:    kpis['vehicles_in_maintenance'] = get_vehicles_in_maintenance()
+./dashboard/fleet_management_dashboard.py:42:    kpis['total_drivers'] = get_total_drivers()
+./dashboard/fleet_management_dashboard.py:43:    kpis['active_drivers'] = get_active_drivers()
+./dashboard/fleet_management_dashboard.py:44:    kpis['driver_utilization'] = get_driver_utilization_rate(from_date, to_date)
+./dashboard/fleet_management_dashboard.py:45:    kpis['drivers_on_leave'] = get_drivers_on_leave()
+./dashboard/fleet_management_dashboard.py:48:    kpis['total_fleet_cost'] = get_total_fleet_cost(from_date, to_date)
+./dashboard/fleet_management_dashboard.py:49:    kpis['fuel_cost'] = get_fuel_cost(from_date, to_date)
+./dashboard/fleet_management_dashboard.py:50:    kpis['maintenance_cost'] = get_maintenance_cost(from_date, to_date)
+./dashboard/fleet_management_dashboard.py:51:    kpis['cost_per_km'] = get_average_cost_per_km(from_date, to_date)
+./dashboard/fleet_management_dashboard.py:54:    kpis['total_shifts'] = get_total_shifts(from_date, to_date)
+./dashboard/fleet_management_dashboard.py:55:    kpis['completed_shifts'] = get_completed_shifts(from_date, to_date)
+./dashboard/fleet_management_dashboard.py:56:    kpis['cancelled_shifts'] = get_cancelled_shifts(from_date, to_date)
+./dashboard/fleet_management_dashboard.py:57:    kpis['shift_completion_rate'] = calculate_completion_rate(kpis['completed_shifts'], kpis['total_shifts'])
+./dashboard/fleet_management_dashboard.py:60:    kpis['total_distance'] = get_total_distance(from_date, to_date)
+./dashboard/fleet_management_dashboard.py:61:    kpis['total_fuel_consumed'] = get_total_fuel_consumed(from_date, to_date)
+./dashboard/fleet_management_dashboard.py:62:    kpis['average_fuel_efficiency'] = calculate_fuel_efficiency(kpis['total_distance'], kpis['total_fuel_consumed'])
+./dashboard/fleet_management_dashboard.py:65:    kpis['on_time_performance'] = get_on_time_performance(from_date, to_date)
+./dashboard/fleet_management_dashboard.py:66:    kpis['safety_incidents'] = get_safety_incidents(from_date, to_date)
+./dashboard/fleet_management_dashboard.py:67:    kpis['customer_satisfaction'] = get_customer_satisfaction_score(from_date, to_date)
+./dashboard/fleet_management_dashboard.py:71:def get_chart_data(filters=None):
+./dashboard/fleet_management_dashboard.py:79:    charts['monthly_costs'] = get_monthly_cost_trend()
+./dashboard/fleet_management_dashboard.py:82:    charts['vehicle_utilization'] = get_vehicle_utilization_chart()
+./dashboard/fleet_management_dashboard.py:85:    charts['fuel_trend'] = get_fuel_consumption_trend()
+./dashboard/fleet_management_dashboard.py:88:    charts['driver_performance'] = get_driver_performance_chart()
+./dashboard/fleet_management_dashboard.py:91:    charts['cost_breakdown'] = get_cost_breakdown_chart()
+./dashboard/fleet_management_dashboard.py:94:    charts['vehicle_status'] = get_vehicle_status_distribution()
+./dashboard/fleet_management_dashboard.py:97:    charts['branch_performance'] = get_branch_performance_chart()
+./dashboard/fleet_management_dashboard.py:101:def get_fleet_summary(filters=None):
+./dashboard/fleet_management_dashboard.py:107:        "fleet_size": get_total_vehicles(),
+./dashboard/fleet_management_dashboard.py:108:        "active_fleet_percentage": calculate_percentage(get_active_vehicles(), get_total_vehicles()),
+./dashboard/fleet_management_dashboard.py:109:        "average_vehicle_age": get_average_vehicle_age(),
+./dashboard/fleet_management_dashboard.py:110:        "total_mileage": get_total_fleet_mileage(),
+./dashboard/fleet_management_dashboard.py:111:        "maintenance_due": get_vehicles_maintenance_due(),
+./dashboard/fleet_management_dashboard.py:112:        "insurance_expiring": get_vehicles_insurance_expiring(),
+./dashboard/fleet_management_dashboard.py:113:        "registration_expiring": get_vehicles_registration_expiring()
+./dashboard/fleet_management_dashboard.py:118:def get_fleet_alerts(filters=None):
+./dashboard/fleet_management_dashboard.py:123:    maintenance_due = frappe.db.sql("""
+./dashboard/fleet_management_dashboard.py:129:    """, (add_days(getdate(), 7),))
+./dashboard/fleet_management_dashboard.py:132:        alerts.append({
+./dashboard/fleet_management_dashboard.py:140:    insurance_expiring = frappe.db.sql("""
+./dashboard/fleet_management_dashboard.py:146:    """, (add_days(getdate(), 30), getdate()))
+./dashboard/fleet_management_dashboard.py:149:        alerts.append({
+./dashboard/fleet_management_dashboard.py:157:    high_fuel_vehicles = frappe.db.sql("""
+./dashboard/fleet_management_dashboard.py:158:        SELECT vehicle, AVG(quantity_liters/distance_traveled) as avg_consumption
+./dashboard/fleet_management_dashboard.py:166:    """, (add_days(getdate(), -30),))
+./dashboard/fleet_management_dashboard.py:169:        alerts.append({
+./dashboard/fleet_management_dashboard.py:178:def get_recent_activities(filters=None):
+./dashboard/fleet_management_dashboard.py:183:    recent_fuel = frappe.db.sql("""
+./dashboard/fleet_management_dashboard.py:189:    """, (add_days(getdate(), -7),))
+./dashboard/fleet_management_dashboard.py:192:        activities.append({
+./dashboard/fleet_management_dashboard.py:201:    recent_shifts = frappe.db.sql("""
+./dashboard/fleet_management_dashboard.py:207:    """, (add_days(getdate(), -3),))
+./dashboard/fleet_management_dashboard.py:210:        activities.append({
+./dashboard/fleet_management_dashboard.py:219:    activities.sort(key=lambda x: x['date'], reverse=True)
+./dashboard/fleet_management_dashboard.py:224:def get_total_vehicles():
+./dashboard/fleet_management_dashboard.py:226:    return frappe.db.count("Fleet Vehicle")
+./dashboard/fleet_management_dashboard.py:228:def get_active_vehicles():
+./dashboard/fleet_management_dashboard.py:230:    return frappe.db.count("Fleet Vehicle", {"status": "Active"})
+./dashboard/fleet_management_dashboard.py:232:def get_vehicle_utilization_rate(from_date, to_date):
+./dashboard/fleet_management_dashboard.py:234:    result = frappe.db.sql("""
+./dashboard/fleet_management_dashboard.py:235:        SELECT AVG(utilization_rate)
+./dashboard/fleet_management_dashboard.py:240:    return flt(result[0][0]) if result and result[0][0] else 0
+./dashboard/fleet_management_dashboard.py:242:def get_vehicles_in_maintenance():
+./dashboard/fleet_management_dashboard.py:244:    return frappe.db.count("Fleet Vehicle", {"status": "Maintenance"})
+./dashboard/fleet_management_dashboard.py:246:def get_total_drivers():
+./dashboard/fleet_management_dashboard.py:248:    return frappe.db.count("Fleet Driver")
+./dashboard/fleet_management_dashboard.py:250:def get_active_drivers():
+./dashboard/fleet_management_dashboard.py:252:    return frappe.db.count("Fleet Driver", {"status": "Active"})
+./dashboard/fleet_management_dashboard.py:254:def get_driver_utilization_rate(from_date, to_date):
+./dashboard/fleet_management_dashboard.py:256:    total_drivers = get_active_drivers()
+./dashboard/fleet_management_dashboard.py:260:    active_drivers = frappe.db.sql("""
+./dashboard/fleet_management_dashboard.py:261:        SELECT COUNT(DISTINCT driver)
+./dashboard/fleet_management_dashboard.py:264:        AND status IN ('Active', 'Completed')
+./dashboard/fleet_management_dashboard.py:268:    return (active_count / total_drivers) * 100
+./dashboard/fleet_management_dashboard.py:270:def get_drivers_on_leave():
+./dashboard/fleet_management_dashboard.py:272:    return frappe.db.count("Fleet Driver", {"status": "On Leave"})
+./dashboard/fleet_management_dashboard.py:274:def get_total_fleet_cost(from_date, to_date):
+./dashboard/fleet_management_dashboard.py:276:    result = frappe.db.sql("""
+./dashboard/fleet_management_dashboard.py:277:        SELECT SUM(total_cost)
+./dashboard/fleet_management_dashboard.py:283:    return flt(result[0][0]) if result and result[0][0] else 0
+./dashboard/fleet_management_dashboard.py:285:def get_fuel_cost(from_date, to_date):
+./dashboard/fleet_management_dashboard.py:287:    result = frappe.db.sql("""
+./dashboard/fleet_management_dashboard.py:288:        SELECT SUM(total_amount)
+./dashboard/fleet_management_dashboard.py:294:    return flt(result[0][0]) if result and result[0][0] else 0
+./dashboard/fleet_management_dashboard.py:296:def get_maintenance_cost(from_date, to_date):
+./dashboard/fleet_management_dashboard.py:298:    result = frappe.db.sql("""
+./dashboard/fleet_management_dashboard.py:299:        SELECT SUM(maintenance_cost)
+./dashboard/fleet_management_dashboard.py:305:    return flt(result[0][0]) if result and result[0][0] else 0
+./dashboard/fleet_management_dashboard.py:307:def get_average_cost_per_km(from_date, to_date):
+./dashboard/fleet_management_dashboard.py:309:    total_cost = get_total_fleet_cost(from_date, to_date)
+./dashboard/fleet_management_dashboard.py:310:    total_distance = get_total_distance(from_date, to_date)
+./dashboard/fleet_management_dashboard.py:316:def get_total_shifts(from_date, to_date):
+./dashboard/fleet_management_dashboard.py:318:    return frappe.db.count("Fleet Shift", {
+./dashboard/fleet_management_dashboard.py:322:def get_completed_shifts(from_date, to_date):
+./dashboard/fleet_management_dashboard.py:324:    return frappe.db.count("Fleet Shift", {
+./dashboard/fleet_management_dashboard.py:329:def get_cancelled_shifts(from_date, to_date):
+./dashboard/fleet_management_dashboard.py:331:    return frappe.db.count("Fleet Shift", {
+./dashboard/fleet_management_dashboard.py:336:def get_total_distance(from_date, to_date):
+./dashboard/fleet_management_dashboard.py:338:    result = frappe.db.sql("""
+./dashboard/fleet_management_dashboard.py:339:        SELECT SUM(distance_traveled)
+./dashboard/fleet_management_dashboard.py:345:    return flt(result[0][0]) if result and result[0][0] else 0
+./dashboard/fleet_management_dashboard.py:347:def get_total_fuel_consumed(from_date, to_date):
+./dashboard/fleet_management_dashboard.py:349:    result = frappe.db.sql("""
+./dashboard/fleet_management_dashboard.py:350:        SELECT SUM(quantity_liters)
+./dashboard/fleet_management_dashboard.py:355:    return flt(result[0][0]) if result and result[0][0] else 0
+./dashboard/fleet_management_dashboard.py:357:def get_on_time_performance(from_date, to_date):
+./dashboard/fleet_management_dashboard.py:359:    total_shifts = get_total_shifts(from_date, to_date)
+./dashboard/fleet_management_dashboard.py:363:    on_time_shifts = frappe.db.count("Fleet Shift", {
+./dashboard/fleet_management_dashboard.py:369:    return (on_time_shifts / total_shifts) * 100
+./dashboard/fleet_management_dashboard.py:371:def get_safety_incidents(from_date, to_date):
+./dashboard/fleet_management_dashboard.py:376:def get_customer_satisfaction_score(from_date, to_date):
+./dashboard/fleet_management_dashboard.py:382:def get_monthly_cost_trend():
+./dashboard/fleet_management_dashboard.py:384:    result = frappe.db.sql("""
+./dashboard/fleet_management_dashboard.py:386:            DATE_FORMAT(creation_date, '%Y-%m') as month,
+./dashboard/fleet_management_dashboard.py:387:            SUM(total_cost) as total_cost
+./dashboard/fleet_management_dashboard.py:391:        GROUP BY DATE_FORMAT(creation_date, '%Y-%m')
+./dashboard/fleet_management_dashboard.py:393:    """, (add_days(getdate(), -365),))
+./dashboard/fleet_management_dashboard.py:395:    return [{"month": month, "cost": flt(cost)} for month, cost in result]
+./dashboard/fleet_management_dashboard.py:397:def get_vehicle_utilization_chart():
+./dashboard/fleet_management_dashboard.py:399:    result = frappe.db.sql("""
+./dashboard/fleet_management_dashboard.py:407:    return [{"vehicle": vehicle, "utilization": flt(rate)} for vehicle, rate in result]
+./dashboard/fleet_management_dashboard.py:409:def get_fuel_consumption_trend():
+./dashboard/fleet_management_dashboard.py:411:    result = frappe.db.sql("""
+./dashboard/fleet_management_dashboard.py:413:            DATE_FORMAT(fuel_date, '%Y-%m') as month,
+./dashboard/fleet_management_dashboard.py:414:            SUM(quantity_liters) as fuel_consumed
+./dashboard/fleet_management_dashboard.py:417:        GROUP BY DATE_FORMAT(fuel_date, '%Y-%m')
+./dashboard/fleet_management_dashboard.py:419:    """, (add_days(getdate(), -365),))
+./dashboard/fleet_management_dashboard.py:421:    return [{"month": month, "fuel": flt(fuel)} for month, fuel in result]
+./dashboard/fleet_management_dashboard.py:423:def get_driver_performance_chart():
+./dashboard/fleet_management_dashboard.py:425:    result = frappe.db.sql("""
+./dashboard/fleet_management_dashboard.py:428:            COUNT(*) as total_shifts,
+./dashboard/fleet_management_dashboard.py:429:            SUM(CASE WHEN status = 'Completed' THEN 1 ELSE 0 END) as completed_shifts
+./dashboard/fleet_management_dashboard.py:435:    """, (add_days(getdate(), -30),))
+./dashboard/fleet_management_dashboard.py:444:def get_cost_breakdown_chart():
+./dashboard/fleet_management_dashboard.py:446:    result = frappe.db.sql("""
+./dashboard/fleet_management_dashboard.py:448:            SUM(fuel_cost) as fuel,
+./dashboard/fleet_management_dashboard.py:449:            SUM(maintenance_cost) as maintenance,
+./dashboard/fleet_management_dashboard.py:450:            SUM(insurance_cost) as insurance,
+./dashboard/fleet_management_dashboard.py:451:            SUM(driver_salary) as salary,
+./dashboard/fleet_management_dashboard.py:452:            SUM(depreciation_cost) as depreciation,
+./dashboard/fleet_management_dashboard.py:453:            SUM(other_costs) as other
+./dashboard/fleet_management_dashboard.py:457:    """, (add_days(getdate(), -30),))
+./dashboard/fleet_management_dashboard.py:462:            {"category": "Fuel", "amount": flt(fuel)},
+./dashboard/fleet_management_dashboard.py:463:            {"category": "Maintenance", "amount": flt(maintenance)},
+./dashboard/fleet_management_dashboard.py:464:            {"category": "Insurance", "amount": flt(insurance)},
+./dashboard/fleet_management_dashboard.py:465:            {"category": "Driver Salary", "amount": flt(salary)},
+./dashboard/fleet_management_dashboard.py:466:            {"category": "Depreciation", "amount": flt(depreciation)},
+./dashboard/fleet_management_dashboard.py:467:            {"category": "Other", "amount": flt(other)}
+./dashboard/fleet_management_dashboard.py:472:def get_vehicle_status_distribution():
+./dashboard/fleet_management_dashboard.py:474:    result = frappe.db.sql("""
+./dashboard/fleet_management_dashboard.py:475:        SELECT status, COUNT(*) as count
+./dashboard/fleet_management_dashboard.py:482:def get_branch_performance_chart():
+./dashboard/fleet_management_dashboard.py:484:    result = frappe.db.sql("""
+./dashboard/fleet_management_dashboard.py:487:            SUM(total_cost) as total_cost,
+./dashboard/fleet_management_dashboard.py:488:            COUNT(DISTINCT vehicle) as vehicle_count
+./dashboard/fleet_management_dashboard.py:494:    """, (add_days(getdate(), -30),))
+./dashboard/fleet_management_dashboard.py:498:        "total_cost": flt(cost),
+./dashboard/fleet_management_dashboard.py:500:        "cost_per_vehicle": flt(cost) / count if count > 0 else 0
+./dashboard/fleet_management_dashboard.py:504:def calculate_completion_rate(completed, total):
+./dashboard/fleet_management_dashboard.py:507:        return (completed / total) * 100
+./dashboard/fleet_management_dashboard.py:510:def calculate_fuel_efficiency(distance, fuel):
+./dashboard/fleet_management_dashboard.py:511:    """Calculate fuel efficiency (km per liter)"""
+./dashboard/fleet_management_dashboard.py:516:def calculate_percentage(part, total):
+./dashboard/fleet_management_dashboard.py:519:        return (part / total) * 100
+./dashboard/fleet_management_dashboard.py:522:def get_average_vehicle_age():
+./dashboard/fleet_management_dashboard.py:524:    result = frappe.db.sql("""
+./dashboard/fleet_management_dashboard.py:525:        SELECT AVG(YEAR(CURDATE()) - model_year) as avg_age
+./dashboard/fleet_management_dashboard.py:530:    return flt(result[0][0]) if result and result[0][0] else 0
+./dashboard/fleet_management_dashboard.py:532:def get_total_fleet_mileage():
+./dashboard/fleet_management_dashboard.py:534:    result = frappe.db.sql("""
+./dashboard/fleet_management_dashboard.py:535:        SELECT SUM(current_odometer_reading) as total_mileage
+./dashboard/fleet_management_dashboard.py:540:    return flt(result[0][0]) if result and result[0][0] else 0
+./dashboard/fleet_management_dashboard.py:542:def get_vehicles_maintenance_due():
+./dashboard/fleet_management_dashboard.py:544:    return frappe.db.count("Fleet Vehicle", {
+./dashboard/fleet_management_dashboard.py:545:        "next_maintenance_date": ["<=", add_days(getdate(), 7)],
+./dashboard/fleet_management_dashboard.py:549:def get_vehicles_insurance_expiring():
+./dashboard/fleet_management_dashboard.py:551:    return frappe.db.sql("""
+./dashboard/fleet_management_dashboard.py:552:        SELECT COUNT(*)
+./dashboard/fleet_management_dashboard.py:555:    """, (getdate(), add_days(getdate(), 30)))[0][0]
+./dashboard/fleet_management_dashboard.py:557:def get_vehicles_registration_expiring():
+./dashboard/fleet_management_dashboard.py:559:    return frappe.db.sql("""
+./dashboard/fleet_management_dashboard.py:560:        SELECT COUNT(*)
+./dashboard/fleet_management_dashboard.py:563:    """, (getdate(), add_days(getdate(), 30)))[0][0]
+./setup.py:3:with open("requirements.txt") as f:
+./setup.py:4:	install_requires = f.read().strip().split("\n")
+./setup.py:9:setup(
+./setup.py:15:	packages=find_packages(),
+./scripts/create_workspace.py:11:sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+./scripts/create_workspace.py:13:def create_fleet_workspace():
+./scripts/create_workspace.py:19:        print("Creating Fleet Management workspace...")
+./scripts/create_workspace.py:21:        result = upsert_workspace(
+./scripts/create_workspace.py:25:            blocks=get_logistay_blocks(),
+./scripts/create_workspace.py:30:        if result.get("ok"):
+./scripts/create_workspace.py:31:            print("✅ Fleet Management workspace created successfully!")
+./scripts/create_workspace.py:32:            for message in result.get("messages", []):
+./scripts/create_workspace.py:33:                print(f"   {message}")
+./scripts/create_workspace.py:35:            print("❌ Failed to create Fleet Management workspace:")
+./scripts/create_workspace.py:36:            for message in result.get("messages", []):
+./scripts/create_workspace.py:37:                print(f"   {message}")
+./scripts/create_workspace.py:39:        return result.get("ok", False)
+./scripts/create_workspace.py:42:        print(f"❌ Error: {str(e)}")
+./scripts/create_workspace.py:45:def preview_workspace():
+./scripts/create_workspace.py:46:    """Preview workspace creation (dry run)"""
+./scripts/create_workspace.py:51:        print("Previewing Fleet Management workspace creation...")
+./scripts/create_workspace.py:53:        result = upsert_workspace(
+./scripts/create_workspace.py:57:            blocks=get_logistay_blocks(),
+./scripts/create_workspace.py:62:        print("📋 Preview results:")
+./scripts/create_workspace.py:63:        for message in result.get("messages", []):
+./scripts/create_workspace.py:64:            print(f"   {message}")
+./scripts/create_workspace.py:69:        print(f"❌ Error: {str(e)}")
+./scripts/create_workspace.py:75:    parser = argparse.ArgumentParser(description="Fleet Management Workspace Creator")
+./scripts/create_workspace.py:76:    parser.add_argument("--preview", action="store_true", help="Preview workspace creation (dry run)")
+./scripts/create_workspace.py:77:    parser.add_argument("--site", type=str, help="Frappe site name", default="afmco.sa")
+./scripts/create_workspace.py:79:    args = parser.parse_args()
+./scripts/create_workspace.py:84:        frappe.init(site=args.site)
+./scripts/create_workspace.py:85:        frappe.connect()
+./scripts/create_workspace.py:88:            success = preview_workspace()
+./scripts/create_workspace.py:90:            success = create_fleet_workspace()
+./scripts/create_workspace.py:92:        frappe.destroy()
+./scripts/create_workspace.py:95:            print("\n🎉 Operation completed successfully!")
+./scripts/create_workspace.py:97:            print("\n💥 Operation failed!")
+./scripts/create_workspace.py:98:            sys.exit(1)
+./scripts/create_workspace.py:101:        print("❌ Error: Frappe not found. Make sure you're running this from frappe-bench directory.")
+./scripts/create_workspace.py:102:        sys.exit(1)
+./scripts/create_workspace.py:104:        print(f"❌ Error initializing Frappe: {str(e)}")
+./scripts/create_workspace.py:105:        sys.exit(1)
+./scripts/gen_workspace.py:6:def get_doctypes(app_path):
+./scripts/gen_workspace.py:8:    doctype_path = os.path.join(app_path, 'logistay', 'doctype')
+./scripts/gen_workspace.py:9:    for doctype in os.listdir(doctype_path):
+./scripts/gen_workspace.py:10:        if os.path.isdir(os.path.join(doctype_path, doctype)):
+./scripts/gen_workspace.py:11:            doctypes.append(doctype.replace('_', ' ').title())
+./scripts/gen_workspace.py:14:def get_reports(app_path):
+./scripts/gen_workspace.py:16:    report_path = os.path.join(app_path, 'logistay', 'report')
+./scripts/gen_workspace.py:17:    for report in os.listdir(report_path):
+./scripts/gen_workspace.py:18:        if os.path.isdir(os.path.join(report_path, report)):
+./scripts/gen_workspace.py:19:            reports.append(report.replace('_', ' ').title())
+./scripts/gen_workspace.py:22:def generate_workspace(app, module, workspace_name, out_path):
+./scripts/gen_workspace.py:23:    app_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+./scripts/gen_workspace.py:24:    doctypes = get_doctypes(app_path)
+./scripts/gen_workspace.py:25:    reports = get_reports(app_path)
+./scripts/gen_workspace.py:37:        "creation": datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f'),
+./scripts/gen_workspace.py:38:        "modified": datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f'),
+./scripts/gen_workspace.py:39:        "generated_at": datetime.utcnow().isoformat(),
+./scripts/gen_workspace.py:54:    os.makedirs(os.path.dirname(out_path), exist_ok=True)
+./scripts/gen_workspace.py:55:    with open(out_path, 'w') as f:
+./scripts/gen_workspace.py:56:        json.dump(workspace, f, indent=2)
+./scripts/gen_workspace.py:58:    print(f"Workspace generated at {out_path}")
+./scripts/gen_workspace.py:61:    parser = argparse.ArgumentParser(description="Generate a complete, rich workspace for Frappe v16.")
+./scripts/gen_workspace.py:62:    parser.add_argument("--app", required=True, help="The name of the app.")
+./scripts/gen_workspace.py:63:    parser.add_argument("--module", required=True, help="The name of the module.")
+./scripts/gen_workspace.py:64:    parser.add_argument("--workspace", required=True, help="The name of the workspace.")
+./scripts/gen_workspace.py:65:    parser.add_argument("--out", required=True, help="The output path for the workspace JSON file.")
+./scripts/gen_workspace.py:66:    args = parser.parse_args()
+./scripts/gen_workspace.py:68:    generate_workspace(args.app, args.module, args.workspace, args.out)
+./report/driver_status_report/driver_status_report.py:3:def execute(filters=None):
+./report/driver_status_report/driver_status_report.py:12:    data = frappe.get_all(
+./report/fuel_expense_report/fuel_expense_report.py:3:def execute(filters=None):
+./report/fuel_expense_report/fuel_expense_report.py:8:        {"label": "Fuel Quantity (Liters)", "fieldname": "quantity_liters", "fieldtype": "Float", "width": 150},
+./report/fuel_expense_report/fuel_expense_report.py:14:    data = frappe.get_all(
+./report/vehicle_utilization_report/__init__.py:1:# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:1:# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:9:def execute(filters=None):
+./report/vehicle_utilization_report/vehicle_utilization_report.py:14:    validate_filters(filters)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:15:    columns = get_columns()
+./report/vehicle_utilization_report/vehicle_utilization_report.py:16:    data = get_data(filters)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:17:    chart = get_chart_data(data, filters)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:18:    summary = get_summary_data(data, filters)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:22:def validate_filters(filters):
+./report/vehicle_utilization_report/vehicle_utilization_report.py:24:    if not filters.get("from_date") or not filters.get("to_date"):
+./report/vehicle_utilization_report/vehicle_utilization_report.py:25:        frappe.throw(_("From Date and To Date are required"))
+./report/vehicle_utilization_report/vehicle_utilization_report.py:27:    if getdate(filters.get("from_date")) > getdate(filters.get("to_date")):
+./report/vehicle_utilization_report/vehicle_utilization_report.py:28:        frappe.throw(_("From Date cannot be greater than To Date"))
+./report/vehicle_utilization_report/vehicle_utilization_report.py:30:def get_columns():
+./report/vehicle_utilization_report/vehicle_utilization_report.py:34:            "label": _("Vehicle"),
+./report/vehicle_utilization_report/vehicle_utilization_report.py:41:            "label": _("Model"),
+./report/vehicle_utilization_report/vehicle_utilization_report.py:47:            "label": _("Current Driver"),
+./report/vehicle_utilization_report/vehicle_utilization_report.py:54:            "label": _("Total Shifts"),
+./report/vehicle_utilization_report/vehicle_utilization_report.py:60:            "label": _("Active Days"),
+./report/vehicle_utilization_report/vehicle_utilization_report.py:66:            "label": _("Idle Days"),
+./report/vehicle_utilization_report/vehicle_utilization_report.py:72:            "label": _("Distance (KM)"),
+./report/vehicle_utilization_report/vehicle_utilization_report.py:79:            "label": _("Total Hours"),
+./report/vehicle_utilization_report/vehicle_utilization_report.py:86:            "label": _("Utilization %"),
+./report/vehicle_utilization_report/vehicle_utilization_report.py:92:            "label": _("Avg KM/Day"),
+./report/vehicle_utilization_report/vehicle_utilization_report.py:99:            "label": _("KM/Liter"),
+./report/vehicle_utilization_report/vehicle_utilization_report.py:106:            "label": _("Status"),
+./report/vehicle_utilization_report/vehicle_utilization_report.py:113:def get_data(filters):
+./report/vehicle_utilization_report/vehicle_utilization_report.py:115:    vehicles = get_vehicles(filters)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:121:    total_days = date_diff(filters.get("to_date"), filters.get("from_date")) + 1
+./report/vehicle_utilization_report/vehicle_utilization_report.py:124:        row = get_vehicle_utilization_data(vehicle, filters, total_days)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:126:            data.append(row)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:130:def get_vehicles(filters):
+./report/vehicle_utilization_report/vehicle_utilization_report.py:135:    if filters.get("vehicle"):
+./report/vehicle_utilization_report/vehicle_utilization_report.py:136:        conditions.append("name = %s")
+./report/vehicle_utilization_report/vehicle_utilization_report.py:137:        values.append(filters.get("vehicle"))
+./report/vehicle_utilization_report/vehicle_utilization_report.py:139:    if filters.get("branch"):
+./report/vehicle_utilization_report/vehicle_utilization_report.py:140:        conditions.append("branch = %s")
+./report/vehicle_utilization_report/vehicle_utilization_report.py:141:        values.append(filters.get("branch"))
+./report/vehicle_utilization_report/vehicle_utilization_report.py:145:        where_clause = "WHERE " + " AND ".join(conditions)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:154:    return frappe.db.sql(query, values, as_dict=True)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:156:def get_vehicle_utilization_data(vehicle, filters, total_days):
+./report/vehicle_utilization_report/vehicle_utilization_report.py:158:    from_date = filters.get("from_date")
+./report/vehicle_utilization_report/vehicle_utilization_report.py:159:    to_date = filters.get("to_date")
+./report/vehicle_utilization_report/vehicle_utilization_report.py:162:    current_driver = get_current_driver(vehicle.name, to_date)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:165:    shift_data = get_shift_data(vehicle.name, from_date, to_date)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:168:    distance_data = get_distance_data(vehicle.name, from_date, to_date)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:171:    fuel_efficiency = get_fuel_efficiency(vehicle.name, from_date, to_date)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:174:    total_shifts = shift_data.get("total_shifts", 0)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:175:    active_days = shift_data.get("active_days", 0)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:177:    total_hours = shift_data.get("total_hours", 0)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:178:    total_distance = distance_data.get("total_distance", 0)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:180:    # Calculate utilization rate (active days / total days)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:187:    threshold = flt(filters.get("utilization_threshold", 70))
+./report/vehicle_utilization_report/vehicle_utilization_report.py:188:    status = get_utilization_status(utilization_rate, threshold)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:205:def get_current_driver(vehicle, date):
+./report/vehicle_utilization_report/vehicle_utilization_report.py:207:    result = frappe.db.sql("""
+./report/vehicle_utilization_report/vehicle_utilization_report.py:212:        AND (end_date IS NULL OR end_date >= %s)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:220:def get_shift_data(vehicle, from_date, to_date):
+./report/vehicle_utilization_report/vehicle_utilization_report.py:222:    result = frappe.db.sql("""
+./report/vehicle_utilization_report/vehicle_utilization_report.py:224:            COUNT(*) as total_shifts,
+./report/vehicle_utilization_report/vehicle_utilization_report.py:225:            COUNT(DISTINCT DATE(shift_date)) as active_days,
+./report/vehicle_utilization_report/vehicle_utilization_report.py:226:            SUM(TIMESTAMPDIFF(HOUR, shift_start_time, shift_end_time)) as total_hours
+./report/vehicle_utilization_report/vehicle_utilization_report.py:235:def get_distance_data(vehicle, from_date, to_date):
+./report/vehicle_utilization_report/vehicle_utilization_report.py:237:    # Get distance from fuel entries (odometer readings)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:238:    readings = frappe.db.sql("""
+./report/vehicle_utilization_report/vehicle_utilization_report.py:248:    if len(readings) >= 2:
+./report/vehicle_utilization_report/vehicle_utilization_report.py:250:        total_distance = max(0, flt(readings[-1].odometer_reading) - flt(readings[0].odometer_reading))
+./report/vehicle_utilization_report/vehicle_utilization_report.py:254:def get_fuel_efficiency(vehicle, from_date, to_date):
+./report/vehicle_utilization_report/vehicle_utilization_report.py:257:    fuel_data = frappe.db.sql("""
+./report/vehicle_utilization_report/vehicle_utilization_report.py:259:            SUM(quantity_liters) as total_fuel,
+./report/vehicle_utilization_report/vehicle_utilization_report.py:260:            MAX(odometer_reading) - MIN(odometer_reading) as distance_traveled
+./report/vehicle_utilization_report/vehicle_utilization_report.py:265:        HAVING COUNT(*) >= 2
+./report/vehicle_utilization_report/vehicle_utilization_report.py:269:        return flt(fuel_data[0].distance_traveled) / flt(fuel_data[0].total_fuel)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:273:def get_utilization_status(utilization_rate, threshold):
+./report/vehicle_utilization_report/vehicle_utilization_report.py:284:def get_chart_data(data, filters):
+./report/vehicle_utilization_report/vehicle_utilization_report.py:294:    threshold = flt(filters.get("utilization_threshold", 70))
+./report/vehicle_utilization_report/vehicle_utilization_report.py:297:        labels.append(row.get("vehicle", ""))
+./report/vehicle_utilization_report/vehicle_utilization_report.py:298:        rate = row.get("utilization_rate", 0)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:299:        utilization_rates.append(rate)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:303:            colors.append("#28a745")  # Green - Optimal
+./report/vehicle_utilization_report/vehicle_utilization_report.py:305:            colors.append("#ffc107")  # Yellow - Good
+./report/vehicle_utilization_report/vehicle_utilization_report.py:307:            colors.append("#fd7e14")  # Orange - Fair
+./report/vehicle_utilization_report/vehicle_utilization_report.py:309:            colors.append("#dc3545")  # Red - Poor
+./report/vehicle_utilization_report/vehicle_utilization_report.py:316:                    "name": _("Utilization Rate %"),
+./report/vehicle_utilization_report/vehicle_utilization_report.py:335:def get_summary_data(data, filters):
+./report/vehicle_utilization_report/vehicle_utilization_report.py:340:    total_vehicles = len(data)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:341:    total_shifts = sum(row.get("total_shifts", 0) for row in data)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:342:    total_distance = sum(row.get("total_distance", 0) for row in data)
+./report/vehicle_utilization_report/vehicle_utilization_report.py:343:    avg_utilization = sum(row.get("utilization_rate", 0) for row in data) / total_vehicles if total_vehicles > 0 else 0
+./report/vehicle_utilization_report/vehicle_utilization_report.py:348:        status = row.get("status", "Unknown")
+./report/vehicle_utilization_report/vehicle_utilization_report.py:349:        status_counts[status] = status_counts.get(status, 0) + 1
+./report/vehicle_utilization_report/vehicle_utilization_report.py:353:            "label": _("Total Vehicles"),
+./report/vehicle_utilization_report/vehicle_utilization_report.py:358:            "label": _("Total Shifts"),
+./report/vehicle_utilization_report/vehicle_utilization_report.py:363:            "label": _("Total Distance (KM)"),
+./report/vehicle_utilization_report/vehicle_utilization_report.py:368:            "label": _("Average Utilization"),
+./report/vehicle_utilization_report/vehicle_utilization_report.py:375:    for status, count in status_counts.items():
+./report/vehicle_utilization_report/vehicle_utilization_report.py:381:        }.get(status, "Gray")
+./report/vehicle_utilization_report/vehicle_utilization_report.py:383:        summary.append({
+./report/monthly_fleet_cost_report/__init__.py:1:# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:1:# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:10:def execute(filters=None):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:15:    columns = get_columns()
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:16:    data = get_data(filters)
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:17:    chart = get_chart_data(data, filters)
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:21:def get_columns():
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:25:            "label": _("Vehicle"),
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:32:            "label": _("Model"),
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:38:            "label": _("Driver"),
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:45:            "label": _("Fuel Cost"),
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:51:            "label": _("Maintenance Cost"),
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:57:            "label": _("Insurance Cost"),
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:63:            "label": _("Driver Salary"),
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:69:            "label": _("Depreciation"),
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:75:            "label": _("Other Costs"),
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:81:            "label": _("Total Cost"),
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:87:            "label": _("Distance (KM)"),
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:94:            "label": _("Cost per KM"),
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:101:def get_data(filters):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:103:    conditions = get_conditions(filters)
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:106:    vehicles = get_vehicles(filters)
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:114:        row = get_vehicle_cost_data(vehicle, filters)
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:116:            data.append(row)
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:120:def get_vehicles(filters):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:125:    if filters.get("vehicle"):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:126:        conditions.append("name = %s")
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:127:        values.append(filters.get("vehicle"))
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:129:    if filters.get("branch"):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:130:        conditions.append("branch = %s")
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:131:        values.append(filters.get("branch"))
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:135:        where_clause = "WHERE " + " AND ".join(conditions)
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:144:    return frappe.db.sql(query, values, as_dict=True)
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:146:def get_vehicle_cost_data(vehicle, filters):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:148:    month = filters.get("month")
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:149:    year = filters.get("year")
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:155:    month_num = list(calendar.month_name).index(month)
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:158:    start_date = get_first_day(f"{year}-{month_num:02d}-01")
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:159:    end_date = get_last_day(f"{year}-{month_num:02d}-01")
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:162:    driver = get_current_driver(vehicle.name, end_date)
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:165:    fuel_cost = get_fuel_cost(vehicle.name, start_date, end_date)
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:166:    maintenance_cost = get_maintenance_cost(vehicle.name, start_date, end_date)
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:167:    insurance_cost = get_insurance_cost(vehicle.name, start_date, end_date)
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:168:    driver_salary = get_driver_salary(driver, start_date, end_date) if driver else 0
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:169:    depreciation_cost = get_depreciation_cost(vehicle.name, start_date, end_date)
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:170:    other_costs = get_other_costs(vehicle.name, start_date, end_date)
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:171:    distance_traveled = get_distance_traveled(vehicle.name, start_date, end_date)
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:191:def get_current_driver(vehicle, date):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:193:    driver = frappe.db.sql("""
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:198:        AND (end_date IS NULL OR end_date >= %s)
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:206:def get_fuel_cost(vehicle, start_date, end_date):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:208:    fuel_cost = frappe.db.sql("""
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:209:        SELECT COALESCE(SUM(total_amount), 0) as fuel_cost
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:216:    return flt(fuel_cost[0][0]) if fuel_cost else 0
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:218:def get_maintenance_cost(vehicle, start_date, end_date):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:224:def get_insurance_cost(vehicle, start_date, end_date):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:227:    insurance_cost = frappe.db.sql("""
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:228:        SELECT COALESCE(insurance_premium_monthly, 0) as insurance_cost
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:232:        AND (end_date IS NULL OR end_date >= %s)
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:237:    return flt(insurance_cost[0][0]) if insurance_cost else 0
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:239:def get_driver_salary(driver, start_date, end_date):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:245:    salary = frappe.db.get_value("Fleet Driver", driver, "monthly_salary")
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:246:    return flt(salary) if salary else 0
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:248:def get_depreciation_cost(vehicle, start_date, end_date):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:251:    depreciation = frappe.db.sql("""
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:252:        SELECT COALESCE(monthly_depreciation, 0) as depreciation
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:256:        AND (end_date IS NULL OR end_date >= %s)
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:261:    return flt(depreciation[0][0]) if depreciation else 0
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:263:def get_other_costs(vehicle, start_date, end_date):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:269:def get_distance_traveled(vehicle, start_date, end_date):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:271:    # Get distance from fuel entries (odometer readings)
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:272:    readings = frappe.db.sql("""
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:281:    if len(readings) < 2:
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:285:    distance = flt(readings[-1][0]) - flt(readings[0][0])
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:286:    return max(distance, 0)
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:288:def get_conditions(filters):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:292:    if filters.get("vehicle"):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:293:        conditions.append("vehicle = %(vehicle)s")
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:295:    if filters.get("driver"):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:296:        conditions.append("driver = %(driver)s")
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:298:    if filters.get("branch"):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:299:        conditions.append("branch = %(branch)s")
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:301:    return " AND ".join(conditions)
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:303:def get_chart_data(data, filters):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:316:        labels.append(row.get("vehicle", ""))
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:317:        fuel_costs.append(row.get("fuel_cost", 0))
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:318:        maintenance_costs.append(row.get("maintenance_cost", 0))
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:319:        insurance_costs.append(row.get("insurance_cost", 0))
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:320:        driver_salaries.append(row.get("driver_salary", 0))
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:327:                    "name": _("Fuel Cost"),
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:331:                    "name": _("Maintenance Cost"),
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:335:                    "name": _("Insurance Cost"),
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:339:                    "name": _("Driver Salary"),
+./report/vehicle_status_report/vehicle_status_report.py:3:def execute(filters=None):
+./report/vehicle_status_report/vehicle_status_report.py:12:    data = frappe.get_all(
+./update_workspace.py:3:def update_workspace():
+./update_workspace.py:6:        workspace = frappe.get_doc("Workspace", "Fleet Management")
+./update_workspace.py:23:        workspace.content = frappe.as_json(new_content)
+./update_workspace.py:26:        workspace.save(ignore_permissions=True)
+./update_workspace.py:27:        frappe.db.commit()
+./update_workspace.py:28:        print("Workspace 'Fleet Management' updated successfully.")
+./update_workspace.py:31:        print("Workspace 'Fleet Management' not found.")
+./update_workspace.py:33:        print(f"An error occurred: {e}")
+./update_workspace.py:36:update_workspace()
+./logistay/accommodation_management/doctype/room/room.py:1:# Copyright (c) 2024, Fleet Management and contributors
+./logistay/accommodation_management/doctype/room/room.py:8:class Room(Document):
+./logistay/accommodation_management/doctype/room/room.py:9:	def validate(self):
+./logistay/accommodation_management/doctype/room/room.py:11:		self.update_status()
+./logistay/accommodation_management/doctype/room/room.py:13:	def update_status(self):
+./logistay/accommodation_management/doctype/room/room.py:19:		active_assignments = frappe.db.count("Employee Accommodation Assignment", {
+./logistay/accommodation_management/doctype/room/room.py:32:	def on_update(self):
+./logistay/accommodation_management/doctype/room/room.py:35:			accommodation_doc = frappe.get_doc("Accommodation", self.accommodation)
+./logistay/accommodation_management/doctype/room/room.py:36:			accommodation_doc.calculate_occupancy()
+./logistay/accommodation_management/doctype/room/room.py:37:			accommodation_doc.save(ignore_permissions=True)
+./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py:1:# Copyright (c) 2024, Fleet Management and contributors
+./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py:9:class SupervisorDailyTask(Document):
+./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py:10:	def validate(self):
+./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py:12:		self.validate_dates()
+./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py:13:		self.validate_room_accommodation()
+./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py:15:	def validate_dates(self):
+./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py:18:			frappe.throw("Due date cannot be earlier than task date")
+./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py:20:	def validate_room_accommodation(self):
+./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py:23:			room_doc = frappe.get_doc("Room", self.room)
+./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py:25:				frappe.throw(f"Room {self.room} does not belong to accommodation {self.accommodation}")
+./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py:27:	def on_update(self):
+./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py:30:			self.completed_date = now()
+./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py:31:			self.save()
+./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py:33:	def mark_completed(self, completion_notes=None, completion_status="Satisfactory"):
+./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py:36:		self.completed_date = now()
+./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py:40:		self.save()
+./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py:42:		frappe.msgprint(f"Task {self.name} marked as completed")
+./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py:44:	def get_overdue_tasks(self):
+./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py:48:		return frappe.get_all("Supervisor Daily Task",
+./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py:51:				"due_date": ["<", today()]
+./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py:1:# Copyright (c) 2024, Fleet Management and contributors
+./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py:8:class EmployeeAccommodationAssignment(Document):
+./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py:9:	def validate(self):
+./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py:11:		self.set_accommodation_from_room()
+./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py:12:		self.validate_dates()
+./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py:13:		self.validate_room_capacity()
+./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py:15:	def set_accommodation_from_room(self):
+./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py:18:			room_doc = frappe.get_doc("Room", self.room)
+./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py:21:	def validate_dates(self):
+./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py:25:				frappe.throw("Check In Date cannot be after Check Out Date")
+./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py:27:	def validate_room_capacity(self):
+./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py:32:		# Count existing active assignments for this room (excluding current if updating)
+./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py:41:		active_assignments = frappe.db.count("Employee Accommodation Assignment", filters)
+./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py:44:		room_capacity = frappe.db.get_value("Room", self.room, "room_capacity") or 1
+./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py:47:			frappe.throw(f"Room {self.room} is at full capacity ({room_capacity} employees)")
+./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py:49:	def on_update(self):
+./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py:53:			room_doc = frappe.get_doc("Room", self.room)
+./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py:54:			room_doc.update_status()
+./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py:55:			room_doc.save(ignore_permissions=True)
+./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py:59:				accommodation_doc = frappe.get_doc("Accommodation", room_doc.accommodation)
+./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py:60:				accommodation_doc.calculate_occupancy()
+./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py:61:				accommodation_doc.save(ignore_permissions=True)
+./logistay/accommodation_management/doctype/asset_log/asset_log.py:1:# Copyright (c) 2024, Fleet Management and contributors
+./logistay/accommodation_management/doctype/asset_log/asset_log.py:8:class AssetLog(Document):
+./logistay/accommodation_management/doctype/asset_log/asset_log.py:9:	def validate(self):
+./logistay/accommodation_management/doctype/asset_log/asset_log.py:11:		self.validate_unique_asset_code()
+./logistay/accommodation_management/doctype/asset_log/asset_log.py:13:	def validate_unique_asset_code(self):
+./logistay/accommodation_management/doctype/asset_log/asset_log.py:19:		existing = frappe.db.get_value("Asset Log", 
+./logistay/accommodation_management/doctype/asset_log/asset_log.py:25:			frappe.throw(f"Asset Code {self.asset_code} already exists in {existing}")
+./logistay/accommodation_management/doctype/asset_log/asset_log.py:27:	def add_maintenance_entry(self, maintenance_date, description, cost=0, performed_by=""):
+./logistay/accommodation_management/doctype/asset_log/asset_log.py:29:		self.append("maintenance_log", {
+./logistay/accommodation_management/doctype/asset_log/asset_log.py:35:		self.save()
+./logistay/accommodation_management/doctype/asset_log/asset_log.py:37:	def get_total_maintenance_cost(self):
+./logistay/accommodation_management/doctype/accommodation_inspection/accommodation_inspection.py:1:# Copyright (c) 2024, Fleet Management and contributors
+./logistay/accommodation_management/doctype/accommodation_inspection/accommodation_inspection.py:9:class AccommodationInspection(Document):
+./logistay/accommodation_management/doctype/accommodation_inspection/accommodation_inspection.py:10:	def validate(self):
+./logistay/accommodation_management/doctype/accommodation_inspection/accommodation_inspection.py:12:		self.validate_inspection_date()
+./logistay/accommodation_management/doctype/accommodation_inspection/accommodation_inspection.py:13:		self.validate_status_change()
+./logistay/accommodation_management/doctype/accommodation_inspection/accommodation_inspection.py:15:	def validate_inspection_date(self):
+./logistay/accommodation_management/doctype/accommodation_inspection/accommodation_inspection.py:17:		if self.inspection_date and self.inspection_date > today():
+./logistay/accommodation_management/doctype/accommodation_inspection/accommodation_inspection.py:18:			frappe.throw("Inspection Date cannot be in the future")
+./logistay/accommodation_management/doctype/accommodation_inspection/accommodation_inspection.py:20:	def validate_status_change(self):
+./logistay/accommodation_management/doctype/accommodation_inspection/accommodation_inspection.py:23:			frappe.throw("Cannot approve inspection without checklist items")
+./logistay/accommodation_management/doctype/accommodation_inspection/accommodation_inspection.py:25:	def on_submit(self):
+./logistay/accommodation_management/doctype/accommodation_inspection/accommodation_inspection.py:29:	def approve_inspection(self):
+./logistay/accommodation_management/doctype/accommodation_inspection/accommodation_inspection.py:32:			frappe.throw("Only submitted inspections can be approved")
+./logistay/accommodation_management/doctype/accommodation_inspection/accommodation_inspection.py:35:		self.save()
+./logistay/accommodation_management/doctype/accommodation_inspection/accommodation_inspection.py:37:	def get_failed_items(self):
+./logistay/accommodation_management/doctype/accommodation_inspection/accommodation_inspection.py:42:				failed_items.append(item)
+./logistay/accommodation_management/doctype/accommodation/accommodation.py:1:# Copyright (c) 2024, Fleet Management and contributors
+./logistay/accommodation_management/doctype/accommodation/accommodation.py:8:class Accommodation(Document):
+./logistay/accommodation_management/doctype/accommodation/accommodation.py:9:	def validate(self):
+./logistay/accommodation_management/doctype/accommodation/accommodation.py:11:		self.calculate_occupancy()
+./logistay/accommodation_management/doctype/accommodation/accommodation.py:12:		self.validate_dates()
+./logistay/accommodation_management/doctype/accommodation/accommodation.py:14:	def calculate_occupancy(self):
+./logistay/accommodation_management/doctype/accommodation/accommodation.py:20:		occupancy = frappe.db.count("Employee Accommodation Assignment", {
+./logistay/accommodation_management/doctype/accommodation/accommodation.py:27:	def validate_dates(self):
+./logistay/accommodation_management/doctype/accommodation/accommodation.py:31:				frappe.throw("Contract Start Date cannot be after Contract End Date")
+./logistay/accommodation_management/doctype/accommodation/accommodation.py:33:	def on_update(self):
+./logistay/accommodation_management/doctype/accommodation/accommodation.py:35:		self.update_room_statuses()
+./logistay/accommodation_management/doctype/accommodation/accommodation.py:37:	def update_room_statuses(self):
+./logistay/accommodation_management/doctype/accommodation/accommodation.py:43:		rooms = frappe.get_all("Room", 
+./logistay/accommodation_management/doctype/accommodation/accommodation.py:50:			active_assignments = frappe.db.count("Employee Accommodation Assignment", {
+./logistay/accommodation_management/doctype/accommodation/accommodation.py:64:			frappe.db.set_value("Room", room.name, "status", status)
+./logistay/fleet_management/doctype/inspection_checklist_item/inspection_checklist_item.py:1:# Copyright (c) 2024, Fleet Management and contributors
+./logistay/fleet_management/doctype/inspection_checklist_item/inspection_checklist_item.py:8:class InspectionChecklistItem(Document):
+./logistay/fleet_management/doctype/inspection_checklist_item/inspection_checklist_item.py:9:	def validate(self):
+./logistay/fleet_management/doctype/inspection_checklist_item/inspection_checklist_item.py:12:			frappe.throw("Remarks are required for failed inspection items")
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:12:class FleetAccessLog(Document):
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:15:    def before_insert(self):
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:18:            self.timestamp = now_datetime()
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:29:            self.user_agent = frappe.local.request.headers.get("User-Agent", "Unknown")
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:31:    def validate(self):
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:35:            frappe.throw("User is required")
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:38:            frappe.throw("Document Type is required")
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:41:            frappe.throw("Action is required")
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:44:        if self.timestamp and get_datetime(self.timestamp) > now_datetime():
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:45:            frappe.throw("Timestamp cannot be in the future")
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:47:    def on_update(self):
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:50:        self.cleanup_old_logs()
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:52:    def cleanup_old_logs(self):
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:56:            retention_days = frappe.db.get_single_value("Fleet Settings", "access_log_retention_days") or 90
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:59:            cutoff_date = frappe.utils.add_days(now_datetime(), -retention_days)
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:61:            old_logs = frappe.get_all(
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:69:                    frappe.delete_doc("Fleet Access Log", log.name, ignore_permissions=True)
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:71:                frappe.db.commit()
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:74:            frappe.log_error(f"Error cleaning up access logs: {str(e)}", "Access Log Cleanup")
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:77:    def log_access(user: str, document_type: str, document_name: str, action: str, 
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:82:            log_doc = frappe.get_doc({
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:93:            log_doc.insert(ignore_permissions=True)
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:94:            frappe.db.commit()
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:98:            frappe.log_error(f"Failed to create access log: {str(e)}", "Access Log Error")
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:101:    def get_user_activity_summary(user: str, days: int = 30) -> Dict[str, Any]:
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:103:        from_date = frappe.utils.add_days(now_datetime(), -days)
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:106:        total_access = frappe.db.count(
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:112:        successful_access = frappe.db.count(
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:120:        document_types = frappe.db.sql("""
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:121:            SELECT document_type, COUNT(*) as count
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:130:        actions = frappe.db.sql("""
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:131:            SELECT action, COUNT(*) as count
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:140:        daily_activity = frappe.db.sql("""
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:141:            SELECT DATE(timestamp) as date, COUNT(*) as count
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:144:            GROUP BY DATE(timestamp)
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:161:    def get_security_alerts(days: int = 7) -> list:
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:163:        from_date = frappe.utils.add_days(now_datetime(), -days)
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:167:        failed_attempts = frappe.db.sql("""
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:168:            SELECT user, COUNT(*) as count, MAX(timestamp) as last_attempt
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:177:            alerts.append({
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:185:        # Check for unusual access patterns (access outside normal hours)
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:186:        unusual_access = frappe.db.sql("""
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:190:            AND (HOUR(timestamp) < 6 OR HOUR(timestamp) > 22)
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:197:            alerts.append({
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:206:        bulk_exports = frappe.db.sql("""
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:207:            SELECT user, COUNT(*) as count, DATE(timestamp) as date
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:210:            GROUP BY user, DATE(timestamp)
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:216:            alerts.append({
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:228:def log_document_access(doc, method):
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:233:    FleetAccessLog.log_access(
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:237:        action=method.title(),
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:242:def log_failed_access(doctype: str, doc_name: str, action: str, error: str):
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:247:    FleetAccessLog.log_access(
+./logistay/fleet_management/doctype/fleet_access_log/__init__.py:1:# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)
+./logistay/fleet_management/doctype/fleet_city/fleet_city.py:1:# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)
+./logistay/fleet_management/doctype/fleet_city/fleet_city.py:7:class FleetCity(Document):
+./logistay/fleet_management/doctype/fleet_city/fleet_city.py:8:    def validate(self):
+./logistay/fleet_management/doctype/fleet_city/fleet_city.py:9:        self.name_ar = self.name_ar.strip() if self.name_ar else ""
+./logistay/fleet_management/doctype/fleet_city/fleet_city.py:10:        self.name_en = self.name_en.strip() if self.name_en else ""
+./logistay/fleet_management/doctype/fleet_branch/fleet_branch.py:1:# Copyright (c) 2025, Fleet Management and contributors
+./logistay/fleet_management/doctype/fleet_branch/fleet_branch.py:8:class FleetBranch(Document):
+./logistay/fleet_management/doctype/fleet_branch/fleet_branch.py:9:	def validate(self):
+./logistay/fleet_management/doctype/fleet_branch/fleet_branch.py:11:		self.validate_coordinates()
+./logistay/fleet_management/doctype/fleet_branch/fleet_branch.py:12:		self.validate_branch_name()
+./logistay/fleet_management/doctype/fleet_branch/fleet_branch.py:14:	def validate_coordinates(self):
+./logistay/fleet_management/doctype/fleet_branch/fleet_branch.py:16:		if self.lat and (self.lat < -90 or self.lat > 90):
+./logistay/fleet_management/doctype/fleet_branch/fleet_branch.py:17:			frappe.throw("Latitude must be between -90 and 90 degrees")
+./logistay/fleet_management/doctype/fleet_branch/fleet_branch.py:19:		if self.lng and (self.lng < -180 or self.lng > 180):
+./logistay/fleet_management/doctype/fleet_branch/fleet_branch.py:20:			frappe.throw("Longitude must be between -180 and 180 degrees")
+./logistay/fleet_management/doctype/fleet_branch/fleet_branch.py:22:	def validate_branch_name(self):
+./logistay/fleet_management/doctype/fleet_branch/fleet_branch.py:25:			existing = frappe.db.exists("Fleet Branch", {
+./logistay/fleet_management/doctype/fleet_branch/fleet_branch.py:31:				frappe.throw(f"Branch name '{self.branch_name}' already exists in project '{self.fleet_project}'")
+./logistay/fleet_management/doctype/fleet_branch/fleet_branch.py:33:	def before_save(self):
+./logistay/fleet_management/doctype/fleet_branch/fleet_branch.py:35:		self.set_title()
+./logistay/fleet_management/doctype/fleet_branch/fleet_branch.py:37:	def set_title(self):
+./logistay/fleet_management/doctype/maintenance_entry/maintenance_entry.py:1:# Copyright (c) 2024, Fleet Management and contributors
+./logistay/fleet_management/doctype/maintenance_entry/maintenance_entry.py:8:class MaintenanceEntry(Document):
+./logistay/fleet_management/doctype/maintenance_entry/maintenance_entry.py:9:	def validate(self):
+./logistay/fleet_management/doctype/maintenance_entry/maintenance_entry.py:12:			frappe.throw("Maintenance cost cannot be negative")
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:1:# Copyright (c) 2025, Fleet Management and contributors
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:8:class FleetProject(Document):
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:9:	def validate(self):
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:11:		self.validate_project_names()
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:12:		self.validate_city_exists()
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:14:	def validate_project_names(self):
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:17:			frappe.throw("Arabic project name is required")
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:20:		existing = frappe.db.exists("Fleet Project", {
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:25:			frappe.throw(f"Project with Arabic name '{self.name_ar}' already exists")
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:27:	def validate_city_exists(self):
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:30:			city_doc = frappe.get_doc("Fleet City", self.fleet_city)
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:31:			if not city_doc.get("active", True):
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:32:				frappe.throw(f"Selected city '{self.fleet_city}' is not active")
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:34:	def before_save(self):
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:36:		self.set_title()
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:38:	def set_title(self):
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:45:	def on_update(self):
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:47:		self.update_related_branches()
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:49:	def update_related_branches(self):
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:51:		if not self.get("active", True):
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:53:			branches = frappe.get_all("Fleet Branch", 
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:58:				branch_doc = frappe.get_doc("Fleet Branch", branch.name)
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:59:				if hasattr(branch_doc, 'active'):
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:61:					branch_doc.save()
+./logistay/fleet_management/doctype/fleet_driver/fleet_driver.py:4:class FleetDriver(Document):
+./logistay/fleet_management/doctype/fleet_driver/fleet_driver.py:5:    def before_save(self):
+./logistay/fleet_management/doctype/fleet_driver/fleet_driver.py:6:        if self.is_new():
+./logistay/fleet_management/doctype/vehicle_ownership/__init__.py:1:# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:1:# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:9:class VehicleOwnership(Document):
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:10:    def validate(self):
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:12:        self.validate_dates()
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:13:        self.validate_vehicle_uniqueness()
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:14:        self.validate_lease_information()
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:15:        self.set_defaults()
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:17:    def validate_dates(self):
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:21:                frappe.throw(_("End Date must be after Start Date"))
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:26:                frappe.throw(_("Lease End Date must be after Lease Start Date"))
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:30:                frappe.throw(_("Lease Start Date cannot be before Ownership Start Date"))
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:33:                frappe.throw(_("Lease End Date cannot be after Ownership End Date"))
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:35:    def validate_vehicle_uniqueness(self):
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:38:            overlapping = frappe.db.sql("""
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:43:                AND (
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:44:                    (start_date <= %s AND (end_date IS NULL OR end_date >= %s)) OR
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:45:                    (start_date <= %s AND (end_date IS NULL OR end_date >= %s)) OR
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:46:                    (start_date >= %s AND (end_date IS NULL OR end_date <= %s))
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:54:                frappe.throw(_("Another active ownership record exists for this vehicle during the specified period"))
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:56:    def validate_lease_information(self):
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:60:                frappe.throw(_("Supplier is required for leased/rented vehicles"))
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:63:                frappe.throw(_("Monthly lease amount is required for leased/rented vehicles"))
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:66:                frappe.throw(_("Lease start date is required for leased/rented vehicles"))
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:71:                frappe.throw(_("Purchase price is required for company owned vehicles"))
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:73:    def set_defaults(self):
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:76:            self.creation_date = frappe.utils.today()
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:85:    def before_save(self):
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:87:        self.update_audit_fields()
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:88:        self.calculate_depreciation()
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:90:    def update_audit_fields(self):
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:93:        self.last_update_date = frappe.utils.today()
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:95:    def calculate_depreciation(self):
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:97:        if (self.ownership_type == "Company Owned" and 
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:105:            purchase_date = frappe.utils.getdate(self.registration_date)
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:106:            current_date = frappe.utils.getdate()
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:113:    def on_update(self):
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:116:        self.update_vehicle_ownership_status()
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:118:    def update_vehicle_ownership_status(self):
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:121:            frappe.db.set_value("Fleet Vehicle", self.vehicle, {
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:126:    def get_monthly_cost(self):
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:137:    def is_lease_expiring_soon(self, days=30):
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:139:        if (self.ownership_type in ["Leased", "Rented"] and 
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:145:            expiry_date = frappe.utils.getdate(self.lease_end_date)
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:146:            warning_date = frappe.utils.getdate() + timedelta(days=days)
+./logistay/fleet_management/doctype/fleet_shift/fleet_shift.py:1:# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)
+./logistay/fleet_management/doctype/fleet_shift/fleet_shift.py:8:class FleetShift(Document):
+./logistay/fleet_management/doctype/fleet_shift/fleet_shift.py:9:    def validate(self):
+./logistay/fleet_management/doctype/fleet_shift/fleet_shift.py:10:        self.validate_vehicle_availability()
+./logistay/fleet_management/doctype/fleet_shift/fleet_shift.py:11:        self.validate_driver_availability()
+./logistay/fleet_management/doctype/fleet_shift/fleet_shift.py:13:    def validate_vehicle_availability(self):
+./logistay/fleet_management/doctype/fleet_shift/fleet_shift.py:15:        existing_shifts = frappe.get_all(
+./logistay/fleet_management/doctype/fleet_shift/fleet_shift.py:27:            frappe.throw(_("Vehicle {0} is already scheduled for {1} shift on {2}").format(
+./logistay/fleet_management/doctype/fleet_shift/fleet_shift.py:31:    def validate_driver_availability(self):
+./logistay/fleet_management/doctype/fleet_shift/fleet_shift.py:33:        existing_shifts = frappe.get_all(
+./logistay/fleet_management/doctype/fleet_shift/fleet_shift.py:45:            frappe.throw(_("Driver {0} is already scheduled for {1} shift on {2}").format(
+./logistay/fleet_management/doctype/fleet_shift/fleet_shift.py:49:    def on_submit(self):
+./logistay/fleet_management/doctype/fleet_shift/fleet_shift.py:53:    def on_cancel(self):
+./logistay/fleet_management/doctype/driver_vehicle_assignment/__init__.py:1:# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:1:# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:10:class DriverVehicleAssignment(Document):
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:11:    def validate(self):
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:13:        self.validate_assignment_dates()
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:14:        self.validate_assignment_conflicts()
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:15:        self.validate_driver_license_compatibility()
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:16:        self.set_audit_fields()
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:18:    def validate_assignment_dates(self):
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:21:            if getdate(self.start_date) > getdate(self.end_date):
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:22:                frappe.throw(_("Start Date cannot be after End Date"))
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:24:        if self.start_date and getdate(self.start_date) < getdate(nowdate()):
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:25:            if not frappe.has_permission("Driver Vehicle Assignment", "write"):
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:26:                frappe.throw(_("Start Date cannot be in the past"))
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:28:    def validate_assignment_conflicts(self):
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:41:            conditions.append("(start_date <= '{0}')".format(self.start_date))
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:43:            conditions.append("(end_date >= '{0}' OR end_date IS NULL)".format(self.end_date))
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:45:            conditions.append("(end_date IS NULL OR end_date >= '{0}')".format(self.start_date))
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:48:            existing_assignments = frappe.db.sql("""
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:53:                AND status IN ('Active', 'Suspended')
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:55:                AND ({conditions})
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:56:            """.format(conditions=" AND ".join(conditions)), {
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:64:                frappe.throw(_("Driver {0} is already assigned to Vehicle {1} as {2} from {3} to {4}").format(
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:69:        # Check for primary role conflicts (only one primary driver per vehicle at a time)
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:71:            primary_assignments = frappe.db.sql("""
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:76:                AND status IN ('Active', 'Suspended')
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:78:                AND (
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:79:                    (start_date <= %(start_date)s AND (end_date >= %(start_date)s OR end_date IS NULL))
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:80:                    OR (%(end_date)s IS NULL OR start_date <= %(end_date)s)
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:91:                frappe.throw(_("Vehicle {0} already has a Primary driver ({1}) assigned from {2} to {3}").format(
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:96:    def validate_driver_license_compatibility(self):
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:102:        driver_doc = frappe.get_doc("Fleet Driver", self.driver)
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:103:        vehicle_doc = frappe.get_doc("Fleet Vehicle", self.vehicle)
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:106:        if not hasattr(driver_doc, 'license_number') or not driver_doc.license_number:
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:107:            frappe.throw(_("Driver {0} does not have a valid license on file").format(self.driver))
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:110:        if hasattr(driver_doc, 'license_expiry_date') and driver_doc.license_expiry_date:
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:111:            if getdate(driver_doc.license_expiry_date) < getdate(nowdate()):
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:112:                frappe.throw(_("Driver {0}'s license has expired on {1}").format(
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:116:        # Check license category compatibility (if available)
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:117:        if hasattr(driver_doc, 'license_category') and hasattr(vehicle_doc, 'vehicle_category'):
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:127:                compatible_vehicles = compatibility_matrix.get(driver_doc.license_category, [])
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:129:                    frappe.throw(_("Driver {0} with {1} license cannot be assigned to {2} vehicle").format(
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:133:    def set_audit_fields(self):
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:138:            self.creation_date = frappe.utils.now()
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:141:        self.last_modified = frappe.utils.now()
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:143:    def on_update(self):
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:146:        frappe.get_doc({
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:148:            "subject": _("Driver Vehicle Assignment Updated"),
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:149:            "content": _("Driver {0} assignment to Vehicle {1} updated as {2}").format(
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:155:        }).insert(ignore_permissions=True)
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:157:    def on_cancel(self):
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:161:    def get_dashboard_data(self):
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:167:                    "label": _("Fleet Operations"),
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:174:@frappe.whitelist()
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:175:def get_available_vehicles(driver, start_date, end_date=None):
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:183:            AND v.name NOT IN (
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:186:                WHERE status IN ('Active', 'Suspended')
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:189:                AND (end_date >= %(start_date)s OR end_date IS NULL)
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:194:            AND v.name NOT IN (
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:197:                WHERE status IN ('Active', 'Suspended')
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:199:                AND (end_date >= %(start_date)s OR end_date IS NULL)
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:208:    """.format(
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:209:        conditions=" AND ".join(conditions),
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:213:    return frappe.db.sql(query, values, as_dict=True)
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:216:@frappe.whitelist()
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:217:def get_driver_assignments(driver, status=None):
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:223:    return frappe.get_all(
+./logistay/fleet_management/doctype/fuel_entry/__init__.py:1:# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:1:# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:9:class FuelEntry(Document):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:10:    def validate(self):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:12:        self.validate_odometer_reading()
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:13:        self.validate_fuel_data()
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:14:        self.calculate_totals()
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:15:        self.calculate_efficiency()
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:16:        self.set_defaults()
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:18:    def validate_odometer_reading(self):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:22:            latest_entry = frappe.db.sql("""
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:35:                    frappe.throw(_("Odometer reading cannot be less than the previous reading of {0} KM").format(latest_reading))
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:44:    def validate_fuel_data(self):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:47:            frappe.throw(_("Fuel quantity must be greater than 0"))
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:50:            frappe.throw(_("Price per liter must be greater than 0"))
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:52:        # Validate reasonable fuel quantity (not more than tank capacity)
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:54:            frappe.throw(_("Fuel quantity seems unusually high. Please verify."))
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:56:    def calculate_totals(self):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:65:    def calculate_efficiency(self):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:67:        if (self.distance_traveled and 
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:74:    def set_defaults(self):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:77:            self.creation_date = frappe.utils.today()
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:86:            self.currency = frappe.get_cached_value("Company", frappe.defaults.get_user_default("Company"), "default_currency")
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:88:    def before_save(self):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:90:        self.update_audit_fields()
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:91:        self.calculate_budget_variance()
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:93:    def update_audit_fields(self):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:96:        self.last_update_date = frappe.utils.today()
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:98:    def calculate_budget_variance(self):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:104:            fuel_date = getdate(self.fuel_date)
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:105:            month_start = get_first_day(fuel_date)
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:106:            month_end = get_last_day(fuel_date)
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:108:            monthly_spent = frappe.db.sql("""
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:109:                SELECT COALESCE(SUM(total_amount), 0)
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:115:                AND status IN ('Approved', 'Reimbursed')
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:122:    def on_update(self):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:126:            self.update_vehicle_fuel_info()
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:128:    def update_vehicle_fuel_info(self):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:131:            frappe.db.set_value("Fleet Vehicle", self.vehicle, {
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:136:    def get_fuel_efficiency_trend(self, periods=6):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:141:        efficiency_data = frappe.db.sql("""
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:143:                DATE_FORMAT(fuel_date, '%%Y-%%m') as period,
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:144:                AVG(fuel_efficiency) as avg_efficiency,
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:145:                COUNT(*) as entries_count
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:151:            GROUP BY DATE_FORMAT(fuel_date, '%%Y-%%m')
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:158:    def validate_duplicate_receipt(self):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:161:            duplicate = frappe.db.get_value(
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:172:                frappe.throw(_("Receipt number {0} already exists for this fuel station").format(self.receipt_number))
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:174:    def send_approval_notification(self):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:178:            managers = frappe.get_all("Has Role", 
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:184:                frappe.sendmail(
+./logistay/fleet_management/doctype/cost_calculation_engine/__init__.py:1:# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:1:# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:10:class CostCalculationEngine(Document):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:11:    def before_save(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:13:        self.set_defaults()
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:14:        self.validate_data()
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:15:        self.calculate_costs()
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:16:        self.update_audit_fields()
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:18:    def on_update(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:21:            self.log_calculation("Cost calculation completed successfully")
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:23:    def set_defaults(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:26:            self.creation_date = now_datetime()
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:46:    def validate_data(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:51:                if getdate(self.calculation_period_from) > getdate(self.calculation_period_to):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:52:                    frappe.throw("Calculation Period From cannot be greater than Calculation Period To")
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:56:                self.validate_vehicle_driver_assignment()
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:59:            self.validate_cost_components()
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:65:            self.error_log = str(e)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:66:            self.log_calculation(f"Validation error: {str(e)}")
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:68:    def validate_vehicle_driver_assignment(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:71:            check_date = getdate()
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:73:            check_date = getdate(self.calculation_period_to)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:75:        assignment = frappe.db.sql("""
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:80:            AND (end_date IS NULL OR end_date >= %s)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:85:            frappe.msgprint(f"Warning: Driver {self.driver} is not assigned to vehicle {self.vehicle} for the calculation period")
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:87:    def validate_cost_components(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:96:            value = getattr(self, field, 0)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:97:            if value and flt(value) < 0:
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:98:                frappe.throw(f"{field.replace('_', ' ').title()} cannot be negative")
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:100:    def calculate_costs(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:104:            self.log_calculation("Starting cost calculation")
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:108:                self.calculate_vehicle_costs()
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:111:                self.calculate_driver_costs()
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:114:                self.calculate_route_costs()
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:117:                self.calculate_project_costs()
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:120:            self.calculate_totals()
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:121:            self.calculate_efficiency_metrics()
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:124:            self.create_cost_breakdown()
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:127:            self.log_calculation("Cost calculation completed successfully")
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:131:            self.error_log = str(e)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:132:            self.log_calculation(f"Calculation error: {str(e)}")
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:133:            frappe.log_error(f"Cost Calculation Error: {str(e)}", "Cost Calculation Engine")
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:135:    def calculate_vehicle_costs(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:140:        period_from = self.calculation_period_from or add_days(getdate(), -30)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:141:        period_to = self.calculation_period_to or getdate()
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:145:            self.fuel_cost = self.get_fuel_cost(self.vehicle, period_from, period_to)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:149:            self.maintenance_cost = self.get_maintenance_cost(self.vehicle, period_from, period_to)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:153:            self.insurance_cost = self.get_insurance_cost(self.vehicle, period_from, period_to)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:157:            self.depreciation_cost = self.get_depreciation_cost(self.vehicle, period_from, period_to)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:161:            self.registration_cost = self.get_registration_cost(self.vehicle, period_from, period_to)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:164:        self.distance_traveled = self.get_distance_traveled(self.vehicle, period_from, period_to)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:165:        self.days_active = self.get_active_days(self.vehicle, period_from, period_to)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:167:    def calculate_driver_costs(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:172:        period_from = self.calculation_period_from or add_days(getdate(), -30)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:173:        period_to = self.calculation_period_to or getdate()
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:177:            self.driver_salary = self.get_driver_salary(self.driver, period_from, period_to)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:181:            self.allowance_cost = self.get_driver_allowances(self.driver, period_from, period_to)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:185:            self.overtime_cost = self.get_overtime_cost(self.driver, period_from, period_to)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:189:            self.bonus_cost = self.get_bonus_cost(self.driver, period_from, period_to)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:193:            self.penalty_cost = self.get_penalty_cost(self.driver, period_from, period_to)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:196:        self.hours_worked = self.get_hours_worked(self.driver, period_from, period_to)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:198:    def calculate_route_costs(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:202:        self.calculate_vehicle_costs()
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:203:        self.calculate_driver_costs()
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:205:    def calculate_project_costs(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:209:        self.calculate_vehicle_costs()
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:210:        self.calculate_driver_costs()
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:212:    def calculate_totals(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:229:        self.total_cost = sum(flt(cost) for cost in cost_components)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:232:        if self.distance_traveled and flt(self.distance_traveled) > 0:
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:233:            self.cost_per_km = self.total_cost / flt(self.distance_traveled)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:235:        if self.hours_worked and flt(self.hours_worked) > 0:
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:236:            self.cost_per_hour = self.total_cost / flt(self.hours_worked)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:238:        if self.days_active and flt(self.days_active) > 0:
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:239:            self.cost_per_day = self.total_cost / flt(self.days_active)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:241:    def calculate_efficiency_metrics(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:244:            period_from = self.calculation_period_from or add_days(getdate(), -30)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:245:            period_to = self.calculation_period_to or getdate()
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:248:            total_fuel = self.get_total_fuel_consumed(self.vehicle, period_from, period_to)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:249:            if total_fuel and flt(total_fuel) > 0:
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:250:                self.fuel_efficiency = flt(self.distance_traveled) / flt(total_fuel)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:252:    def create_cost_breakdown(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:272:            if flt(amount) > 0:
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:273:                percentage = (flt(amount) / self.total_cost * 100) if self.total_cost > 0 else 0
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:275:                self.append("cost_breakdown_table", {
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:282:    def update_audit_fields(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:284:        self.last_modified = now_datetime()
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:287:    def log_calculation(self, message):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:289:        timestamp = now_datetime().strftime("%Y-%m-%d %H:%M:%S")
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:298:    def get_fuel_cost(self, vehicle, from_date, to_date):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:300:        result = frappe.db.sql("""
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:301:            SELECT COALESCE(SUM(total_amount), 0) as fuel_cost
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:308:        return flt(result[0][0]) if result else 0
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:310:    def get_maintenance_cost(self, vehicle, from_date, to_date):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:315:    def get_insurance_cost(self, vehicle, from_date, to_date):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:318:        result = frappe.db.sql("""
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:319:            SELECT COALESCE(insurance_premium_monthly, 0) as insurance_cost
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:323:            AND (end_date IS NULL OR end_date >= %s)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:329:            monthly_cost = flt(result[0][0])
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:330:            days = date_diff(to_date, from_date) + 1
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:335:    def get_depreciation_cost(self, vehicle, from_date, to_date):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:337:        result = frappe.db.sql("""
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:338:            SELECT COALESCE(monthly_depreciation, 0) as depreciation
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:342:            AND (end_date IS NULL OR end_date >= %s)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:348:            monthly_cost = flt(result[0][0])
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:349:            days = date_diff(to_date, from_date) + 1
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:354:    def get_registration_cost(self, vehicle, from_date, to_date):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:359:    def get_driver_salary(self, driver, from_date, to_date):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:361:        salary = frappe.db.get_value("Fleet Driver", driver, "monthly_salary")
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:363:            days = date_diff(to_date, from_date) + 1
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:364:            return flt(salary) * (days / 30)
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:367:    def get_driver_allowances(self, driver, from_date, to_date):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:372:    def get_overtime_cost(self, driver, from_date, to_date):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:377:    def get_bonus_cost(self, driver, from_date, to_date):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:382:    def get_penalty_cost(self, driver, from_date, to_date):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:387:    def get_distance_traveled(self, vehicle, from_date, to_date):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:389:        readings = frappe.db.sql("""
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:398:        if len(readings) >= 2:
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:399:            return max(0, flt(readings[-1][0]) - flt(readings[0][0]))
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:403:    def get_active_days(self, vehicle, from_date, to_date):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:405:        result = frappe.db.sql("""
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:406:            SELECT COUNT(DISTINCT DATE(shift_date)) as active_days
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:413:        return flt(result[0][0]) if result else 0
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:415:    def get_hours_worked(self, driver, from_date, to_date):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:417:        result = frappe.db.sql("""
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:418:            SELECT SUM(TIMESTAMPDIFF(HOUR, shift_start_time, shift_end_time)) as hours_worked
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:425:        return flt(result[0][0]) if result else 0
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:427:    def get_total_fuel_consumed(self, vehicle, from_date, to_date):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:429:        result = frappe.db.sql("""
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:430:            SELECT SUM(quantity_liters) as total_fuel
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:437:        return flt(result[0][0]) if result else 0
+./logistay/fleet_management/doctype/supplier_master/__init__.py:1:# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:1:# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:9:class SupplierMaster(Document):
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:10:    def validate(self):
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:12:        self.validate_supplier_code()
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:13:        self.validate_contact_info()
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:14:        self.clean_text_fields()
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:16:    def validate_supplier_code(self):
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:19:            self.supplier_code = self.supplier_code.strip().upper()
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:22:            existing = frappe.db.get_value(
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:28:                frappe.throw(_("Supplier Code {0} already exists").format(self.supplier_code))
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:30:    def validate_contact_info(self):
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:33:            frappe.throw(_("Contact Person is required"))
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:36:            frappe.throw(_("Phone Number is required"))
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:42:            if not re.match(email_pattern, self.email):
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:43:                frappe.throw(_("Please enter a valid email address"))
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:45:    def clean_text_fields(self):
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:48:            self.supplier_name_ar = self.supplier_name_ar.strip()
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:51:            self.supplier_name_en = self.supplier_name_en.strip()
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:54:            self.contact_person = self.contact_person.strip()
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:56:    def before_save(self):
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:64:    def on_update(self):
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:67:        if self.has_value_changed('status'):
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:68:            frappe.log_error(
+./logistay/fleet_management/doctype/supplier_contract/__init__.py:1:# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:1:# Copyright (c) 2025, AFMCOltd (afm@afmcoltd.com)
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:10:class SupplierContract(Document):
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:11:    def validate(self):
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:13:        self.validate_dates()
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:14:        self.validate_pricing()
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:15:        self.validate_contact_info()
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:16:        self.set_defaults()
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:18:    def validate_dates(self):
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:22:                frappe.throw(_("End Date must be after Start Date"))
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:25:            overlapping = frappe.db.sql("""
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:30:                AND status IN ('Active', 'Draft')
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:31:                AND (
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:42:                frappe.throw(_("Overlapping contract exists for this supplier and contract type"))
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:44:    def validate_pricing(self):
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:47:            frappe.throw(_("Base Rate must be greater than 0"))
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:51:            frappe.throw(_("Overtime Rate should not be less than Base Rate"))
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:54:            frappe.throw(_("Holiday Rate should not be less than Base Rate"))
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:57:            frappe.throw(_("Night Shift Rate should not be less than Base Rate"))
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:59:    def validate_contact_info(self):
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:64:            if not re.match(email_pattern, self.contact_email):
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:65:                frappe.throw(_("Please enter a valid contact email address"))
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:67:    def set_defaults(self):
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:70:            self.creation_date = frappe.utils.today()
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:76:            self.currency = frappe.get_cached_value("Company", frappe.defaults.get_user_default("Company"), "default_currency")
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:78:    def before_save(self):
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:81:        self.update_status_based_on_dates()
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:83:    def update_status_based_on_dates(self):
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:85:        today = frappe.utils.getdate()
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:98:    def on_update(self):
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:101:        if self.has_value_changed('status'):
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:102:            self.send_status_notification()
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:104:    def send_status_notification(self):
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:108:            fleet_managers = frappe.get_all("Has Role", 
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:114:                frappe.sendmail(
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:129:            frappe.log_error(f"Failed to send contract notification: {str(e)}")
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:131:    def get_active_rate(self, rate_type="base"):
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:139:        return rate_map.get(rate_type, self.base_rate)
+./logistay/fleet_management/doctype/fleet_vehicle/fleet_vehicle.py:4:class FleetVehicle(Document):
+./logistay/fleet_management/doctype/fleet_vehicle/fleet_vehicle.py:5:    def before_save(self):
+./logistay/fleet_management/doctype/fleet_vehicle/fleet_vehicle.py:6:        if self.is_new():
+./logistay/api.py:5:@frappe.whitelist()
+./logistay/api.py:6:def get_counts():
+./logistay/api.py:16:    data = {"timestamp": now(), "counts": {}}
+./logistay/api.py:19:            data["counts"][dt] = frappe.db.count(dt)
+./logistay/api.py:25:@frappe.whitelist()
+./logistay/api.py:26:def fuel_entries_today(limit: int = 10):
+./logistay/api.py:27:    """Return today's Fuel Entry list (read-only)."""
+./logistay/api.py:29:    today = getdate()
+./logistay/api.py:30:    rows = frappe.get_all(
+./logistay/api.py:37:    return {"timestamp": now(), "items": rows}
+./logistay/api/driver.py:14:@frappe.whitelist()
+./logistay/api/driver.py:15:def get_driver_dashboard():
+./logistay/api/driver.py:22:        employee = get_current_employee()
+./logistay/api/driver.py:24:            frappe.throw(_("No employee record found for current user"))
+./logistay/api/driver.py:27:        driver = frappe.get_value("Fleet Driver", {"employee": employee.name}, ["name", "status"])
+./logistay/api/driver.py:29:            frappe.throw(_("No driver record found for current employee"))
+./logistay/api/driver.py:32:        active_assignments = frappe.db.count("Driver Vehicle Assignment", {
+./logistay/api/driver.py:39:        today_trips = frappe.db.count("Fleet Trip", {
+./logistay/api/driver.py:41:            "trip_date": getdate(),
+./logistay/api/driver.py:45:        # Get pending tasks (trips with status 'Assigned' or 'In Progress')
+./logistay/api/driver.py:46:        pending_tasks = frappe.db.count("Fleet Trip", {
+./logistay/api/driver.py:54:        month_fuel_entries = frappe.db.count("Fuel Entry", {
+./logistay/api/driver.py:56:            "fuel_date": [">=", get_first_day_of_month(getdate())],
+./logistay/api/driver.py:60:        # Get recent activity (last 5 trips)
+./logistay/api/driver.py:61:        recent_trips = frappe.db.get_list("Fleet Trip", {
+./logistay/api/driver.py:68:        current_vehicle = frappe.db.get_value("Driver Vehicle Assignment", {
+./logistay/api/driver.py:76:            vehicle_info = frappe.get_doc("Fleet Vehicle", current_vehicle[0])
+./logistay/api/driver.py:98:        frappe.log_error(f"Driver Dashboard Error: {str(e)}")
+./logistay/api/driver.py:99:        frappe.throw(_("Failed to load dashboard data"))
+./logistay/api/driver.py:102:@frappe.whitelist()
+./logistay/api/driver.py:103:def get_trips(status=None, limit=20, offset=0):
+./logistay/api/driver.py:107:        status: Trip status filter (optional)
+./logistay/api/driver.py:113:        employee = get_current_employee()
+./logistay/api/driver.py:115:            frappe.throw(_("No employee record found"))
+./logistay/api/driver.py:117:        driver = frappe.get_value("Fleet Driver", {"employee": employee.name}, "name")
+./logistay/api/driver.py:119:            frappe.throw(_("No driver record found"))
+./logistay/api/driver.py:131:        trips = frappe.db.get_list("Fleet Trip", 
+./logistay/api/driver.py:146:                vehicle_info = frappe.get_value("Fleet Vehicle", trip.vehicle, 
+./logistay/api/driver.py:149:                    trip.update(vehicle_info)
+./logistay/api/driver.py:154:        frappe.log_error(f"Get Trips Error: {str(e)}")
+./logistay/api/driver.py:155:        frappe.throw(_("Failed to load trips"))
+./logistay/api/driver.py:158:@frappe.whitelist()
+./logistay/api/driver.py:159:def update_trip_status(trip_id, action):
+./logistay/api/driver.py:164:        action: Action to perform (accept, start, pause, complete)
+./logistay/api/driver.py:169:        employee = get_current_employee()
+./logistay/api/driver.py:171:            frappe.throw(_("No employee record found"))
+./logistay/api/driver.py:173:        driver = frappe.get_value("Fleet Driver", {"employee": employee.name}, "name")
+./logistay/api/driver.py:175:            frappe.throw(_("No driver record found"))
+./logistay/api/driver.py:178:        trip = frappe.get_doc("Fleet Trip", trip_id)
+./logistay/api/driver.py:182:            frappe.throw(_("You are not authorized to modify this trip"))
+./logistay/api/driver.py:192:        if action not in valid_actions.get(trip.status, []):
+./logistay/api/driver.py:193:            frappe.throw(_("Invalid action for current trip status"))
+./logistay/api/driver.py:208:            trip.start_time = now()
+./logistay/api/driver.py:210:            trip.end_time = now()
+./logistay/api/driver.py:213:        trip.save(ignore_permissions=False)
+./logistay/api/driver.py:217:            trip.submit()
+./logistay/api/driver.py:226:        frappe.log_error(f"Update Trip Status Error: {str(e)}")
+./logistay/api/driver.py:227:        frappe.throw(_("Failed to update trip status"))
+./logistay/api/driver.py:230:@frappe.whitelist()
+./logistay/api/driver.py:231:def create_fuel_entry(vehicle, fuel_date, quantity, amount, vendor=None, receipt_attachment=None):
+./logistay/api/driver.py:239:        vendor: Vendor/station name (optional)
+./logistay/api/driver.py:240:        receipt_attachment: Receipt file URL (optional)
+./logistay/api/driver.py:245:        employee = get_current_employee()
+./logistay/api/driver.py:247:            frappe.throw(_("No employee record found"))
+./logistay/api/driver.py:249:        driver = frappe.get_value("Fleet Driver", {"employee": employee.name}, "name")
+./logistay/api/driver.py:251:            frappe.throw(_("No driver record found"))
+./logistay/api/driver.py:254:        is_assigned = frappe.db.exists("Driver Vehicle Assignment", {
+./logistay/api/driver.py:262:            frappe.throw(_("You are not assigned to this vehicle"))
+./logistay/api/driver.py:266:            frappe.throw(_("Fuel date, quantity, and amount are required"))
+./logistay/api/driver.py:268:        if flt(quantity) <= 0:
+./logistay/api/driver.py:269:            frappe.throw(_("Quantity must be greater than zero"))
+./logistay/api/driver.py:271:        if flt(amount) <= 0:
+./logistay/api/driver.py:272:            frappe.throw(_("Amount must be greater than zero"))
+./logistay/api/driver.py:274:        if getdate(fuel_date) > getdate():
+./logistay/api/driver.py:275:            frappe.throw(_("Fuel date cannot be in the future"))
+./logistay/api/driver.py:278:        fuel_entry = frappe.new_doc("Fuel Entry")
+./logistay/api/driver.py:282:        fuel_entry.quantity = flt(quantity)
+./logistay/api/driver.py:283:        fuel_entry.amount = flt(amount)
+./logistay/api/driver.py:284:        fuel_entry.price_per_liter = flt(amount) / flt(quantity)
+./logistay/api/driver.py:293:        fuel_entry.insert(ignore_permissions=False)
+./logistay/api/driver.py:294:        fuel_entry.submit()
+./logistay/api/driver.py:299:        frappe.log_error(f"Create Fuel Entry Error: {str(e)}")
+./logistay/api/driver.py:300:        frappe.throw(_("Failed to create fuel entry"))
+./logistay/api/driver.py:303:@frappe.whitelist()
+./logistay/api/driver.py:304:def get_fuel_entries(limit=20, offset=0):
+./logistay/api/driver.py:313:        employee = get_current_employee()
+./logistay/api/driver.py:315:            frappe.throw(_("No employee record found"))
+./logistay/api/driver.py:317:        driver = frappe.get_value("Fleet Driver", {"employee": employee.name}, "name")
+./logistay/api/driver.py:319:            frappe.throw(_("No driver record found"))
+./logistay/api/driver.py:322:        entries = frappe.db.get_list("Fuel Entry",
+./logistay/api/driver.py:336:                vehicle_info = frappe.get_value("Fleet Vehicle", entry.vehicle,
+./logistay/api/driver.py:339:                    entry.update(vehicle_info)
+./logistay/api/driver.py:344:        frappe.log_error(f"Get Fuel Entries Error: {str(e)}")
+./logistay/api/driver.py:345:        frappe.throw(_("Failed to load fuel entries"))
+./logistay/api/driver.py:348:@frappe.whitelist()
+./logistay/api/driver.py:349:def get_assigned_vehicles():
+./logistay/api/driver.py:355:        employee = get_current_employee()
+./logistay/api/driver.py:357:            frappe.throw(_("No employee record found"))
+./logistay/api/driver.py:359:        driver = frappe.get_value("Fleet Driver", {"employee": employee.name}, "name")
+./logistay/api/driver.py:361:            frappe.throw(_("No driver record found"))
+./logistay/api/driver.py:364:        assignments = frappe.db.get_list("Driver Vehicle Assignment",
+./logistay/api/driver.py:376:            vehicle_info = frappe.get_value("Fleet Vehicle", assignment.vehicle,
+./logistay/api/driver.py:379:                vehicles.append(vehicle_info)
+./logistay/api/driver.py:384:        frappe.log_error(f"Get Assigned Vehicles Error: {str(e)}")
+./logistay/api/driver.py:385:        frappe.throw(_("Failed to load assigned vehicles"))
+./logistay/api/driver.py:388:@frappe.whitelist()
+./logistay/api/driver.py:389:def get_profile():
+./logistay/api/driver.py:395:        employee = get_current_employee()
+./logistay/api/driver.py:397:            frappe.throw(_("No employee record found"))
+./logistay/api/driver.py:400:        driver_info = frappe.get_value("Fleet Driver", {"employee": employee.name},
+./logistay/api/driver.py:405:        current_assignment = frappe.db.get_value("Driver Vehicle Assignment", {
+./logistay/api/driver.py:413:            vehicle_info = frappe.get_value("Fleet Vehicle", current_assignment.vehicle,
+./logistay/api/driver.py:429:        frappe.log_error(f"Get Profile Error: {str(e)}")
+./logistay/api/driver.py:430:        frappe.throw(_("Failed to load profile"))
+./logistay/api/driver.py:433:@frappe.whitelist()
+./logistay/api/driver.py:434:def change_password(current_password, new_password):
+./logistay/api/driver.py:447:        if not check_password(user, current_password):
+./logistay/api/driver.py:448:            return {"success": False, "error": _("Current password is incorrect")}
+./logistay/api/driver.py:451:        if len(new_password) < 8:
+./logistay/api/driver.py:452:            return {"success": False, "error": _("New password must be at least 8 characters long")}
+./logistay/api/driver.py:456:        update_password(user, new_password)
+./logistay/api/driver.py:458:        return {"success": True, "message": _("Password updated successfully")}
+./logistay/api/driver.py:461:        frappe.log_error(f"Change Password Error: {str(e)}")
+./logistay/api/driver.py:462:        return {"success": False, "error": _("Failed to change password")}
+./logistay/api/driver.py:465:@frappe.whitelist()
+./logistay/api/driver.py:466:def create_support_ticket(category, priority, subject, description, attachment=None):
+./logistay/api/driver.py:474:        attachment: File attachment URL (optional)
+./logistay/api/driver.py:478:        employee = get_current_employee()
+./logistay/api/driver.py:480:            return {"success": False, "error": _("No employee record found")}
+./logistay/api/driver.py:483:        if not all([category, priority, subject, description]):
+./logistay/api/driver.py:484:            return {"success": False, "error": _("Category, priority, subject, and description are required")}
+./logistay/api/driver.py:486:        # Create Issue document (standard Frappe DocType for support tickets)
+./logistay/api/driver.py:487:        issue = frappe.new_doc("Issue")
+./logistay/api/driver.py:495:        if hasattr(issue, 'employee'):
+./logistay/api/driver.py:500:            file_doc = frappe.new_doc("File")
+./logistay/api/driver.py:504:            file_doc.insert()
+./logistay/api/driver.py:507:            issue.insert(ignore_permissions=False)
+./logistay/api/driver.py:509:            file_doc.save()
+./logistay/api/driver.py:511:            issue.insert(ignore_permissions=False)
+./logistay/api/driver.py:516:        frappe.log_error(f"Create Support Ticket Error: {str(e)}")
+./logistay/api/driver.py:517:        return {"success": False, "error": _("Failed to create support ticket")}
+./logistay/api/driver.py:520:@frappe.whitelist()
+./logistay/api/driver.py:521:def get_support_tickets(limit=20, offset=0):
+./logistay/api/driver.py:531:        tickets = frappe.db.get_list("Issue",
+./logistay/api/driver.py:545:        frappe.log_error(f"Get Support Tickets Error: {str(e)}")
+./logistay/api/driver.py:549:@frappe.whitelist()
+./logistay/api/driver.py:550:def get_driver_info():
+./logistay/api/driver.py:556:        employee = get_current_employee()
+./logistay/api/driver.py:558:            frappe.throw(_("No employee record found"))
+./logistay/api/driver.py:560:        driver_info = frappe.get_value("Fleet Driver", {"employee": employee.name},
+./logistay/api/driver.py:567:        frappe.log_error(f"Get Driver Info Error: {str(e)}")
+./logistay/api/driver.py:568:        frappe.throw(_("Failed to load driver information"))
+./logistay/api/driver.py:571:@frappe.whitelist()
+./logistay/api/driver.py:572:def get_current_assignment():
+./logistay/api/driver.py:578:        employee = get_current_employee()
+./logistay/api/driver.py:580:            frappe.throw(_("No employee record found"))
+./logistay/api/driver.py:582:        driver = frappe.get_value("Fleet Driver", {"employee": employee.name}, "name")
+./logistay/api/driver.py:584:            frappe.throw(_("No driver record found"))
+./logistay/api/driver.py:587:        assignment = frappe.db.get_value("Driver Vehicle Assignment", {
+./logistay/api/driver.py:597:        vehicle_info = frappe.get_value("Fleet Vehicle", assignment.vehicle,
+./logistay/api/driver.py:601:            assignment.update(vehicle_info)
+./logistay/api/driver.py:606:        frappe.log_error(f"Get Current Assignment Error: {str(e)}")
+./logistay/api/driver.py:607:        frappe.throw(_("Failed to load current assignment"))
+./logistay/api/driver.py:610:def get_current_employee():
+./logistay/api/driver.py:616:    employee_name = frappe.db.get_value("Employee", {"user_id": user}, "name")
+./logistay/api/driver.py:619:        return frappe.get_doc("Employee", employee_name)
+./logistay/api/driver.py:624:def validate_driver_permissions(driver_name):
+./logistay/api/driver.py:631:    employee = get_current_employee()
+./logistay/api/driver.py:635:    driver_employee = frappe.get_value("Fleet Driver", driver_name, "employee")

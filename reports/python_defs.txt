@@ -1,0 +1,261 @@
+./config/docs.py:10:def get_context(context):
+./config/desktop.py:3:def get_data():
+./patches/v1_0/create_fleet_workspace.py:4:def execute():
+./utils/doctype_discovery.py:7:def get_app_doctypes(app_name="logistay"):
+./utils/doctype_discovery.py:92:def calculate_driver_relevance(doctype_name, key_fields):
+./utils/doctype_discovery.py:116:def get_driver_relevant_doctypes():
+./utils/doctype_discovery.py:144:def generate_inventory_json():
+./utils/workspace_template.py:16:def upsert_workspace(
+./utils/workspace_template.py:91:def get_logistay_blocks():
+./permissions/role_permissions.py:17:    def __init__(self):
+./permissions/role_permissions.py:27:    def get_user_role_level(self, user: Optional[str] = None) -> int:
+./permissions/role_permissions.py:41:    def can_access_document(self, doctype: str, doc_name: str, user: Optional[str] = None) -> bool:
+./permissions/role_permissions.py:63:    def _check_driver_access(self, doc, user: str) -> bool:
+./permissions/role_permissions.py:76:    def _check_project_manager_access(self, doc, user: str) -> bool:
+./permissions/role_permissions.py:87:    def _check_supervisor_access(self, doc, user: str) -> bool:
+./permissions/role_permissions.py:98:    def get_filtered_query(self, doctype: str, user: str = None) -> Dict[str, Any]:
+./permissions/role_permissions.py:138:    def validate_field_permissions(self, doc, user: str = None) -> List[str]:
+./permissions/role_permissions.py:155:    def _get_role_config(self, user_roles: List[str]) -> Dict[str, Any]:
+./permissions/role_permissions.py:172:    def check_approval_permissions(self, doctype: str, amount: float = 0, user: str = None) -> Dict[str, Any]:
+./permissions/role_permissions.py:204:    def log_access_attempt(self, doctype: str, doc_name: str, action: str, success: bool, user: str = None):
+./permissions/role_permissions.py:226:    def validate_session_security(self, user: str = None) -> Dict[str, Any]:
+./permissions/role_permissions.py:274:def has_fleet_permission(doctype: str, ptype: str, doc_name: str = None, user: str = None) -> bool:
+./permissions/role_permissions.py:284:def get_fleet_query_conditions(doctype: str, user: str = None) -> str:
+./permissions/role_permissions.py:299:def validate_fleet_document_access(doc, method):
+./permissions/role_permissions.py:332:def validate_session_security():
+./dashboard/fleet_management_dashboard.py:9:def get_dashboard_data(filters=None):
+./dashboard/fleet_management_dashboard.py:24:def get_fleet_kpis(filters=None):
+./dashboard/fleet_management_dashboard.py:71:def get_chart_data(filters=None):
+./dashboard/fleet_management_dashboard.py:101:def get_fleet_summary(filters=None):
+./dashboard/fleet_management_dashboard.py:118:def get_fleet_alerts(filters=None):
+./dashboard/fleet_management_dashboard.py:178:def get_recent_activities(filters=None):
+./dashboard/fleet_management_dashboard.py:224:def get_total_vehicles():
+./dashboard/fleet_management_dashboard.py:228:def get_active_vehicles():
+./dashboard/fleet_management_dashboard.py:232:def get_vehicle_utilization_rate(from_date, to_date):
+./dashboard/fleet_management_dashboard.py:242:def get_vehicles_in_maintenance():
+./dashboard/fleet_management_dashboard.py:246:def get_total_drivers():
+./dashboard/fleet_management_dashboard.py:250:def get_active_drivers():
+./dashboard/fleet_management_dashboard.py:254:def get_driver_utilization_rate(from_date, to_date):
+./dashboard/fleet_management_dashboard.py:270:def get_drivers_on_leave():
+./dashboard/fleet_management_dashboard.py:274:def get_total_fleet_cost(from_date, to_date):
+./dashboard/fleet_management_dashboard.py:285:def get_fuel_cost(from_date, to_date):
+./dashboard/fleet_management_dashboard.py:296:def get_maintenance_cost(from_date, to_date):
+./dashboard/fleet_management_dashboard.py:307:def get_average_cost_per_km(from_date, to_date):
+./dashboard/fleet_management_dashboard.py:316:def get_total_shifts(from_date, to_date):
+./dashboard/fleet_management_dashboard.py:322:def get_completed_shifts(from_date, to_date):
+./dashboard/fleet_management_dashboard.py:329:def get_cancelled_shifts(from_date, to_date):
+./dashboard/fleet_management_dashboard.py:336:def get_total_distance(from_date, to_date):
+./dashboard/fleet_management_dashboard.py:347:def get_total_fuel_consumed(from_date, to_date):
+./dashboard/fleet_management_dashboard.py:357:def get_on_time_performance(from_date, to_date):
+./dashboard/fleet_management_dashboard.py:371:def get_safety_incidents(from_date, to_date):
+./dashboard/fleet_management_dashboard.py:376:def get_customer_satisfaction_score(from_date, to_date):
+./dashboard/fleet_management_dashboard.py:382:def get_monthly_cost_trend():
+./dashboard/fleet_management_dashboard.py:397:def get_vehicle_utilization_chart():
+./dashboard/fleet_management_dashboard.py:409:def get_fuel_consumption_trend():
+./dashboard/fleet_management_dashboard.py:423:def get_driver_performance_chart():
+./dashboard/fleet_management_dashboard.py:444:def get_cost_breakdown_chart():
+./dashboard/fleet_management_dashboard.py:472:def get_vehicle_status_distribution():
+./dashboard/fleet_management_dashboard.py:482:def get_branch_performance_chart():
+./dashboard/fleet_management_dashboard.py:504:def calculate_completion_rate(completed, total):
+./dashboard/fleet_management_dashboard.py:510:def calculate_fuel_efficiency(distance, fuel):
+./dashboard/fleet_management_dashboard.py:516:def calculate_percentage(part, total):
+./dashboard/fleet_management_dashboard.py:522:def get_average_vehicle_age():
+./dashboard/fleet_management_dashboard.py:532:def get_total_fleet_mileage():
+./dashboard/fleet_management_dashboard.py:542:def get_vehicles_maintenance_due():
+./dashboard/fleet_management_dashboard.py:549:def get_vehicles_insurance_expiring():
+./dashboard/fleet_management_dashboard.py:557:def get_vehicles_registration_expiring():
+./scripts/create_workspace.py:13:def create_fleet_workspace():
+./scripts/create_workspace.py:45:def preview_workspace():
+./scripts/gen_workspace.py:6:def get_doctypes(app_path):
+./scripts/gen_workspace.py:14:def get_reports(app_path):
+./scripts/gen_workspace.py:22:def generate_workspace(app, module, workspace_name, out_path):
+./report/driver_status_report/driver_status_report.py:3:def execute(filters=None):
+./report/fuel_expense_report/fuel_expense_report.py:3:def execute(filters=None):
+./report/vehicle_utilization_report/vehicle_utilization_report.py:9:def execute(filters=None):
+./report/vehicle_utilization_report/vehicle_utilization_report.py:22:def validate_filters(filters):
+./report/vehicle_utilization_report/vehicle_utilization_report.py:30:def get_columns():
+./report/vehicle_utilization_report/vehicle_utilization_report.py:113:def get_data(filters):
+./report/vehicle_utilization_report/vehicle_utilization_report.py:130:def get_vehicles(filters):
+./report/vehicle_utilization_report/vehicle_utilization_report.py:156:def get_vehicle_utilization_data(vehicle, filters, total_days):
+./report/vehicle_utilization_report/vehicle_utilization_report.py:205:def get_current_driver(vehicle, date):
+./report/vehicle_utilization_report/vehicle_utilization_report.py:220:def get_shift_data(vehicle, from_date, to_date):
+./report/vehicle_utilization_report/vehicle_utilization_report.py:235:def get_distance_data(vehicle, from_date, to_date):
+./report/vehicle_utilization_report/vehicle_utilization_report.py:254:def get_fuel_efficiency(vehicle, from_date, to_date):
+./report/vehicle_utilization_report/vehicle_utilization_report.py:273:def get_utilization_status(utilization_rate, threshold):
+./report/vehicle_utilization_report/vehicle_utilization_report.py:284:def get_chart_data(data, filters):
+./report/vehicle_utilization_report/vehicle_utilization_report.py:335:def get_summary_data(data, filters):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:10:def execute(filters=None):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:21:def get_columns():
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:101:def get_data(filters):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:120:def get_vehicles(filters):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:146:def get_vehicle_cost_data(vehicle, filters):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:191:def get_current_driver(vehicle, date):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:206:def get_fuel_cost(vehicle, start_date, end_date):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:218:def get_maintenance_cost(vehicle, start_date, end_date):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:224:def get_insurance_cost(vehicle, start_date, end_date):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:239:def get_driver_salary(driver, start_date, end_date):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:248:def get_depreciation_cost(vehicle, start_date, end_date):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:263:def get_other_costs(vehicle, start_date, end_date):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:269:def get_distance_traveled(vehicle, start_date, end_date):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:288:def get_conditions(filters):
+./report/monthly_fleet_cost_report/monthly_fleet_cost_report.py:303:def get_chart_data(data, filters):
+./report/vehicle_status_report/vehicle_status_report.py:3:def execute(filters=None):
+./update_workspace.py:3:def update_workspace():
+./logistay/accommodation_management/doctype/room/room.py:9:	def validate(self):
+./logistay/accommodation_management/doctype/room/room.py:13:	def update_status(self):
+./logistay/accommodation_management/doctype/room/room.py:32:	def on_update(self):
+./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py:10:	def validate(self):
+./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py:15:	def validate_dates(self):
+./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py:20:	def validate_room_accommodation(self):
+./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py:27:	def on_update(self):
+./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py:33:	def mark_completed(self, completion_notes=None, completion_status="Satisfactory"):
+./logistay/accommodation_management/doctype/supervisor_daily_task/supervisor_daily_task.py:44:	def get_overdue_tasks(self):
+./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py:9:	def validate(self):
+./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py:15:	def set_accommodation_from_room(self):
+./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py:21:	def validate_dates(self):
+./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py:27:	def validate_room_capacity(self):
+./logistay/accommodation_management/doctype/employee_accommodation_assignment/employee_accommodation_assignment.py:49:	def on_update(self):
+./logistay/accommodation_management/doctype/asset_log/asset_log.py:9:	def validate(self):
+./logistay/accommodation_management/doctype/asset_log/asset_log.py:13:	def validate_unique_asset_code(self):
+./logistay/accommodation_management/doctype/asset_log/asset_log.py:27:	def add_maintenance_entry(self, maintenance_date, description, cost=0, performed_by=""):
+./logistay/accommodation_management/doctype/asset_log/asset_log.py:37:	def get_total_maintenance_cost(self):
+./logistay/accommodation_management/doctype/accommodation_inspection/accommodation_inspection.py:10:	def validate(self):
+./logistay/accommodation_management/doctype/accommodation_inspection/accommodation_inspection.py:15:	def validate_inspection_date(self):
+./logistay/accommodation_management/doctype/accommodation_inspection/accommodation_inspection.py:20:	def validate_status_change(self):
+./logistay/accommodation_management/doctype/accommodation_inspection/accommodation_inspection.py:25:	def on_submit(self):
+./logistay/accommodation_management/doctype/accommodation_inspection/accommodation_inspection.py:29:	def approve_inspection(self):
+./logistay/accommodation_management/doctype/accommodation_inspection/accommodation_inspection.py:37:	def get_failed_items(self):
+./logistay/accommodation_management/doctype/accommodation/accommodation.py:9:	def validate(self):
+./logistay/accommodation_management/doctype/accommodation/accommodation.py:14:	def calculate_occupancy(self):
+./logistay/accommodation_management/doctype/accommodation/accommodation.py:27:	def validate_dates(self):
+./logistay/accommodation_management/doctype/accommodation/accommodation.py:33:	def on_update(self):
+./logistay/accommodation_management/doctype/accommodation/accommodation.py:37:	def update_room_statuses(self):
+./logistay/fleet_management/doctype/inspection_checklist_item/inspection_checklist_item.py:9:	def validate(self):
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:15:    def before_insert(self):
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:31:    def validate(self):
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:47:    def on_update(self):
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:52:    def cleanup_old_logs(self):
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:77:    def log_access(user: str, document_type: str, document_name: str, action: str, 
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:101:    def get_user_activity_summary(user: str, days: int = 30) -> Dict[str, Any]:
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:161:    def get_security_alerts(days: int = 7) -> list:
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:228:def log_document_access(doc, method):
+./logistay/fleet_management/doctype/fleet_access_log/fleet_access_log.py:242:def log_failed_access(doctype: str, doc_name: str, action: str, error: str):
+./logistay/fleet_management/doctype/fleet_city/fleet_city.py:8:    def validate(self):
+./logistay/fleet_management/doctype/fleet_branch/fleet_branch.py:9:	def validate(self):
+./logistay/fleet_management/doctype/fleet_branch/fleet_branch.py:14:	def validate_coordinates(self):
+./logistay/fleet_management/doctype/fleet_branch/fleet_branch.py:22:	def validate_branch_name(self):
+./logistay/fleet_management/doctype/fleet_branch/fleet_branch.py:33:	def before_save(self):
+./logistay/fleet_management/doctype/fleet_branch/fleet_branch.py:37:	def set_title(self):
+./logistay/fleet_management/doctype/maintenance_entry/maintenance_entry.py:9:	def validate(self):
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:9:	def validate(self):
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:14:	def validate_project_names(self):
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:27:	def validate_city_exists(self):
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:34:	def before_save(self):
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:38:	def set_title(self):
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:45:	def on_update(self):
+./logistay/fleet_management/doctype/fleet_project/fleet_project.py:49:	def update_related_branches(self):
+./logistay/fleet_management/doctype/fleet_driver/fleet_driver.py:5:    def before_save(self):
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:10:    def validate(self):
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:17:    def validate_dates(self):
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:35:    def validate_vehicle_uniqueness(self):
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:56:    def validate_lease_information(self):
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:73:    def set_defaults(self):
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:85:    def before_save(self):
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:90:    def update_audit_fields(self):
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:95:    def calculate_depreciation(self):
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:113:    def on_update(self):
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:118:    def update_vehicle_ownership_status(self):
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:126:    def get_monthly_cost(self):
+./logistay/fleet_management/doctype/vehicle_ownership/vehicle_ownership.py:137:    def is_lease_expiring_soon(self, days=30):
+./logistay/fleet_management/doctype/fleet_shift/fleet_shift.py:9:    def validate(self):
+./logistay/fleet_management/doctype/fleet_shift/fleet_shift.py:13:    def validate_vehicle_availability(self):
+./logistay/fleet_management/doctype/fleet_shift/fleet_shift.py:31:    def validate_driver_availability(self):
+./logistay/fleet_management/doctype/fleet_shift/fleet_shift.py:49:    def on_submit(self):
+./logistay/fleet_management/doctype/fleet_shift/fleet_shift.py:53:    def on_cancel(self):
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:11:    def validate(self):
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:18:    def validate_assignment_dates(self):
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:28:    def validate_assignment_conflicts(self):
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:96:    def validate_driver_license_compatibility(self):
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:133:    def set_audit_fields(self):
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:143:    def on_update(self):
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:157:    def on_cancel(self):
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:161:    def get_dashboard_data(self):
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:175:def get_available_vehicles(driver, start_date, end_date=None):
+./logistay/fleet_management/doctype/driver_vehicle_assignment/driver_vehicle_assignment.py:217:def get_driver_assignments(driver, status=None):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:10:    def validate(self):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:18:    def validate_odometer_reading(self):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:44:    def validate_fuel_data(self):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:56:    def calculate_totals(self):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:65:    def calculate_efficiency(self):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:74:    def set_defaults(self):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:88:    def before_save(self):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:93:    def update_audit_fields(self):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:98:    def calculate_budget_variance(self):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:122:    def on_update(self):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:128:    def update_vehicle_fuel_info(self):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:136:    def get_fuel_efficiency_trend(self, periods=6):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:158:    def validate_duplicate_receipt(self):
+./logistay/fleet_management/doctype/fuel_entry/fuel_entry.py:174:    def send_approval_notification(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:11:    def before_save(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:18:    def on_update(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:23:    def set_defaults(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:46:    def validate_data(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:68:    def validate_vehicle_driver_assignment(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:87:    def validate_cost_components(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:100:    def calculate_costs(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:135:    def calculate_vehicle_costs(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:167:    def calculate_driver_costs(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:198:    def calculate_route_costs(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:205:    def calculate_project_costs(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:212:    def calculate_totals(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:241:    def calculate_efficiency_metrics(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:252:    def create_cost_breakdown(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:282:    def update_audit_fields(self):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:287:    def log_calculation(self, message):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:298:    def get_fuel_cost(self, vehicle, from_date, to_date):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:310:    def get_maintenance_cost(self, vehicle, from_date, to_date):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:315:    def get_insurance_cost(self, vehicle, from_date, to_date):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:335:    def get_depreciation_cost(self, vehicle, from_date, to_date):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:354:    def get_registration_cost(self, vehicle, from_date, to_date):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:359:    def get_driver_salary(self, driver, from_date, to_date):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:367:    def get_driver_allowances(self, driver, from_date, to_date):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:372:    def get_overtime_cost(self, driver, from_date, to_date):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:377:    def get_bonus_cost(self, driver, from_date, to_date):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:382:    def get_penalty_cost(self, driver, from_date, to_date):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:387:    def get_distance_traveled(self, vehicle, from_date, to_date):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:403:    def get_active_days(self, vehicle, from_date, to_date):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:415:    def get_hours_worked(self, driver, from_date, to_date):
+./logistay/fleet_management/doctype/cost_calculation_engine/cost_calculation_engine.py:427:    def get_total_fuel_consumed(self, vehicle, from_date, to_date):
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:10:    def validate(self):
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:16:    def validate_supplier_code(self):
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:30:    def validate_contact_info(self):
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:45:    def clean_text_fields(self):
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:56:    def before_save(self):
+./logistay/fleet_management/doctype/supplier_master/supplier_master.py:64:    def on_update(self):
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:11:    def validate(self):
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:18:    def validate_dates(self):
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:44:    def validate_pricing(self):
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:59:    def validate_contact_info(self):
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:67:    def set_defaults(self):
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:78:    def before_save(self):
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:83:    def update_status_based_on_dates(self):
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:98:    def on_update(self):
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:104:    def send_status_notification(self):
+./logistay/fleet_management/doctype/supplier_contract/supplier_contract.py:131:    def get_active_rate(self, rate_type="base"):
+./logistay/fleet_management/doctype/fleet_vehicle/fleet_vehicle.py:5:    def before_save(self):
+./logistay/api.py:6:def get_counts():
+./logistay/api.py:26:def fuel_entries_today(limit: int = 10):
+./logistay/api/driver.py:15:def get_driver_dashboard():
+./logistay/api/driver.py:103:def get_trips(status=None, limit=20, offset=0):
+./logistay/api/driver.py:159:def update_trip_status(trip_id, action):
+./logistay/api/driver.py:231:def create_fuel_entry(vehicle, fuel_date, quantity, amount, vendor=None, receipt_attachment=None):
+./logistay/api/driver.py:304:def get_fuel_entries(limit=20, offset=0):
+./logistay/api/driver.py:349:def get_assigned_vehicles():
+./logistay/api/driver.py:389:def get_profile():
+./logistay/api/driver.py:434:def change_password(current_password, new_password):
+./logistay/api/driver.py:466:def create_support_ticket(category, priority, subject, description, attachment=None):
+./logistay/api/driver.py:521:def get_support_tickets(limit=20, offset=0):
+./logistay/api/driver.py:550:def get_driver_info():
+./logistay/api/driver.py:572:def get_current_assignment():
+./logistay/api/driver.py:610:def get_current_employee():
+./logistay/api/driver.py:624:def validate_driver_permissions(driver_name):
