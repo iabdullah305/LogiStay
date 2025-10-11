@@ -1,0 +1,1 @@
+# Accommodation Management API Package

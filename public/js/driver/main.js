@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import { FrappeUI } from 'frappe-ui'
 import App from './App.vue'
 import Dashboard from './components/Dashboard.vue'
 import Trips from './components/Trips.vue'
@@ -24,7 +25,10 @@ const router = createRouter({
 
 // Create application
 const app = createApp(App)
+
+// Use plugins
 app.use(router)
+app.use(FrappeUI)
 
 // Add global variables
 app.config.globalProperties.$frappe = window.frappe

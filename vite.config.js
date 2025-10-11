@@ -14,6 +14,10 @@ export default defineConfig({
                 rollupOptions: {
                         input: {
                                 driver: 'public/js/driver/main.js',
+                                fleet: 'public/js/fleet/main.js',
+                                'booking-lookup': 'public/js/booking-lookup/main.js',
+                                availability: 'public/js/availability/main.js',
+                                'supervisor-tasks': 'public/js/supervisor-tasks/main.js',
                         },
                         output: {
                                 entryFileNames: '[name].js',
