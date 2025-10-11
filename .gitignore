@@ -56,3 +56,6 @@ jspm_packages/
 
 # Large generated reports (prevent oversized files in repo)
 reports/js_calls.txt
+
+# Documentation files
+docs/*.md
