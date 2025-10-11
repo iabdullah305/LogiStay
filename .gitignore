@@ -57,15 +57,17 @@ jspm_packages/
 # Large generated reports (prevent oversized files in repo)
 reports/js_calls.txt
 
-# Documentation files
-docs/*.md
-
 # Build artifacts and cache files
 __pycache__/
 *.pyc
 public/dist/
 public/node_modules/
+node_modules/
 *.log
 audit_report_*.json
 cleanup_report.json
+post_cleanup_verification.json
+
+# Documentation files
+docs/*.md
 node_modules/
