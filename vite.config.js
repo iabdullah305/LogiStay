@@ -18,6 +18,7 @@ export default defineConfig({
                                 'booking-lookup': 'public/js/booking-lookup/main.js',
                                 availability: 'public/js/availability/main.js',
                                 'supervisor-tasks': 'public/js/supervisor-tasks/main.js',
+                                'employee-trips': 'public/js/employee-trips/main.js',
                         },
                         output: {
                                 entryFileNames: '[name].js',
