@@ -1,0 +1,16 @@
+{
+  "doctype": "Workspace",
+  "name": "accommodation_management",
+  "label": "Accommodation Management",
+  "module": "Accommodation Management",
+  "public": 1,
+  "is_hidden": 0,
+  "route": "accommodation-management",
+  "content": [
+    { "type": "shortcut", "title": "Accommodations", "link_to": "Accommodation", "icon": "home" },
+    { "type": "shortcut", "title": "Rooms", "link_to": "Room", "icon": "door-open" },
+    { "type": "shortcut", "title": "Employee Assignments", "link_to": "Employee Accommodation Assignment", "icon": "id-card" },
+    { "type": "shortcut", "title": "Inspections", "link_to": "Accommodation Inspection", "icon": "check-square" },
+    { "type": "shortcut", "title": "Inspection Checklist Items", "link_to": "Inspection Checklist Item", "icon": "list" }
+  ]
+}

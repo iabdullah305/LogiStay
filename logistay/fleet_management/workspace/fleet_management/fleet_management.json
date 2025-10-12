@@ -1,0 +1,32 @@
+{
+  "doctype": "Workspace",
+  "name": "fleet_management",
+  "label": "Fleet Management",
+  "module": "Fleet Management",
+  "public": 1,
+  "is_hidden": 0,
+  "route": "fleet-management",
+  "content": [
+    { "type": "shortcut", "title": "Vehicle List", "link_to": "Fleet Vehicle", "icon": "car" },
+    { "type": "shortcut", "title": "Drivers", "link_to": "Fleet Driver", "icon": "user" },
+    { "type": "shortcut", "title": "Fuel Entries", "link_to": "Fuel Entry", "icon": "gas-pump" },
+    { "type": "shortcut", "title": "Maintenance Entries", "link_to": "Maintenance Entry", "icon": "wrench" },
+    { "type": "shortcut", "title": "Driver Assignments", "link_to": "Driver Vehicle Assignment", "icon": "users" },
+    { "type": "shortcut", "title": "Shifts", "link_to": "Fleet Shift", "icon": "clock" },
+    { "type": "shortcut", "title": "Access Logs", "link_to": "Fleet Access Log", "icon": "log-in" },
+
+    { "type": "shortcut", "title": "Driver Status Report", "link_to": "Driver Status Report", "icon": "file-chart" },
+    { "type": "shortcut", "title": "Vehicle Status Report", "link_to": "Vehicle Status Report", "icon": "file-chart" },
+    { "type": "shortcut", "title": "Fuel Expense Report", "link_to": "Fuel Expense Report", "icon": "file-chart" },
+    { "type": "shortcut", "title": "Vehicle Utilization Report", "link_to": "Vehicle Utilization Report", "icon": "file-chart" },
+    { "type": "shortcut", "title": "Monthly Fleet Cost Report", "link_to": "Monthly Fleet Cost Report", "icon": "file-chart" },
+
+    { "type": "shortcut", "title": "Fleet City", "link_to": "Fleet City", "icon": "map-pin" },
+    { "type": "shortcut", "title": "Fleet Branch", "link_to": "Fleet Branch", "icon": "building" },
+    { "type": "shortcut", "title": "Fleet Project", "link_to": "Fleet Project", "icon": "briefcase" },
+    { "type": "shortcut", "title": "Supplier Master", "link_to": "Supplier Master", "icon": "store" },
+    { "type": "shortcut", "title": "Supplier Contract", "link_to": "Supplier Contract", "icon": "file-text" },
+    { "type": "shortcut", "title": "Vehicle Ownership", "link_to": "Vehicle Ownership", "icon": "id-card" },
+    { "type": "shortcut", "title": "Cost Calculation Engine", "link_to": "Cost Calculation Engine", "icon": "calculator" }
+  ]
+}
