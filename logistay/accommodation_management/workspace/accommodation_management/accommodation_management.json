@@ -6,11 +6,34 @@
   "public": 1,
   "is_hidden": 0,
   "route": "accommodation-management",
-  "content": [
-    { "type": "shortcut", "title": "Accommodations", "link_to": "Accommodation", "icon": "home" },
-    { "type": "shortcut", "title": "Rooms", "link_to": "Room", "icon": "door-open" },
-    { "type": "shortcut", "title": "Employee Assignments", "link_to": "Employee Accommodation Assignment", "icon": "id-card" },
-    { "type": "shortcut", "title": "Inspections", "link_to": "Accommodation Inspection", "icon": "check-square" },
-    { "type": "shortcut", "title": "Inspection Checklist Items", "link_to": "Inspection Checklist Item", "icon": "list" }
+  "blocks": [
+    {
+      "title": "Masters",
+      "items": [
+        { "type": "doctype", "label": "Accommodation", "target": "Accommodation" },
+        { "type": "doctype", "label": "Room", "target": "Room" }
+      ]
+    },
+    {
+      "title": "Operations",
+      "items": [
+        { "type": "doctype", "label": "Employee Accommodation Assignment", "target": "Employee Accommodation Assignment" },
+        { "type": "doctype", "label": "Accommodation Inspection", "target": "Accommodation Inspection" },
+        { "type": "doctype", "label": "Supervisor Daily Task", "target": "Supervisor Daily Task" },
+        { "type": "doctype", "label": "Asset Log", "target": "Asset Log" }
+      ]
+    },
+    { "title": "Reports", "items": [] },
+    { "title": "Analytics", "items": [] },
+    {
+      "title": "Public Tools",
+      "items": [
+        { "type": "link", "label": "Booking Lookup", "url": "/booking-lookup" },
+        { "type": "link", "label": "Availability", "url": "/availability" },
+        { "type": "link", "label": "Employee Trips Shifts", "url": "/employee-trips-shifts" },
+        { "type": "link", "label": "Supervisor Tasks", "url": "/supervisor/tasks" },
+        { "type": "link", "label": "Driver Portal", "url": "/driver" }
+      ]
+    }
   ]
 }

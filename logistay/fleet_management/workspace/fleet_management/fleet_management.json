@@ -6,27 +6,56 @@
   "public": 1,
   "is_hidden": 0,
   "route": "fleet-management",
-  "content": [
-    { "type": "shortcut", "title": "Vehicle List", "link_to": "Fleet Vehicle", "icon": "car" },
-    { "type": "shortcut", "title": "Drivers", "link_to": "Fleet Driver", "icon": "user" },
-    { "type": "shortcut", "title": "Fuel Entries", "link_to": "Fuel Entry", "icon": "gas-pump" },
-    { "type": "shortcut", "title": "Maintenance Entries", "link_to": "Maintenance Entry", "icon": "wrench" },
-    { "type": "shortcut", "title": "Driver Assignments", "link_to": "Driver Vehicle Assignment", "icon": "users" },
-    { "type": "shortcut", "title": "Shifts", "link_to": "Fleet Shift", "icon": "clock" },
-    { "type": "shortcut", "title": "Access Logs", "link_to": "Fleet Access Log", "icon": "log-in" },
-
-    { "type": "shortcut", "title": "Driver Status Report", "link_to": "Driver Status Report", "icon": "file-chart" },
-    { "type": "shortcut", "title": "Vehicle Status Report", "link_to": "Vehicle Status Report", "icon": "file-chart" },
-    { "type": "shortcut", "title": "Fuel Expense Report", "link_to": "Fuel Expense Report", "icon": "file-chart" },
-    { "type": "shortcut", "title": "Vehicle Utilization Report", "link_to": "Vehicle Utilization Report", "icon": "file-chart" },
-    { "type": "shortcut", "title": "Monthly Fleet Cost Report", "link_to": "Monthly Fleet Cost Report", "icon": "file-chart" },
-
-    { "type": "shortcut", "title": "Fleet City", "link_to": "Fleet City", "icon": "map-pin" },
-    { "type": "shortcut", "title": "Fleet Branch", "link_to": "Fleet Branch", "icon": "building" },
-    { "type": "shortcut", "title": "Fleet Project", "link_to": "Fleet Project", "icon": "briefcase" },
-    { "type": "shortcut", "title": "Supplier Master", "link_to": "Supplier Master", "icon": "store" },
-    { "type": "shortcut", "title": "Supplier Contract", "link_to": "Supplier Contract", "icon": "file-text" },
-    { "type": "shortcut", "title": "Vehicle Ownership", "link_to": "Vehicle Ownership", "icon": "id-card" },
-    { "type": "shortcut", "title": "Cost Calculation Engine", "link_to": "Cost Calculation Engine", "icon": "calculator" }
+  "blocks": [
+    {
+      "title": "Operations",
+      "items": [
+        { "type": "doctype", "label": "Fleet Vehicle", "target": "Fleet Vehicle" },
+        { "type": "doctype", "label": "Fleet Driver", "target": "Fleet Driver" },
+        { "type": "doctype", "label": "Fuel Entry", "target": "Fuel Entry" },
+        { "type": "doctype", "label": "Maintenance Entry", "target": "Maintenance Entry" },
+        { "type": "doctype", "label": "Driver Vehicle Assignment", "target": "Driver Vehicle Assignment" },
+        { "type": "doctype", "label": "Fleet Shift", "target": "Fleet Shift" },
+        { "type": "doctype", "label": "Fleet Access Log", "target": "Fleet Access Log" }
+      ]
+    },
+    {
+      "title": "Reports",
+      "items": [
+        { "type": "report", "label": "Driver Status Report", "target": "Driver Status Report" },
+        { "type": "report", "label": "Vehicle Status Report", "target": "Vehicle Status Report" },
+        { "type": "report", "label": "Fuel Expense Report", "target": "Fuel Expense Report" },
+        { "type": "report", "label": "Vehicle Utilization Report", "target": "Vehicle Utilization Report" },
+        { "type": "report", "label": "Monthly Fleet Cost Report", "target": "Monthly Fleet Cost Report" }
+      ]
+    },
+    {
+      "title": "Masters",
+      "items": [
+        { "type": "doctype", "label": "Fleet City", "target": "Fleet City" },
+        { "type": "doctype", "label": "Fleet Branch", "target": "Fleet Branch" },
+        { "type": "doctype", "label": "Fleet Project", "target": "Fleet Project" },
+        { "type": "doctype", "label": "Supplier Master", "target": "Supplier Master" },
+        { "type": "doctype", "label": "Supplier Contract", "target": "Supplier Contract" },
+        { "type": "doctype", "label": "Vehicle Ownership", "target": "Vehicle Ownership" },
+        { "type": "doctype", "label": "Cost Calculation Engine", "target": "Cost Calculation Engine" }
+      ]
+    },
+    {
+      "title": "Dashboards",
+      "items": [
+        { "type": "dashboard", "label": "Fleet Management Dashboard", "target": "Fleet Management Dashboard" }
+      ]
+    },
+    {
+      "title": "Public Tools",
+      "items": [
+        { "type": "link", "label": "Booking Lookup", "url": "/booking-lookup" },
+        { "type": "link", "label": "Availability", "url": "/availability" },
+        { "type": "link", "label": "Employee Trips Shifts", "url": "/employee-trips-shifts" },
+        { "type": "link", "label": "Supervisor Tasks", "url": "/supervisor/tasks" },
+        { "type": "link", "label": "Driver Portal", "url": "/driver" }
+      ]
+    }
   ]
 }
