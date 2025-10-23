@@ -1,0 +1,342 @@
+{
+  "audit_timestamp": "2025-10-23T13:45:00Z",
+  "audit_version": "1.0",
+  "app_name": "logistay",
+  "frappe_version": "v16",
+  "compliance_status": "NON-COMPLIANT",
+  "critical_issues": 12,
+  "warnings": 10,
+  "issues_by_category": {
+    "duplicate_structure": {
+      "severity": "CRITICAL",
+      "count": 1,
+      "description": "Old fleet_management directory exists alongside new logistay structure"
+    },
+    "incorrect_frappe_ui_import": {
+      "severity": "CRITICAL",
+      "count": 6,
+      "description": "Vue apps using deprecated FrappeUI instead of resourcesPlugin"
+    },
+    "inline_scripts": {
+      "severity": "WARNING",
+      "count": 4,
+      "description": "HTML wrappers contain inline console.log scripts"
+    },
+    "legacy_api_calls": {
+      "severity": "HIGH",
+      "count": 10,
+      "description": "Components using frappe.call instead of frappe-ui resources"
+    },
+    "missing_www_pages": {
+      "severity": "LOW",
+      "count": 1,
+      "description": "Driver app has separate HTML pages in old fleet_management/www/"
+    }
+  },
+  "detailed_findings": [
+    {
+      "issue_id": 1,
+      "severity": "CRITICAL",
+      "category": "duplicate_structure",
+      "file": "/fleet_management/",
+      "line": null,
+      "problem": "Entire old fleet_management directory (685KB, 41 JSON files) exists as duplicate",
+      "current_code": "Directory: /home/user/LogiStay/fleet_management/",
+      "required_fix": "DELETE entire directory - all doctypes migrated to /logistay/fleet_management/",
+      "auto_fixable": true,
+      "breaking_change": false,
+      "rationale": "Frappe v16 requires single module structure under app directory"
+    },
+    {
+      "issue_id": 2,
+      "severity": "CRITICAL",
+      "category": "incorrect_frappe_ui_import",
+      "file": "public/js/driver/main.js",
+      "line": 3,
+      "problem": "Using deprecated FrappeUI import instead of resourcesPlugin",
+      "current_code": "import { FrappeUI } from 'frappe-ui'\napp.use(FrappeUI)",
+      "expected_code": "import { resourcesPlugin } from 'frappe-ui'\napp.use(resourcesPlugin)",
+      "auto_fixable": true,
+      "breaking_change": false,
+      "rationale": "frappe-ui v16 requires resourcesPlugin for proper resource management"
+    },
+    {
+      "issue_id": 3,
+      "severity": "CRITICAL",
+      "category": "incorrect_frappe_ui_import",
+      "file": "public/js/fleet/main.js",
+      "line": 2,
+      "problem": "Using deprecated FrappeUI import",
+      "current_code": "import { FrappeUI } from 'frappe-ui'\napp.use(FrappeUI)",
+      "expected_code": "import { resourcesPlugin } from 'frappe-ui'\napp.use(resourcesPlugin)",
+      "auto_fixable": true,
+      "breaking_change": false
+    },
+    {
+      "issue_id": 4,
+      "severity": "CRITICAL",
+      "category": "incorrect_frappe_ui_import",
+      "file": "public/js/booking-lookup/main.js",
+      "line": 2,
+      "problem": "Using deprecated FrappeUI import",
+      "current_code": "import { FrappeUI } from 'frappe-ui'\napp.use(FrappeUI)",
+      "expected_code": "import { resourcesPlugin } from 'frappe-ui'\napp.use(resourcesPlugin)",
+      "auto_fixable": true,
+      "breaking_change": false
+    },
+    {
+      "issue_id": 5,
+      "severity": "CRITICAL",
+      "category": "incorrect_frappe_ui_import",
+      "file": "public/js/availability/main.js",
+      "line": 2,
+      "problem": "Using deprecated FrappeUI import",
+      "current_code": "import { FrappeUI } from 'frappe-ui'\napp.use(FrappeUI)",
+      "expected_code": "import { resourcesPlugin } from 'frappe-ui'\napp.use(resourcesPlugin)",
+      "auto_fixable": true,
+      "breaking_change": false
+    },
+    {
+      "issue_id": 6,
+      "severity": "CRITICAL",
+      "category": "incorrect_frappe_ui_import",
+      "file": "public/js/supervisor-tasks/main.js",
+      "line": 2,
+      "problem": "Using deprecated FrappeUI import (presumed)",
+      "expected_code": "import { resourcesPlugin } from 'frappe-ui'\napp.use(resourcesPlugin)",
+      "auto_fixable": true,
+      "breaking_change": false
+    },
+    {
+      "issue_id": 7,
+      "severity": "CRITICAL",
+      "category": "incorrect_frappe_ui_import",
+      "file": "public/js/employee-trips/main.js",
+      "line": 2,
+      "problem": "Using deprecated FrappeUI import (presumed)",
+      "expected_code": "import { resourcesPlugin } from 'frappe-ui'\napp.use(resourcesPlugin)",
+      "auto_fixable": true,
+      "breaking_change": false
+    },
+    {
+      "issue_id": 8,
+      "severity": "WARNING",
+      "category": "inline_scripts",
+      "file": "www/employee-trips-shifts/index.html",
+      "line": 22,
+      "problem": "Contains inline console.log debugging scripts",
+      "current_code": "<script>\n    console.log('Employee Trips and Shifts page loaded successfully');\n    console.log('Page URL:', window.location.href);\n    console.log('Frappe available:', typeof window.frappe !== 'undefined');\n</script>",
+      "expected_code": "<!-- Remove inline scripts - use browser DevTools for debugging -->",
+      "auto_fixable": true,
+      "breaking_change": false,
+      "rationale": "Inline scripts violate Content Security Policy and add unnecessary bloat"
+    },
+    {
+      "issue_id": 9,
+      "severity": "WARNING",
+      "category": "inline_scripts",
+      "file": "www/availability/index.html",
+      "line": 22,
+      "problem": "Contains inline console.log debugging scripts",
+      "auto_fixable": true,
+      "breaking_change": false
+    },
+    {
+      "issue_id": 10,
+      "severity": "WARNING",
+      "category": "inline_scripts",
+      "file": "www/booking-lookup/index.html",
+      "line": 22,
+      "problem": "Contains inline console.log debugging scripts (presumed)",
+      "auto_fixable": true,
+      "breaking_change": false
+    },
+    {
+      "issue_id": 11,
+      "severity": "WARNING",
+      "category": "inline_scripts",
+      "file": "www/supervisor/tasks.html",
+      "line": 22,
+      "problem": "Contains inline console.log debugging scripts (presumed)",
+      "auto_fixable": true,
+      "breaking_change": false
+    },
+    {
+      "issue_id": 12,
+      "severity": "HIGH",
+      "category": "legacy_api_calls",
+      "file": "public/js/driver/components/Dashboard.vue",
+      "line": null,
+      "problem": "Using frappe.call instead of frappe-ui createResource",
+      "current_code": "frappe.call({ method: '...', ... })",
+      "expected_code": "import { createResource } from 'frappe-ui'\nconst dashboard = createResource({ url: '...', ... })",
+      "auto_fixable": false,
+      "breaking_change": true,
+      "rationale": "frappe-ui resources provide reactive data, caching, and better state management",
+      "migration_effort": "MEDIUM"
+    },
+    {
+      "issue_id": 13,
+      "severity": "HIGH",
+      "category": "legacy_api_calls",
+      "file": "public/js/driver/components/Trips.vue",
+      "line": null,
+      "problem": "Using frappe.call instead of frappe-ui createResource",
+      "auto_fixable": false,
+      "breaking_change": true,
+      "migration_effort": "MEDIUM"
+    },
+    {
+      "issue_id": 14,
+      "severity": "HIGH",
+      "category": "legacy_api_calls",
+      "file": "public/js/driver/components/Fuel.vue",
+      "line": null,
+      "problem": "Using frappe.call instead of frappe-ui createResource",
+      "auto_fixable": false,
+      "breaking_change": true,
+      "migration_effort": "MEDIUM"
+    },
+    {
+      "issue_id": 15,
+      "severity": "HIGH",
+      "category": "legacy_api_calls",
+      "file": "public/js/driver/components/Profile.vue",
+      "line": null,
+      "problem": "Using frappe.call instead of frappe-ui createResource",
+      "auto_fixable": false,
+      "breaking_change": true,
+      "migration_effort": "MEDIUM"
+    },
+    {
+      "issue_id": 16,
+      "severity": "HIGH",
+      "category": "legacy_api_calls",
+      "file": "public/js/driver/components/Support.vue",
+      "line": null,
+      "problem": "Using frappe.call instead of frappe-ui createResource",
+      "auto_fixable": false,
+      "breaking_change": true,
+      "migration_effort": "MEDIUM"
+    },
+    {
+      "issue_id": 17,
+      "severity": "HIGH",
+      "category": "legacy_api_calls",
+      "file": "public/js/fleet/App.vue",
+      "line": null,
+      "problem": "Using frappe.call instead of frappe-ui createResource",
+      "auto_fixable": false,
+      "breaking_change": true,
+      "migration_effort": "LOW"
+    },
+    {
+      "issue_id": 18,
+      "severity": "HIGH",
+      "category": "legacy_api_calls",
+      "file": "public/js/booking-lookup/App.vue",
+      "line": null,
+      "problem": "Using frappe.call instead of frappe-ui createResource",
+      "auto_fixable": false,
+      "breaking_change": true,
+      "migration_effort": "LOW"
+    },
+    {
+      "issue_id": 19,
+      "severity": "HIGH",
+      "category": "legacy_api_calls",
+      "file": "public/js/availability/App.vue",
+      "line": null,
+      "problem": "Using frappe.call instead of frappe-ui createResource",
+      "auto_fixable": false,
+      "breaking_change": true,
+      "migration_effort": "LOW"
+    },
+    {
+      "issue_id": 20,
+      "severity": "HIGH",
+      "category": "legacy_api_calls",
+      "file": "public/js/employee-trips/App.vue",
+      "line": null,
+      "problem": "Using frappe.call instead of frappe-ui createResource",
+      "auto_fixable": false,
+      "breaking_change": true,
+      "migration_effort": "LOW"
+    },
+    {
+      "issue_id": 21,
+      "severity": "HIGH",
+      "category": "legacy_api_calls",
+      "file": "public/js/supervisor-tasks/App.vue",
+      "line": null,
+      "problem": "Using frappe.call instead of frappe-ui createResource",
+      "auto_fixable": false,
+      "breaking_change": true,
+      "migration_effort": "LOW"
+    },
+    {
+      "issue_id": 22,
+      "severity": "LOW",
+      "category": "missing_www_pages",
+      "file": "fleet_management/www/driver/*.html",
+      "line": null,
+      "problem": "Old driver pages exist in fleet_management/www/ - should be consolidated",
+      "required_fix": "Will be removed when fleet_management directory is deleted",
+      "auto_fixable": true,
+      "breaking_change": false
+    }
+  ],
+  "auto_fix_summary": {
+    "total_auto_fixable": 12,
+    "critical": 7,
+    "warnings": 4,
+    "low": 1
+  },
+  "manual_fix_required": {
+    "total": 10,
+    "high_priority": 10,
+    "description": "Migration from frappe.call to createResource requires component refactoring"
+  },
+  "recommendations": [
+    {
+      "priority": "CRITICAL",
+      "action": "Delete /fleet_management/ directory immediately",
+      "reason": "Duplicate structure causes confusion and violates Frappe v16 conventions",
+      "command": "rm -rf /home/user/LogiStay/fleet_management/"
+    },
+    {
+      "priority": "CRITICAL",
+      "action": "Update all main.js files to use resourcesPlugin",
+      "reason": "FrappeUI is deprecated in frappe-ui v16",
+      "automated": true
+    },
+    {
+      "priority": "HIGH",
+      "action": "Migrate all frappe.call to createResource pattern",
+      "reason": "Better state management, caching, and reactivity",
+      "automated": false,
+      "estimated_time": "2-4 hours"
+    },
+    {
+      "priority": "MEDIUM",
+      "action": "Remove all inline console.log scripts from HTML wrappers",
+      "reason": "Violates CSP and adds bloat",
+      "automated": true
+    },
+    {
+      "priority": "LOW",
+      "action": "Add TypeScript support for better type safety",
+      "reason": "Prevent runtime errors and improve developer experience",
+      "automated": false
+    }
+  ],
+  "next_steps": [
+    "1. Delete old fleet_management directory",
+    "2. Apply auto-fixes to main.js files",
+    "3. Remove inline scripts from HTML",
+    "4. Plan component refactoring for createResource",
+    "5. Build and test all bundles",
+    "6. Run integration tests",
+    "7. Deploy to staging"
+  ]
+}

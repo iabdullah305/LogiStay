@@ -1,12 +1,12 @@
 import { createApp } from 'vue'
-import { FrappeUI } from 'frappe-ui'
+import { resourcesPlugin } from 'frappe-ui'
 import App from './App.vue'
 
 // Create application
 const app = createApp(App)
 
-// Use frappe-ui
-app.use(FrappeUI)
+// Use frappe-ui resources plugin
+app.use(resourcesPlugin)
 
 // Add global variables
 app.config.globalProperties.$frappe = window.frappe
