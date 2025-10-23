@@ -1,0 +1,249 @@
+{
+ "actions": [],
+ "creation": "2025-10-23 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "fuel_management_section",
+  "max_fuel_quantity",
+  "max_fuel_amount",
+  "fuel_entry_max_days_back",
+  "column_break_fuel",
+  "enable_fuel_price_alerts",
+  "fuel_price_alert_threshold",
+  "trip_management_section",
+  "max_trip_distance",
+  "enable_trip_approval",
+  "column_break_trip",
+  "default_trip_status",
+  "maintenance_section",
+  "maintenance_reminder_days",
+  "enable_maintenance_alerts",
+  "column_break_maintenance",
+  "default_maintenance_type",
+  "driver_management_section",
+  "license_expiry_reminder_days",
+  "enable_driver_performance_tracking",
+  "column_break_driver",
+  "max_driving_hours_per_day",
+  "system_settings_section",
+  "enable_gps_tracking",
+  "enable_mobile_app",
+  "column_break_system",
+  "enable_notifications",
+  "notification_email"
+ ],
+ "fields": [
+  {
+   "fieldname": "fuel_management_section",
+   "fieldtype": "Section Break",
+   "label": "Fuel Management Settings"
+  },
+  {
+   "fieldname": "max_fuel_quantity",
+   "fieldtype": "Float",
+   "label": "Maximum Fuel Quantity (Liters)",
+   "description": "Maximum allowed fuel quantity per entry",
+   "default": "500",
+   "reqd": 1
+  },
+  {
+   "fieldname": "max_fuel_amount",
+   "fieldtype": "Currency",
+   "label": "Maximum Fuel Amount",
+   "description": "Maximum allowed fuel amount per entry",
+   "default": "100000",
+   "reqd": 1
+  },
+  {
+   "fieldname": "fuel_entry_max_days_back",
+   "fieldtype": "Int",
+   "label": "Maximum Days Back for Fuel Entry",
+   "description": "How many days back can drivers log fuel entries",
+   "default": "90",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_fuel",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "enable_fuel_price_alerts",
+   "fieldtype": "Check",
+   "label": "Enable Fuel Price Alerts",
+   "description": "Alert when fuel price exceeds threshold",
+   "default": "0"
+  },
+  {
+   "fieldname": "fuel_price_alert_threshold",
+   "fieldtype": "Currency",
+   "label": "Fuel Price Alert Threshold (per liter)",
+   "description": "Alert if price per liter exceeds this amount",
+   "depends_on": "eval:doc.enable_fuel_price_alerts==1"
+  },
+  {
+   "fieldname": "trip_management_section",
+   "fieldtype": "Section Break",
+   "label": "Trip Management Settings"
+  },
+  {
+   "fieldname": "max_trip_distance",
+   "fieldtype": "Float",
+   "label": "Maximum Trip Distance (KM)",
+   "description": "Maximum allowed distance per trip",
+   "default": "1000"
+  },
+  {
+   "fieldname": "enable_trip_approval",
+   "fieldtype": "Check",
+   "label": "Enable Trip Approval Workflow",
+   "description": "Require manager approval for trips",
+   "default": "0"
+  },
+  {
+   "fieldname": "column_break_trip",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "default_trip_status",
+   "fieldtype": "Select",
+   "label": "Default Trip Status",
+   "options": "Assigned\nAccepted\nIn Progress\nPaused\nCompleted\nCancelled",
+   "default": "Assigned"
+  },
+  {
+   "fieldname": "maintenance_section",
+   "fieldtype": "Section Break",
+   "label": "Maintenance Settings"
+  },
+  {
+   "fieldname": "maintenance_reminder_days",
+   "fieldtype": "Int",
+   "label": "Maintenance Reminder Days",
+   "description": "Send reminder X days before maintenance is due",
+   "default": "7",
+   "reqd": 1
+  },
+  {
+   "fieldname": "enable_maintenance_alerts",
+   "fieldtype": "Check",
+   "label": "Enable Maintenance Alerts",
+   "description": "Send alerts for overdue maintenance",
+   "default": "1"
+  },
+  {
+   "fieldname": "column_break_maintenance",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "default_maintenance_type",
+   "fieldtype": "Select",
+   "label": "Default Maintenance Type",
+   "options": "Preventive\nCorrective\nEmergency",
+   "default": "Preventive"
+  },
+  {
+   "fieldname": "driver_management_section",
+   "fieldtype": "Section Break",
+   "label": "Driver Management Settings"
+  },
+  {
+   "fieldname": "license_expiry_reminder_days",
+   "fieldtype": "Int",
+   "label": "License Expiry Reminder Days",
+   "description": "Send reminder X days before license expires",
+   "default": "30",
+   "reqd": 1
+  },
+  {
+   "fieldname": "enable_driver_performance_tracking",
+   "fieldtype": "Check",
+   "label": "Enable Driver Performance Tracking",
+   "description": "Track driver performance metrics",
+   "default": "1"
+  },
+  {
+   "fieldname": "column_break_driver",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "max_driving_hours_per_day",
+   "fieldtype": "Float",
+   "label": "Maximum Driving Hours Per Day",
+   "description": "Maximum allowed driving hours per driver per day",
+   "default": "10",
+   "reqd": 1
+  },
+  {
+   "fieldname": "system_settings_section",
+   "fieldtype": "Section Break",
+   "label": "System Settings"
+  },
+  {
+   "fieldname": "enable_gps_tracking",
+   "fieldtype": "Check",
+   "label": "Enable GPS Tracking",
+   "description": "Enable real-time GPS tracking for vehicles",
+   "default": "0"
+  },
+  {
+   "fieldname": "enable_mobile_app",
+   "fieldtype": "Check",
+   "label": "Enable Mobile App",
+   "description": "Enable mobile app access for drivers",
+   "default": "1"
+  },
+  {
+   "fieldname": "column_break_system",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "enable_notifications",
+   "fieldtype": "Check",
+   "label": "Enable Email Notifications",
+   "description": "Send email notifications for important events",
+   "default": "1"
+  },
+  {
+   "fieldname": "notification_email",
+   "fieldtype": "Data",
+   "label": "Notification Email",
+   "description": "Email address for system notifications",
+   "depends_on": "eval:doc.enable_notifications==1",
+   "options": "Email"
+  }
+ ],
+ "issingle": 1,
+ "modified": "2025-10-23 00:00:00",
+ "modified_by": "Administrator",
+ "module": "Fleet Management",
+ "name": "Fleet Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Fleet Manager",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Fleet Supervisor"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

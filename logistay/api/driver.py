@@ -273,7 +273,13 @@ def create_fuel_entry(vehicle, fuel_date, quantity, amount, vendor=None, receipt
         
         if getdate(fuel_date) > getdate():
             frappe.throw(_("Fuel date cannot be in the future"))
-        
+
+        # Validate against Fleet Settings
+        from logistay.fleet_management.doctype.fleet_settings.fleet_settings import (
+            validate_fuel_entry_against_settings
+        )
+        validate_fuel_entry_against_settings(flt(quantity), flt(amount), fuel_date)
+
         # Create fuel entry
         fuel_entry = frappe.new_doc("Fuel Entry")
         fuel_entry.vehicle = vehicle

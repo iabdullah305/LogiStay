@@ -25,5 +25,8 @@ fixtures = [
         "filters": [
             ["name", "in", ["Fleet Management", "Accommodation Management"]]
         ]
+    },
+    {
+        "doctype": "Fleet Settings"
     }
 ]
