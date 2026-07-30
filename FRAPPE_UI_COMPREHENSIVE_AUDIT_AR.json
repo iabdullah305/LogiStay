@@ -1,0 +1,669 @@
+{
+  "audit_timestamp": "2026-07-30T14:30:00Z",
+  "audit_version": "2.0 - Full Project Audit",
+  "app_name": "LogiStay",
+  "frappe_version": "v16.x",
+  "vue_version": "3.3.0",
+  "frappe_ui_version": "^0.1.0",
+  "overall_assessment": "FUNCTIONAL_BUT_SUBOPTIMAL",
+  "compliance_score": "45/100",
+  "critical_issues": 8,
+  "high_priority_issues": 12,
+  "medium_priority_issues": 8,
+  "low_priority_issues": 5,
+
+  "executive_summary": {
+    "ar": "المشروع يعمل بشكل جيد لكنه لا يستخدم إمكانيات frappe-ui الكاملة. النسخة المستخدمة من frappe-ui قديمة جداً (0.1.0) والكود لا يستخدم الـ resources API رغم أن الـ plugin مثبت. جميع المكونات تستخدم Options API القديم بدلاً من Composition API الحديث.",
+    "en": "Project is functional but not leveraging full frappe-ui capabilities. frappe-ui version is extremely outdated (0.1.0) and code doesn't use resources API despite plugin being installed. All components use legacy Options API instead of modern Composition API."
+  },
+
+  "project_inventory": {
+    "total_vue_files": 11,
+    "total_applications": 6,
+    "total_api_calls": 24,
+    "lines_of_code_estimated": 2500,
+    "applications": [
+      {
+        "name": "Driver Dashboard",
+        "entry": "public/js/driver/main.js",
+        "components": 6,
+        "has_router": true,
+        "routes_count": 5,
+        "api_calls": 13,
+        "complexity": "HIGH"
+      },
+      {
+        "name": "Fleet Management",
+        "entry": "public/js/fleet/main.js",
+        "components": 1,
+        "has_router": false,
+        "api_calls": 2,
+        "complexity": "MEDIUM"
+      },
+      {
+        "name": "Availability Checker",
+        "entry": "public/js/availability/main.js",
+        "components": 1,
+        "has_router": false,
+        "api_calls": 1,
+        "complexity": "LOW"
+      },
+      {
+        "name": "Booking Lookup",
+        "entry": "public/js/booking-lookup/main.js",
+        "components": 1,
+        "has_router": false,
+        "api_calls": 1,
+        "complexity": "LOW"
+      },
+      {
+        "name": "Employee Trips",
+        "entry": "public/js/employee-trips/main.js",
+        "components": 1,
+        "has_router": false,
+        "api_calls": 1,
+        "complexity": "LOW"
+      },
+      {
+        "name": "Supervisor Tasks",
+        "entry": "public/js/supervisor-tasks/main.js",
+        "components": 1,
+        "has_router": false,
+        "api_calls": 2,
+        "complexity": "MEDIUM"
+      }
+    ]
+  },
+
+  "critical_issues": [
+    {
+      "issue_id": "CRITICAL-001",
+      "severity": "CRITICAL",
+      "category": "outdated_dependencies",
+      "title": "frappe-ui نسخة قديمة جداً (0.1.0)",
+      "title_en": "Extremely Outdated frappe-ui Version (0.1.0)",
+      "description": {
+        "ar": "المشروع يستخدم frappe-ui الإصدار 0.1.0 وهو إصدار تجريبي قديم جداً. الإصدار الحالي هو 3.x+ مع تغييرات جذرية كبيرة",
+        "en": "Project uses frappe-ui version 0.1.0 which is an extremely old experimental version. Current version is 3.x+ with major breaking changes"
+      },
+      "current_state": "\"frappe-ui\": \"^0.1.0\" in package.json",
+      "impact": {
+        "ar": "فقدان آلاف الميزات والمكونات الجديدة، مشاكل أمنية محتملة، عدم توافق مع Vue 3 الحديث",
+        "en": "Missing thousands of features and new components, potential security issues, incompatibility with modern Vue 3"
+      },
+      "recommendation": {
+        "ar": "ترقية فورية إلى frappe-ui@latest (v3.x)",
+        "en": "Immediate upgrade to frappe-ui@latest (v3.x)"
+      },
+      "action_required": {
+        "command": "npm install frappe-ui@latest",
+        "breaking_changes": true,
+        "migration_guide_url": "https://github.com/frappe/frappe-ui",
+        "estimated_effort": "2-3 أيام / 2-3 days"
+      },
+      "priority": "URGENT",
+      "blocking": true
+    },
+
+    {
+      "issue_id": "CRITICAL-002",
+      "severity": "CRITICAL",
+      "category": "api_patterns",
+      "title": "عدم استخدام frappe-ui Resources API",
+      "title_en": "Not Using frappe-ui Resources API",
+      "description": {
+        "ar": "رغم تثبيت resourcesPlugin، لا يوجد أي استخدام لـ createResource أو createListResource. جميع الاستدعاءات تستخدم frappe.call القديم",
+        "en": "Despite resourcesPlugin being installed, there's zero usage of createResource or createListResource. All calls use legacy frappe.call"
+      },
+      "current_pattern": {
+        "code": "await this.$frappe.call({ method: '...', ... })",
+        "count": 24,
+        "files_affected": 11
+      },
+      "recommended_pattern": {
+        "code": "const data = createResource({ url: '...', auto: true })",
+        "benefits": [
+          "تحديثات تلقائية تفاعلية / Automatic reactive updates",
+          "حالات تحميل وخطأ مدمجة / Built-in loading & error states",
+          "تخزين مؤقت تلقائي / Automatic caching",
+          "إعادة تحميل ذكية / Smart refetching",
+          "معالجة أفضل للأخطاء / Better error handling"
+        ]
+      },
+      "migration_example": {
+        "before": "// في mounted() أو methods\nawait this.$frappe.call({\n  method: 'logistay.api.driver.get_dashboard_stats'\n})",
+        "after": "// في setup() أو <script setup>\nconst dashboardStats = createResource({\n  url: 'logistay.api.driver.get_dashboard_stats',\n  auto: true // تحميل تلقائي\n})\n\n// في template\n<div v-if=\"dashboardStats.loading\">جاري التحميل...</div>\n<div v-else-if=\"dashboardStats.error\">خطأ!</div>\n<div v-else>{{ dashboardStats.data }}</div>"
+      },
+      "estimated_effort": "3-5 أيام / 3-5 days",
+      "priority": "HIGH",
+      "breaking_changes": true
+    },
+
+    {
+      "issue_id": "CRITICAL-003",
+      "severity": "HIGH",
+      "category": "vue_api",
+      "title": "استخدام Options API فقط - عدم استخدام Composition API",
+      "title_en": "Only Using Options API - No Composition API",
+      "description": {
+        "ar": "جميع المكونات (11/11) تستخدم Options API القديم. لا يوجد أي استخدام لـ Composition API أو <script setup>",
+        "en": "All components (11/11) use legacy Options API. Zero usage of Composition API or <script setup>"
+      },
+      "current_state": {
+        "options_api_components": 11,
+        "composition_api_components": 0,
+        "script_setup_components": 0,
+        "percentage_modern": "0%"
+      },
+      "recommendation": {
+        "ar": "الانتقال تدريجياً إلى Composition API مع <script setup> للمكونات الجديدة والمعدلة",
+        "en": "Gradually migrate to Composition API with <script setup> for new and modified components"
+      },
+      "benefits": {
+        "ar": [
+          "كود أقل وأكثر وضوحاً",
+          "إعادة استخدام أفضل للمنطق عبر composables",
+          "TypeScript support أفضل",
+          "أداء أفضل قليلاً",
+          "توافق أفضل مع frappe-ui resources"
+        ],
+        "en": [
+          "Less and clearer code",
+          "Better logic reuse via composables",
+          "Better TypeScript support",
+          "Slightly better performance",
+          "Better compatibility with frappe-ui resources"
+        ]
+      },
+      "migration_example": {
+        "before": "<script>\nexport default {\n  name: 'Dashboard',\n  data() {\n    return { stats: {} }\n  },\n  mounted() {\n    this.loadData()\n  },\n  methods: {\n    async loadData() { ... }\n  }\n}\n</script>",
+        "after": "<script setup>\nimport { ref, onMounted } from 'vue'\nimport { createResource } from 'frappe-ui'\n\nconst stats = createResource({\n  url: 'logistay.api.driver.get_dashboard_stats',\n  auto: true\n})\n</script>"
+      },
+      "priority": "MEDIUM",
+      "estimated_effort": "4-6 أسابيع / 4-6 weeks"
+    },
+
+    {
+      "issue_id": "CRITICAL-004",
+      "severity": "HIGH",
+      "category": "error_handling",
+      "title": "معالجة خطأ غير متسقة وضعيفة",
+      "title_en": "Inconsistent and Weak Error Handling",
+      "description": {
+        "ar": "معالجة الأخطاء تعتمد فقط على console.error دون عرض رسائل للمستخدم أو تتبع الأخطاء",
+        "en": "Error handling relies only on console.error without user messages or error tracking"
+      },
+      "issues_found": [
+        {
+          "pattern": "catch (error) { console.error('...', error) }",
+          "occurrences": 16,
+          "problem": "لا يتم إعلام المستخدم بالخطأ / User not informed of error"
+        },
+        {
+          "pattern": "fallback to test data on error",
+          "occurrences": 3,
+          "problem": "البيانات التجريبية قد تخفي مشاكل حقيقية / Test data may hide real issues"
+        },
+        {
+          "pattern": "no error boundary",
+          "occurrences": 6,
+          "problem": "خطأ في مكون قد يعطل التطبيق بالكامل / Component error may crash entire app"
+        }
+      ],
+      "recommended_solution": {
+        "ar": "استخدام frappe-ui Toast لعرض الأخطاء + تتبع الأخطاء + error boundaries",
+        "en": "Use frappe-ui Toast for error display + error tracking + error boundaries"
+      },
+      "implementation": {
+        "toast_usage": "import { createToast } from 'frappe-ui'\n\ncatch (error) {\n  createToast({\n    title: 'خطأ في التحميل',\n    text: error.message,\n    variant: 'error'\n  })\n}",
+        "error_boundary": "// في App.vue\nimport { ErrorBoundary } from 'frappe-ui'\n\n<ErrorBoundary>\n  <RouterView />\n</ErrorBoundary>"
+      },
+      "priority": "HIGH",
+      "estimated_effort": "2-3 أيام / 2-3 days"
+    },
+
+    {
+      "issue_id": "CRITICAL-005",
+      "severity": "MEDIUM",
+      "category": "state_management",
+      "title": "عدم وجود إدارة حالة مركزية",
+      "title_en": "No Centralized State Management",
+      "description": {
+        "ar": "كل مكون يدير حالته بشكل مستقل، مما يؤدي لتكرار الاستدعاءات وعدم تزامن البيانات",
+        "en": "Each component manages state independently, leading to duplicate calls and data inconsistency"
+      },
+      "evidence": {
+        "duplicate_api_calls": [
+          "get_dashboard_stats called in Dashboard AND Profile",
+          "get_fuel_entries called multiple times across components",
+          "No shared cache between components"
+        ],
+        "state_inconsistency": [
+          "Driver info fetched separately in each component",
+          "Vehicle assignment re-fetched on every component mount",
+          "No reactive updates when data changes"
+        ]
+      },
+      "recommendation": {
+        "short_term": "استخدام frappe-ui resources مع auto-caching",
+        "long_term": "إضافة Pinia لإدارة حالة معقدة إذا لزم الأمر"
+      },
+      "implementation": {
+        "composables_approach": "// composables/useDriver.js\nimport { createResource } from 'frappe-ui'\n\nconst driverProfile = createResource({\n  url: 'logistay.api.driver.get_profile',\n  cache: true\n})\n\nexport function useDriver() {\n  return { driverProfile }\n}",
+        "usage": "// في أي component\nimport { useDriver } from '@/composables/useDriver'\n\nconst { driverProfile } = useDriver()\n// البيانات مشتركة ومخزنة مؤقتاً"
+      },
+      "priority": "MEDIUM",
+      "estimated_effort": "1-2 أسابيع / 1-2 weeks"
+    },
+
+    {
+      "issue_id": "CRITICAL-006",
+      "severity": "MEDIUM",
+      "category": "loading_states",
+      "title": "حالات التحميل غير متسقة",
+      "title_en": "Inconsistent Loading States",
+      "description": {
+        "ar": "بعض المكونات تستخدم loading state والبعض لا، مما يؤدي لتجربة مستخدم غير متسقة",
+        "en": "Some components use loading states while others don't, leading to inconsistent UX"
+      },
+      "current_implementation": {
+        "with_loading": ["fleet/App.vue", "availability/App.vue", "booking-lookup/App.vue"],
+        "without_loading": ["driver/Dashboard.vue", "driver/Trips.vue", "driver/Fuel.vue"]
+      },
+      "recommendation": {
+        "ar": "استخدام frappe-ui resources يوفر loading states تلقائياً",
+        "en": "Using frappe-ui resources provides automatic loading states"
+      },
+      "priority": "MEDIUM",
+      "estimated_effort": "سيتم حله تلقائياً مع CRITICAL-002"
+    },
+
+    {
+      "issue_id": "CRITICAL-007",
+      "severity": "LOW",
+      "category": "typescript",
+      "title": "عدم استخدام TypeScript",
+      "title_en": "No TypeScript Usage",
+      "description": {
+        "ar": "المشروع بالكامل JavaScript بدون TypeScript، مما يزيد من احتمالية الأخطاء",
+        "en": "Entire project is JavaScript without TypeScript, increasing error probability"
+      },
+      "recommendation": {
+        "ar": "إضافة TypeScript تدريجياً للمكونات الجديدة",
+        "en": "Add TypeScript gradually for new components"
+      },
+      "priority": "LOW",
+      "estimated_effort": "تدريجي / Gradual"
+    },
+
+    {
+      "issue_id": "CRITICAL-008",
+      "severity": "LOW",
+      "category": "icon_strategy",
+      "title": "استراتيجية الأيقونات مختلطة",
+      "title_en": "Mixed Icon Strategy",
+      "description": {
+        "ar": "المشروع يستخدم Font Awesome (fa fa-*) رغم تثبيت unplugin-icons ومجموعة lucide",
+        "en": "Project uses Font Awesome (fa fa-*) despite having unplugin-icons and lucide installed"
+      },
+      "recommendation": {
+        "ar": "توحيد استخدام الأيقونات - إما Font Awesome أو Lucide عبر unplugin-icons",
+        "en": "Standardize icon usage - either Font Awesome or Lucide via unplugin-icons"
+      },
+      "priority": "LOW",
+      "estimated_effort": "1-2 أيام / 1-2 days"
+    }
+  ],
+
+  "detailed_recommendations": {
+    "phase_1_critical": {
+      "duration": "أسبوع واحد / 1 week",
+      "priority": "URGENT",
+      "tasks": [
+        {
+          "task": "ترقية frappe-ui إلى آخر إصدار",
+          "steps": [
+            "npm install frappe-ui@latest",
+            "اختبار المكونات الحالية للتأكد من عملها",
+            "قراءة changelog والتغييرات الكاسرة",
+            "تحديث imports حسب الحاجة"
+          ],
+          "estimated_time": "يومان / 2 days",
+          "breaking_changes": "نعم، محتمل جداً"
+        },
+        {
+          "task": "إصلاح معالجة الأخطاء الأساسية",
+          "steps": [
+            "إضافة Toast notifications للأخطاء",
+            "إزالة fallback test data",
+            "توحيد نمط معالجة الأخطاء"
+          ],
+          "estimated_time": "يومان / 2 days"
+        },
+        {
+          "task": "توثيق البنية الحالية",
+          "steps": [
+            "توثيق كل تطبيق Vue ومسؤوليته",
+            "توثيق endpoints API المستخدمة",
+            "إنشاء دليل للمطورين الجدد"
+          ],
+          "estimated_time": "يوم واحد / 1 day"
+        }
+      ]
+    },
+
+    "phase_2_migration": {
+      "duration": "2-3 أسابيع / 2-3 weeks",
+      "priority": "HIGH",
+      "tasks": [
+        {
+          "task": "ترحيل إلى frappe-ui Resources API",
+          "approach": "تدريجي - component by component",
+          "order": [
+            "1. المكونات البسيطة أولاً (availability, booking-lookup)",
+            "2. المكونات المتوسطة (fleet, employee-trips, supervisor-tasks)",
+            "3. التطبيق المعقد (driver dashboard) أخيراً"
+          ],
+          "per_component_steps": [
+            "تحديد جميع frappe.call في المكون",
+            "إنشاء resources مقابلة",
+            "تحديث template لاستخدام resource.data",
+            "إضافة loading و error states",
+            "اختبار المكون بشكل شامل",
+            "commit منفصل لكل مكون"
+          ],
+          "estimated_time": "أسبوعان / 2 weeks"
+        },
+        {
+          "task": "ترحيل إلى Composition API",
+          "approach": "للمكونات الجديدة فقط أولاً",
+          "steps": [
+            "إنشاء composables للمنطق المشترك",
+            "استخدام <script setup> في مكونات جديدة",
+            "ترحيل مكون واحد قديم كنموذج",
+            "توثيق النمط الجديد"
+          ],
+          "estimated_time": "أسبوع واحد / 1 week"
+        }
+      ]
+    },
+
+    "phase_3_improvements": {
+      "duration": "1-2 أسابيع / 1-2 weeks",
+      "priority": "MEDIUM",
+      "tasks": [
+        {
+          "task": "إضافة Unit Tests",
+          "tools": ["Vitest", "Vue Test Utils"],
+          "coverage_target": "60%",
+          "estimated_time": "أسبوع واحد / 1 week"
+        },
+        {
+          "task": "تحسين UX/UI",
+          "items": [
+            "توحيد loading indicators",
+            "تحسين error messages",
+            "إضافة empty states",
+            "تحسين responsive design"
+          ],
+          "estimated_time": "3-5 أيام / 3-5 days"
+        },
+        {
+          "task": "توحيد استخدام الأيقونات",
+          "decision": "اختيار بين Font Awesome أو Lucide",
+          "estimated_time": "يومان / 2 days"
+        }
+      ]
+    },
+
+    "phase_4_optimization": {
+      "duration": "أسبوع واحد / 1 week",
+      "priority": "LOW",
+      "tasks": [
+        {
+          "task": "إضافة TypeScript",
+          "approach": "تدريجي",
+          "estimated_time": "مستمر / Ongoing"
+        },
+        {
+          "task": "Code Splitting وOptimization",
+          "items": [
+            "تحليل bundle sizes",
+            "lazy loading للمكونات الثقيلة",
+            "تحسين Vite configuration"
+          ],
+          "estimated_time": "3-4 أيام / 3-4 days"
+        }
+      ]
+    }
+  },
+
+  "migration_priority_matrix": {
+    "components_by_complexity": {
+      "simple": {
+        "components": ["availability/App.vue", "booking-lookup/App.vue", "employee-trips/App.vue"],
+        "recommended_action": "ترحيل فوري / Immediate migration",
+        "estimated_effort_per_component": "2-3 ساعات / 2-3 hours"
+      },
+      "medium": {
+        "components": ["fleet/App.vue", "supervisor-tasks/App.vue"],
+        "recommended_action": "ترحيل في المرحلة الثانية / Migrate in phase 2",
+        "estimated_effort_per_component": "4-6 ساعات / 4-6 hours"
+      },
+      "complex": {
+        "components": [
+          "driver/App.vue",
+          "driver/components/Dashboard.vue",
+          "driver/components/Trips.vue",
+          "driver/components/Fuel.vue",
+          "driver/components/Profile.vue",
+          "driver/components/Support.vue"
+        ],
+        "recommended_action": "ترحيل تدريجي بعد إتقان النمط الجديد / Gradual migration after mastering new pattern",
+        "estimated_effort_per_component": "1-2 أيام / 1-2 days"
+      }
+    }
+  },
+
+  "code_examples": {
+    "example_1_simple_migration": {
+      "title": "مثال: ترحيل مكون بسيط إلى Resources API",
+      "component": "availability/App.vue",
+      "before": {
+        "script": "export default {\n  data() {\n    return {\n      loading: false,\n      error: null,\n      rooms: []\n    }\n  },\n  methods: {\n    async checkAvailability() {\n      this.loading = true\n      try {\n        const response = await this.$frappe.call({\n          method: 'logistay.api.check_availability',\n          args: { date: this.selectedDate }\n        })\n        this.rooms = response.message\n      } catch (err) {\n        this.error = err\n        console.error('Error:', err)\n      } finally {\n        this.loading = false\n      }\n    }\n  }\n}",
+        "template": "<div v-if=\"loading\">Loading...</div>\n<div v-else-if=\"error\">Error!</div>\n<div v-else v-for=\"room in rooms\">...</div>"
+      },
+      "after": {
+        "script": "<script setup>\nimport { createResource } from 'frappe-ui'\nimport { ref } from 'vue'\n\nconst selectedDate = ref(new Date())\n\nconst availability = createResource({\n  url: 'logistay.api.check_availability',\n  params: { date: selectedDate },\n  auto: false  // manual fetch\n})\n\nfunction checkAvailability() {\n  availability.reload()\n}\n</script>",
+        "template": "<div v-if=\"availability.loading\">Loading...</div>\n<div v-else-if=\"availability.error\">{{ availability.error }}</div>\n<div v-else v-for=\"room in availability.data\">...</div>\n\n<Button @click=\"checkAvailability\">Check</Button>"
+      },
+      "benefits": [
+        "أقل كود بـ 40%",
+        "loading & error states تلقائية",
+        "reactive updates عند تغيير params",
+        "caching مدمج"
+      ]
+    },
+
+    "example_2_list_resource": {
+      "title": "مثال: استخدام createListResource للقوائم",
+      "use_case": "driver/components/Trips.vue - قائمة الرحلات",
+      "code": "<script setup>\nimport { createListResource } from 'frappe-ui'\n\nconst trips = createListResource({\n  doctype: 'Fleet Trip',\n  fields: ['name', 'route', 'status', 'date'],\n  filters: { driver: ['=', frappe.session.user] },\n  orderBy: 'date desc',\n  pageLength: 20,\n  auto: true\n})\n\n// التصفية\nfunction filterByStatus(status) {\n  trips.update({ filters: { status } })\n}\n\n// تحميل المزيد\nfunction loadMore() {\n  trips.next()\n}\n</script>\n\n<template>\n  <div>\n    <!-- Loading state -->\n    <LoadingIndicator v-if=\"trips.loading\" />\n    \n    <!-- Error state -->\n    <ErrorMessage v-else-if=\"trips.error\" :error=\"trips.error\" />\n    \n    <!-- Data -->\n    <div v-else>\n      <TripCard \n        v-for=\"trip in trips.data\" \n        :key=\"trip.name\"\n        :trip=\"trip\"\n      />\n      \n      <!-- Pagination -->\n      <Button \n        v-if=\"trips.hasNextPage\"\n        @click=\"loadMore\"\n        :loading=\"trips.loading\"\n      >\n        Load More\n      </Button>\n    </div>\n  </div>\n</template>",
+      "features": [
+        "pagination تلقائي",
+        "filtering reactive",
+        "caching ذكي",
+        "infinite scroll support"
+      ]
+    },
+
+    "example_3_composable": {
+      "title": "مثال: إنشاء Composable مشترك",
+      "file": "composables/useDriverProfile.js",
+      "code": "import { createResource } from 'frappe-ui'\n\n// مشاركة بيانات السائق عبر جميع المكونات\nlet driverProfileResource = null\n\nexport function useDriverProfile() {\n  // Singleton pattern - إنشاء مرة واحدة فقط\n  if (!driverProfileResource) {\n    driverProfileResource = createResource({\n      url: 'logistay.api.driver.get_profile',\n      cache: true,\n      auto: true\n    })\n  }\n  \n  return {\n    profile: driverProfileResource,\n    reload: () => driverProfileResource.reload(),\n    update: (data) => driverProfileResource.submit(data)\n  }\n}\n\n// الاستخدام في أي component:\n// const { profile } = useDriverProfile()\n// {{ profile.data.name }}",
+      "benefits": [
+        "تحميل واحد فقط",
+        "مشاركة البيانات بين المكونات",
+        "تحديثات reactive تلقائية",
+        "كود نظيف ومنظم"
+      ]
+    }
+  },
+
+  "specific_file_recommendations": {
+    "driver_dashboard_vue": {
+      "file": "public/js/driver/components/Dashboard.vue",
+      "current_issues": [
+        "2 API calls منفصلة (stats + trips)",
+        "fallback to test data يخفي الأخطاء",
+        "no loading state",
+        "manual error handling"
+      ],
+      "recommended_changes": {
+        "create_resources": "استخدام resource واحد لـ dashboard يجمع كل البيانات",
+        "remove_test_data": "حذف البيانات التجريبية واستخدام error states صحيحة",
+        "add_loading": "عرض skeleton loaders أثناء التحميل",
+        "error_handling": "استخدام Toast للأخطاء"
+      },
+      "effort": "4-6 ساعات / 4-6 hours"
+    },
+
+    "fuel_component": {
+      "file": "public/js/driver/components/Fuel.vue",
+      "lines": 693,
+      "current_issues": [
+        "4 API endpoints مختلفة",
+        "كود طويل جداً (693 سطر)",
+        "تكرار في معالجة الأخطاء",
+        "form validation يدوي"
+      ],
+      "recommended_changes": {
+        "split_component": "تقسيم إلى FuelList + FuelForm + FuelEntry",
+        "use_resources": "resource منفصل لكل operation",
+        "form_library": "استخدام frappe-ui Form component",
+        "validation": "استخدام validation مدمج"
+      },
+      "effort": "يومان / 2 days"
+    },
+
+    "support_component": {
+      "file": "public/js/driver/components/Support.vue",
+      "lines": 1024,
+      "current_issues": [
+        "مكون ضخم جداً (1024 سطر)",
+        "4 API calls",
+        "منطق معقد للتذاكر",
+        "no code reuse"
+      ],
+      "recommended_changes": {
+        "major_refactor": "إعادة هيكلة كاملة",
+        "split_to": ["SupportTicketList", "SupportTicketForm", "SupportTicketDetail"],
+        "use_list_resource": "استخدام createListResource للتذاكر",
+        "composables": "إنشاء useSupport composable"
+      },
+      "effort": "3 أيام / 3 days"
+    }
+  },
+
+  "testing_recommendations": {
+    "unit_tests": {
+      "framework": "Vitest",
+      "priority_components": [
+        "composables (highest priority)",
+        "utility functions",
+        "simple components",
+        "complex components (after refactor)"
+      ],
+      "example": "// tests/composables/useDriverProfile.test.js\nimport { describe, it, expect } from 'vitest'\nimport { useDriverProfile } from '@/composables/useDriverProfile'\n\ndescribe('useDriverProfile', () => {\n  it('should load driver profile', async () => {\n    const { profile } = useDriverProfile()\n    await profile.promise\n    expect(profile.data).toBeDefined()\n  })\n})"
+    },
+
+    "integration_tests": {
+      "framework": "Playwright",
+      "priority_flows": [
+        "Driver login and view dashboard",
+        "Add fuel entry",
+        "View trips",
+        "Submit support ticket"
+      ]
+    }
+  },
+
+  "timeline_summary": {
+    "total_estimated_time": "6-8 أسابيع / 6-8 weeks",
+    "phases": {
+      "phase_1": "أسبوع واحد / 1 week - Critical fixes",
+      "phase_2": "2-3 أسابيع / 2-3 weeks - Migration to Resources API",
+      "phase_3": "1-2 أسابيع / 1-2 weeks - UX improvements",
+      "phase_4": "أسبوع واحد / 1 week - Optimization",
+      "ongoing": "مستمر / Ongoing - TypeScript migration"
+    }
+  },
+
+  "final_recommendations_priority_order": [
+    {
+      "rank": 1,
+      "action": "ترقية frappe-ui@latest فوراً",
+      "impact": "CRITICAL",
+      "effort": "يومان / 2 days"
+    },
+    {
+      "rank": 2,
+      "action": "توثيق البنية الحالية قبل التغيير",
+      "impact": "HIGH",
+      "effort": "يوم واحد / 1 day"
+    },
+    {
+      "rank": 3,
+      "action": "ترحيل مكون بسيط واحد كنموذج (availability)",
+      "impact": "HIGH",
+      "effort": "3-4 ساعات / 3-4 hours"
+    },
+    {
+      "rank": 4,
+      "action": "إضافة معالجة أخطاء موحدة",
+      "impact": "HIGH",
+      "effort": "يومان / 2 days"
+    },
+    {
+      "rank": 5,
+      "action": "ترحيل باقي المكونات البسيطة",
+      "impact": "MEDIUM",
+      "effort": "3-5 أيام / 3-5 days"
+    },
+    {
+      "rank": 6,
+      "action": "إنشاء composables للمنطق المشترك",
+      "impact": "MEDIUM",
+      "effort": "3-4 أيام / 3-4 days"
+    },
+    {
+      "rank": 7,
+      "action": "إعادة هيكلة المكونات الكبيرة (Fuel, Support)",
+      "impact": "MEDIUM",
+      "effort": "أسبوع واحد / 1 week"
+    },
+    {
+      "rank": 8,
+      "action": "إضافة unit tests",
+      "impact": "MEDIUM",
+      "effort": "أسبوع واحد / 1 week"
+    },
+    {
+      "rank": 9,
+      "action": "ترحيل إلى Composition API",
+      "impact": "LOW",
+      "effort": "تدريجي / Gradual"
+    },
+    {
+      "rank": 10,
+      "action": "إضافة TypeScript",
+      "impact": "LOW",
+      "effort": "تدريجي / Gradual"
+    }
+  ],
+
+  "conclusion": {
+    "ar": "المشروع يعمل بشكل وظيفي لكنه يحتاج لتحديثات جوهرية ليستفيد من قوة frappe-ui الكاملة. أهم خطوة هي ترقية frappe-ui والانتقال من frappe.call إلى Resources API. هذا سيحسن الأداء، يقلل الكود، ويوفر تجربة تطوير أفضل. الجهد المقدر 6-8 أسابيع للانتهاء من جميع التحسينات.",
+    "en": "Project is functionally working but needs core updates to leverage full frappe-ui power. Most critical step is upgrading frappe-ui and migrating from frappe.call to Resources API. This will improve performance, reduce code, and provide better developer experience. Estimated effort is 6-8 weeks to complete all improvements."
+  }
+}
